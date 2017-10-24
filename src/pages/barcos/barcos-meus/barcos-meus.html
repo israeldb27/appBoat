@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Meus Barcos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="cards-bg social-cards">  
+
+    <ion-card>
+        
+        <ion-list>
+            <ion-item *ngFor="let barco of meusBarcos" (click)="visualizarDetalhes(barco)">
+                <ion-thumbnail item-start>
+                    <img [src]="barco.fotoBarco" alt="Foto Barco">     
+                </ion-thumbnail>                
+
+                <ion-card-content>
+                    <ion-card-title>
+                        {{barco.nome}}
+                    </ion-card-title>
+                    <p><strong>Cor: </strong>{{barco.cor}}</p>
+                    <p><strong>Motor: </strong>{{barco.motor}}</p>                    
+                 </ion-card-content>
+        
+                <ion-row no-padding>
+                    <ion-col>
+                      <button ion-button clear small color="danger" icon-start>
+                        <ion-icon name='star'></ion-icon>
+                        Detalhes
+                      </button>
+                    </ion-col>
+                    <ion-col text-center>
+                      <button ion-button clear small color="danger" icon-start>
+                        <ion-icon name='musical-notes'></ion-icon>
+                        Planejar Reserva
+                      </button>
+                    </ion-col>
+                    <ion-col text-right>
+                      <button ion-button clear small color="danger" icon-start>
+                        <ion-icon name='share-alt'></ion-icon>
+                        Share
+                      </button>
+                    </ion-col>
+                  </ion-row>
+                  <hr>
+                </ion-item>
+                
+        </ion-list>
+    </ion-card>
+    
+    </ion-content>
