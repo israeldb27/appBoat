@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Barco, BarcoApi } from "../../../app/shared/angular-client/index";
+import { Barco, BarcoApi, LoggerService } from "../../../app/shared/angular-client/index";
 import { LoopBackConfig } from "../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
-
 
 
 @IonicPage()
@@ -17,24 +16,25 @@ export class BarcosMeusPage {
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-               public barcoService: BarcoApi) {
+              public barcoService: BarcoApi,
+              private logger: LoggerService) {
 
-                LoopBackConfig.setBaseURL(BASE_URL);
-                LoopBackConfig.setApiVersion(API_VERSION);
+      LoopBackConfig.setBaseURL(BASE_URL);
+      LoopBackConfig.setApiVersion(API_VERSION);
               
-      console.log('BarcosMeusPage :: constructor'); 
+      this.logger.info('BarcosMeusPage :: constructor'); 
 
       this.listarMeusBarcos();
 
   }
 
   public listarMeusBarcos(): void {
-     console.log('BarcosMeusPage :: listarMeusBarcos '); 
+     this.logger.info('BarcosMeusPage :: listarMeusBarcos '); 
 
      this.barcoService.find().subscribe( (barcos: Barco[]) => {
       this.meusBarcos = barcos;
     }, (error: any) => {
-      console.log('GruposPage :: listarGrupos ::grupoService.find :: error :: ', error);
+      this.logger.error('GruposPage :: listarMeusBarcos :: barcoService.find :: error :: ', error);
     });
 
   
@@ -43,13 +43,13 @@ export class BarcosMeusPage {
 
   public visualizarDetalhes(barco){
 
-    console.log('BarcosMeusPage :: visualizarDetalhes :: ', barco); 
+    this.logger.info('BarcosMeusPage :: visualizarDetalhes :: ', barco); 
 
     
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BarcosMeusPage');
+    this.logger.info('ionViewDidLoad BarcosMeusPage');
   }
 
 }

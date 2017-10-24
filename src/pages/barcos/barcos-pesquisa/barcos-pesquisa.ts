@@ -5,6 +5,10 @@ import { FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from
 import { BarcosPresentFilterPage } from '../barcos-present-filter/barcos-present-filter';
 import { BarcosResultadoPesquisaPage } from '../barcos-resultado-pesquisa/barcos-resultado-pesquisa';
 
+import { Barco, BarcoApi, LoggerService } from "../../../app/shared/angular-client/index";
+import { LoopBackConfig } from "../../../app/shared/angular-client"
+import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
+
 @IonicPage()
 @Component({
   selector: 'page-barcos-pesquisa',
@@ -18,35 +22,49 @@ export class BarcosPesquisaPage {
   public submitted = false;
   excludeTracks: any = [];
 
+  barcos: Barco[];
+  barco: Barco;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public modalCtrl: ModalController,
-              public formBuilder: FormBuilder) {
+              public formBuilder: FormBuilder,
+              public barcoService: BarcoApi,
+              private logger: LoggerService) {
 
-        console.log('BarcosPesquisaPage :: constructor  ');
+        LoopBackConfig.setBaseURL(BASE_URL);
+        LoopBackConfig.setApiVersion(API_VERSION);          
+        this.logger.info('BarcosPesquisaPage :: constructor  ');
 
         this.barcoForm = formBuilder.group({
            dataInicio: ["", Validators.required],
            dataFim: ["", Validators.required]
         });   
 
+        this.barco = new Barco();
         this.limparForm();     
   }
 
   public pesquisarBarcos(): void {
 
-    console.log('BarcosPesquisaPage :: pesquisarBarcos  ');
-    console.log('BarcosPesquisaPage :: pesquisarBarcos  :: dataInicio', this.dataInicio.value);
-    console.log('BarcosPesquisaPage :: pesquisarBarcos  :: dataFim', this.dataFim.value);
+    this.logger.info('BarcosPesquisaPage :: pesquisarBarcos  ');
+    this.logger.info('BarcosPesquisaPage :: pesquisarBarcos  :: dataInicio', this.dataInicio.value);
+    this.logger.info('BarcosPesquisaPage :: pesquisarBarcos  :: dataFim', this.dataFim.value);
 
     this.submitted = true;
 
     this.navCtrl.push(BarcosResultadoPesquisaPage);
 
+    this.barcoService.find().subscribe( (barcos: Barco[]) => {
+      this.barcos = barcos;
+    }, (error: any) => {
+      this.logger.error('BarcosPesquisaPage :: pesquisarBarcos ::barcoService.find :: error :: ', error);
+    });
+
   }
 
   public presentFilter() {
-     console.log('BarcosPesquisaPage :: presentFilter  ');
+     this.logger.info('BarcosPesquisaPage :: presentFilter  ');
     let modal = this.modalCtrl.create(BarcosPresentFilterPage, this.excludeTracks);
     modal.present();
 
@@ -60,7 +78,7 @@ export class BarcosPesquisaPage {
   }
 
   public limparForm():void{
-      console.log('BarcosPesquisaPage :: limparForm  ');
+      this.logger.info('BarcosPesquisaPage :: limparForm  ');
       this.dataInicio = new FormControl(null,Validators.required);
       this.dataFim = new FormControl(null,Validators.required);
     
@@ -73,7 +91,7 @@ export class BarcosPesquisaPage {
 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BarcosPesquisaPage');
+    this.logger.info('ionViewDidLoad BarcosPesquisaPage');
   }
 
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ConferenceData } from '../../../providers/conference-data';
+import {  LoggerService } from "../../../app/shared/angular-client/index";
+import { LoopBackConfig } from "../../../app/shared/angular-client"
+import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
 
 @IonicPage()
 @Component({
@@ -10,14 +12,17 @@ import { ConferenceData } from '../../../providers/conference-data';
 export class BarcosResultadoPesquisaPage {
 
   constructor(public navCtrl: NavController, 
-              public navParams: NavParams,
-              public confData: ConferenceData) {
+              public navParams: NavParams,              
+              private logger: LoggerService) {
 
-      console.log('BarcosResultadoPesquisaPage :: constructor');        
+      LoopBackConfig.setBaseURL(BASE_URL);
+      LoopBackConfig.setApiVersion(API_VERSION);           
+
+      this.logger.info('BarcosResultadoPesquisaPage :: constructor');        
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BarcosResultadoPesquisaPage');
+    this.logger.info('ionViewDidLoad BarcosResultadoPesquisaPage');
   }
 
 }
