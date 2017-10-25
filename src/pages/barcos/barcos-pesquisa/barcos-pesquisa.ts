@@ -6,7 +6,7 @@ import { BarcosPresentFilterPage } from '../barcos-present-filter/barcos-present
 import { BarcosResultadoPesquisaPage } from '../barcos-resultado-pesquisa/barcos-resultado-pesquisa';
 
 import { Barco, BarcoApi, LoggerService } from "../../../app/shared/angular-client/index";
-import { LoopBackConfig } from "../../../app/shared/angular-client"
+import { LoopBackConfig, LoopBackFilter } from "../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
 
 @IonicPage()
@@ -24,6 +24,7 @@ export class BarcosPesquisaPage {
 
   barcos: Barco[];
   barco: Barco;
+
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -53,14 +54,45 @@ export class BarcosPesquisaPage {
 
     this.submitted = true;
 
-    this.navCtrl.push(BarcosResultadoPesquisaPage);
+    // Definir melhor como vai ser esta query
+   /* this.barcos = [];
+    let dataInicioReserva: Date = this.dataInicio.value;
+    let dataFimReserva: Date = this.dataFim.value;
 
-    this.barcoService.find().subscribe( (barcos: Barco[]) => {
+    let filtro: LoopBackFilter = {
+      where: {
+        and: [
+          {
+            dataInicio: {
+              ge: dataInicioReserva
+            }
+          },
+          {
+            dataFim: {
+              le: dataFimReserva
+            }
+          }
+        ]      
+      }
+    };
+    this.barcoService.find(filtro).subscribe((barcos: Barco[]) => {
+      this.logger.info('BarcosPesquisaPage :: listarBarcos ::barcoService.find :: sucesso :: ', barcos);
       this.barcos = barcos;
     }, (error: any) => {
-      this.logger.error('BarcosPesquisaPage :: pesquisarBarcos ::barcoService.find :: error :: ', error);
+      this.logger.error('BarcosPesquisaPage :: listarBarcos ::barcoService :: error :: ', error);
     });
 
+*/
+    
+
+    this.navCtrl.push(BarcosResultadoPesquisaPage);
+
+    
+
+  }
+
+  public listarBarcos(filtro: LoopBackFilter): void {
+    
   }
 
   public presentFilter() {

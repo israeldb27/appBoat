@@ -4,6 +4,8 @@ import { Barco, BarcoApi, LoggerService } from "../../../app/shared/angular-clie
 import { LoopBackConfig } from "../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
 
+import { BarcosCreatePage } from '../barcos-create/barcos-create';
+
 
 @IonicPage()
 @Component({
@@ -36,16 +38,18 @@ export class BarcosMeusPage {
     }, (error: any) => {
       this.logger.error('GruposPage :: listarMeusBarcos :: barcoService.find :: error :: ', error);
     });
-
   
   }
 
 
   public visualizarDetalhes(barco){
-
     this.logger.info('BarcosMeusPage :: visualizarDetalhes :: ', barco); 
-
     
+  }
+
+  public goCriarBarco(){
+    this.logger.info('BarcosMeusPage :: goCriarBarco ');
+    this.navCtrl.push(BarcosCreatePage);  
   }
 
   ionViewDidLoad() {

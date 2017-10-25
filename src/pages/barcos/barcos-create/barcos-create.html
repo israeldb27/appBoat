@@ -10,4 +10,99 @@
 
 <ion-content padding>
 
+    <form [formGroup]="barcoForm" novalidate>
+        <ion-list no-lines>
+          <ion-item>
+            <ion-label stacked color="primary">Nome</ion-label>
+            <ion-input type="text" formControlName="nome" [(ngModel)]="barco.nome" spellcheck="false" autocapitalize="off" required>
+            </ion-input>
+          </ion-item>
+          <p ion-text [hidden]="nome.valid || submitted == false" color="danger" padding-left>
+            Campo é obrigatório
+          </p>
+    
+          <ion-item>
+            <ion-label stacked color="primary">Cor</ion-label>
+            <ion-input formControlName="cor" [(ngModel)]="barco.cor" type="text" >
+            </ion-input>
+          </ion-item>
+    
+          <ion-item>
+              <ion-label stacked color="primary">Capacidade Pessoas</ion-label>
+              <ion-input formControlName="capacidadePessoas" [(ngModel)]="barco.capacidadePessoas" type="text" >
+              </ion-input>
+          </ion-item>  
+
+          <ion-item>
+              <ion-label stacked color="primary">Velocidade</ion-label>
+              <ion-input formControlName="velocidade" [(ngModel)]="barco.velocidade" type="text" >
+              </ion-input>
+          </ion-item>  
+
+          <ion-item>
+              <ion-label stacked color="primary">Autonomia</ion-label>
+              <ion-input formControlName="autonomia" [(ngModel)]="barco.autonomia" type="text" >
+              </ion-input>
+          </ion-item>  
+
+          <ion-item>
+              <ion-label stacked color="primary">Comprimento</ion-label>
+              <ion-input formControlName="comprimento" [(ngModel)]="barco.comprimento" type="text" >
+              </ion-input>
+          </ion-item>  
+
+          <ion-item>
+              <ion-label stacked color="primary">Tipo Casco</ion-label>
+              <ion-input formControlName="tipoCasco" [(ngModel)]="barco.tipoCasco" type="text" >
+              </ion-input>
+          </ion-item> 
+          
+          <ion-item>
+              <ion-label stacked color="primary">Tipo Combustivel</ion-label>
+              <ion-input formControlName="tipoCombustivel" [(ngModel)]="barco.tipoCombustivel" type="text" >
+              </ion-input>
+          </ion-item> 
+
+          <ion-item>
+              <ion-label stacked color="primary">Capacidade Combustivel</ion-label>
+              <ion-input formControlName="capacidadeCombustivel" [(ngModel)]="barco.capacidadeCombustivel" type="text" >
+              </ion-input>
+          </ion-item> 
+
+          <ion-item>
+              <ion-label stacked color="primary">Quantidade Cabines</ion-label>
+              <ion-input formControlName="quantidadeCabines" [(ngModel)]="barco.quantidadeCabines" type="text" >
+              </ion-input>
+          </ion-item> 
+
+          <ion-item>
+              <ion-label stacked color="primary">Motor</ion-label>
+              <ion-input formControlName="motor" [(ngModel)]="barco.motor" type="text" >
+              </ion-input>
+          </ion-item> 
+
+          <ion-item>
+              <ion-label stacked color="primary">Pes</ion-label>
+              <ion-input formControlName="pes" [(ngModel)]="barco.pes" type="text" >
+              </ion-input>
+          </ion-item> 
+
+          <ion-item>
+              <ion-label stacked color="primary">Descricao</ion-label>
+              <ion-input formControlName="descricao" [(ngModel)]="barco.descricao" type="text" >
+              </ion-input>
+          </ion-item> 
+    
+        </ion-list>
+    
+        <ion-row responsive-sm>
+          <ion-col>
+            <button ion-button (click)="cancelarCadastroBarco()" color="light" block>Cancelar</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button (click)="cadastrarBarco(barcoForm)" type="submit" block>Criar</button>
+          </ion-col>
+        </ion-row>
+      </form>
+
 </ion-content>

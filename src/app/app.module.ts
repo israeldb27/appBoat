@@ -21,8 +21,6 @@ import { ContaDetailPage } from '../pages/conta/conta-detail/conta-detail';
 import { LoginPage } from '../pages/usuario/login/login';
 import { LogoutPage } from '../pages/usuario/logout/logout';
 import { UsuarioCreatePage } from '../pages/usuario/usuario-create/usuario-create';
-import { UsuarioEditPage } from '../pages/usuario/usuario-edit/usuario-edit';
-
 
 import { PagamentosListPage } from '../pages/pagamentos/pagamentos-list/pagamentos-list';
 import { PagamentosMeusPage } from '../pages/pagamentos/pagamentos-meus/pagamentos-meus';
@@ -59,8 +57,7 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     LoginPage,
     LogoutPage,
     ReservasDetailPage,
-    UsuarioCreatePage,
-    UsuarioEditPage    
+    UsuarioCreatePage 
   ],
   imports: [
     BrowserModule,
@@ -89,8 +86,7 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     LoginPage,
     LogoutPage,
     ReservasDetailPage,
-    UsuarioCreatePage,
-    UsuarioEditPage
+    UsuarioCreatePage    
   ],
   providers: [
     StatusBar,

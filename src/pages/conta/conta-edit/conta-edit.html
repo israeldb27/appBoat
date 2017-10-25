@@ -1,8 +1,11 @@
 
 <ion-header>
-
+  <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+  </button>
+  
   <ion-navbar>
-    <ion-title>Criar Usuario</ion-title>
+    <ion-title>Editar Conta</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -41,7 +44,7 @@
 
           <ion-item>
               <ion-label stacked color="primary">Password</ion-label>
-              <ion-input formControlName="password" [(ngModel)]="usuario.password" type="password" required>
+              <ion-input formControlName="password" [(ngModel)]="usuario.password" type="text" required>
               </ion-input>
           </ion-item> 
           <p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
@@ -78,12 +81,13 @@
 
       </ion-list>
 
-      <ion-row responsive-sm>          
+      <ion-row responsive-sm>  
           <ion-col>
-            <button ion-button (click)="cadastrarUsuario(usuarioForm)" type="submit" block>Criar</button>
+              <button ion-button (click)="cancelarEditarConta()" color="light" block>Cancelar</button>
+            </ion-col>         
+          <ion-col>
+            <button ion-button (click)="salvarConta(usuarioForm)" type="submit" block>Editar</button>
           </ion-col>
       </ion-row>
-
-    </form>
 
 </ion-content>
