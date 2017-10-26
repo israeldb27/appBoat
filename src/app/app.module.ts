@@ -26,10 +26,15 @@ import { PagamentosListPage } from '../pages/pagamentos/pagamentos-list/pagament
 import { PagamentosMeusPage } from '../pages/pagamentos/pagamentos-meus/pagamentos-meus';
 import { PagamentosDetailPage } from '../pages/pagamentos/pagamentos-detail/pagamentos-detail';
 
-import { ReservasListPage } from '../pages/reservas/reservas-list/reservas-list';
-import { ReservasPlanejamentoPage } from '../pages/reservas/reservas-planejamento/reservas-planejamento';
-import { ReservasSolicitadasPage } from '../pages/reservas/reservas-solicitadas/reservas-solicitadas';
-import { ReservasDetailPage } from '../pages/reservas/reservas-detail/reservas-detail';
+import { ReservasPlanejamentoListPage } from '../pages/reservas/dono-barco/reservas-planejamento/reservas-planejamento-list/reservas-planejamento-list';
+import { ReservasPlanejamentoCreatePage } from '../pages/reservas/dono-barco/reservas-planejamento/reservas-planejamento-create/reservas-planejamento-create';
+import { ReservasPlanejamentoDetailPage } from '../pages/reservas/dono-barco/reservas-planejamento/reservas-planejamento-detail/reservas-planejamento-detail';
+
+import { ReservasSolicitadasListPage } from '../pages/reservas/dono-barco/reservas-solicitadas/reservas-solicitadas-list/reservas-solicitadas-list';
+import { ReservasSolicitadasDetailPage } from '../pages/reservas/dono-barco/reservas-solicitadas/reservas-solicitadas-detail/reservas-solicitadas-detail';
+
+import { ReservasListPage } from '../pages/reservas/usuario-comum/reservas-list/reservas-list';
+
 
 import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 
@@ -51,12 +56,14 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     PagamentosMeusPage,
     PagamentosDetailPage,
     ReservasListPage,
-    ReservasPlanejamentoPage,
-    ReservasSolicitadasPage,
+    ReservasPlanejamentoCreatePage,
+    ReservasPlanejamentoListPage,
+    ReservasPlanejamentoDetailPage,
+    ReservasSolicitadasListPage,
+    ReservasSolicitadasDetailPage,    
     SobreDetailPage,    
     LoginPage,
     LogoutPage,
-    ReservasDetailPage,
     UsuarioCreatePage 
   ],
   imports: [
@@ -80,12 +87,14 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     PagamentosMeusPage,
     PagamentosDetailPage,
     ReservasListPage,
-    ReservasPlanejamentoPage,
-    ReservasSolicitadasPage,
+    ReservasPlanejamentoCreatePage,
+    ReservasPlanejamentoListPage,
+    ReservasPlanejamentoDetailPage,
+    ReservasSolicitadasListPage,
+    ReservasSolicitadasDetailPage,     
     SobreDetailPage,    
     LoginPage,
     LogoutPage,
-    ReservasDetailPage,
     UsuarioCreatePage    
   ],
   providers: [

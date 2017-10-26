@@ -16,10 +16,10 @@ import { LogoutPage } from '../pages/usuario/logout/logout';
 import { PagamentosListPage } from '../pages/pagamentos/pagamentos-list/pagamentos-list';
 import { PagamentosMeusPage } from '../pages/pagamentos/pagamentos-meus/pagamentos-meus';
 
+import { ReservasPlanejamentoListPage } from '../pages/reservas/dono-barco/reservas-planejamento/reservas-planejamento-list/reservas-planejamento-list';
+import { ReservasSolicitadasListPage } from '../pages/reservas/dono-barco/reservas-solicitadas/reservas-solicitadas-list/reservas-solicitadas-list';
 
-import { ReservasListPage } from '../pages/reservas/reservas-list/reservas-list';
-import { ReservasPlanejamentoPage } from '../pages/reservas/reservas-planejamento/reservas-planejamento';
-import { ReservasSolicitadasPage } from '../pages/reservas/reservas-solicitadas/reservas-solicitadas';
+import { ReservasListPage } from '../pages/reservas/usuario-comum/reservas-list/reservas-list';
 
 import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 
@@ -49,9 +49,9 @@ export class MyApp {
       { title: 'Conta', component: ContaDetailPage },
       { title: 'Pagamentos', component: PagamentosListPage },
       { title: 'Meus Pagamentos', component: PagamentosMeusPage },
-      { title: 'Reservas', component: ReservasListPage },
-      { title: 'Planejar Reservas', component: ReservasPlanejamentoPage }, // funcionalidade destinada para os donos de barcos      
-      { title: 'Reservas solicitadas', component: ReservasSolicitadasPage }, // funcionalidade destinada para os donos de barcos
+      { title: 'Reservas', component: ReservasListPage }, // funcionalidade destinada para os usuarios comuns para checarem as reservas de barco que estes fizeram
+      { title: 'Planejar Reservas', component: ReservasPlanejamentoListPage }, // funcionalidade destinada para os donos de barcos pssam listar os planos de reserva que estes cadastraram    
+      { title: 'Reservas solicitadas', component: ReservasSolicitadasListPage }, // funcionalidade destinada para os donos de barcos para que estes possam listar as solicitacoes de reserva que foram feitas para algum de seus barcos
       { title: 'Sobre', component: SobreDetailPage },
       { title: 'Logout', component: LogoutPage }      
     ];
