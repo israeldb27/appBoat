@@ -5,6 +5,15 @@
         <ion-icon name="menu"></ion-icon>
       </button>
       <ion-title>Planejar Reservas de Barco</ion-title>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="goEditarReserva(true)">
+            Editar
+          </button>
+          <button ion-button color="danger" icon-start (click)="goExcluirReserva()">
+              <ion-icon name="trash"></ion-icon>
+              <span hideWhen="portrait">Excluir</span>
+            </button>
+        </ion-buttons>
     </ion-navbar>
   </ion-header>  
   
@@ -34,8 +43,7 @@
               <ion-label stacked color="primary">Dia da Semana</ion-label>
               <ion-input formControlName="diaSemana" [(ngModel)]="planoReservabarco.diaSemana" type="text" >
               </ion-input>
-            </ion-item>
-  
+            </ion-item>  
   
               <ion-item [hidden]="podeEditar">
                 <h2>Hora inicio Disponibilidade</h2>

@@ -35,6 +35,9 @@ import { ReservasSolicitadasDetailPage } from '../pages/reservas/dono-barco/rese
 
 import { ReservasListPage } from '../pages/reservas/usuario-comum/reservas-list/reservas-list';
 
+import { OpcionaisListPage } from '../pages/barcos/opcionais/opcionais-list/opcionais-list';
+import { OpcionaisCreatePage } from '../pages/barcos/opcionais/opcionais-create/opcionais-create';
+import { OpcionaisDetailPage } from '../pages/barcos/opcionais/opcionais-detail/opcionais-detail';
 
 import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 
@@ -64,7 +67,10 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     SobreDetailPage,    
     LoginPage,
     LogoutPage,
-    UsuarioCreatePage 
+    UsuarioCreatePage,
+    OpcionaisListPage,
+    OpcionaisCreatePage,
+    OpcionaisDetailPage
   ],
   imports: [
     BrowserModule,
@@ -95,7 +101,10 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     SobreDetailPage,    
     LoginPage,
     LogoutPage,
-    UsuarioCreatePage    
+    UsuarioCreatePage,
+    OpcionaisListPage,
+    OpcionaisCreatePage,
+    OpcionaisDetailPage  
   ],
   providers: [
     StatusBar,

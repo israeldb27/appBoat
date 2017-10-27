@@ -1,12 +1,26 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>reservas-planejamento-list</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Lista de Planos de Reservas</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
+
+    <ion-list>
+        <ion-item *ngFor="let planoReservabarco of planoReservabarcos" (click)="visualizarDetalhesPlanoReservaBarco(planoReservabarco)">
+            <p>Valor Aluguel:   {{planoReservabarco.valorAluguel}} </p>
+            <p>Status: {{planoReservabarco.status}}  </p>
+            <p>Dia da Semana:  {{planoReservabarco.diaSemana}}  </p>
+            <p>Data Especifica: {{planoReservabarco.dataEspecifica}}  </p>
+            <p>Hora Inicio Disponibilidade: {{planoReservabarco.horaInicioDisponivel}}  </p>
+            <p>Hora Fim Disponibilidade: {{planoReservabarco.horaFimDisponivel}}  </p>
+            <p>Quantidade Horas Disponiveis: {{planoReservabarco.quantidadeHorasDisponiveis}}  </p>            
+        </ion-item>  
+    </ion-list>   
 
 </ion-content>

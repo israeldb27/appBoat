@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ReservaBarco, ReservaBarcoApi, LoggerService } from "../../../../../app/shared/angular-client/index";
 import { LoopBackConfig } from "../../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../../app/shared/constantes";
+import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
+
+import { ReservasSolicitadasListPage } from '../reservas-solicitadas-list/reservas-solicitadas-list';
 
 /**
  * Descricao; Permite ao dono do barco visualizar os detalhes das informações 
  *            de uma solicitacação de reserva de barco feita por algum outro usuario da plataforma
+ * 
+ *            E também alterar o Status da Reserva para que o usuario solicitante da reserva
+ *            possa enxergar se o dono do barco aceitou ou não sua solicitacao
  */
 
 @IonicPage()
@@ -16,20 +22,104 @@ import { BASE_URL, API_VERSION } from "../../../../../app/shared/constantes";
 })
 export class ReservasSolicitadasDetailPage {
 
+
+  public reservaBarco: ReservaBarco;
+  public reservaBarcoTemporario: ReservaBarco;
+
+  submitted = false;  
+  podeEditar: boolean = false;
+  reservaBarcoForm: FormGroup;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public reservaBarcoService: ReservaBarcoApi,
+              private alertCtrl: AlertController,
               private logger: LoggerService) {
 
-              LoopBackConfig.setBaseURL(BASE_URL);
-              LoopBackConfig.setApiVersion(API_VERSION);
+          this.logger.info('ReservasSolicitadasDetailPage :: constructor');       
+          LoopBackConfig.setBaseURL(BASE_URL);
+          LoopBackConfig.setApiVersion(API_VERSION);
 
-    
+          this.reservaBarco = new ReservaBarco();
+          this.reservaBarcoTemporario = new ReservaBarco();   
 
   }
 
+
+  public goExcluirReserva() {
+    this.logger.info('Selecionada opção de Excluir Reserva Solicitada');
+    const confirmacao = this.alertCtrl.create({
+      title: 'Confirmar Exclusão',
+      message: 'Deseja realmente excluir essa reserva solicitada?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            this.logger.info('"Cancelar" escolhido');
+          }
+        },
+        {
+          text: 'Confirmar',
+          cssClass: 'text-danger',
+          handler: () => {
+            this.confirmarExclusaoReservaSolicitadaHandler();
+          }
+        }
+      ]
+    });
+    confirmacao.present();
+  }
+
+  private confirmarExclusaoReservaSolicitadaHandler() {
+    this.logger.info('"Confirmar" escolhido');
+    
+      this.reservaBarcoService.deleteById(this.reservaBarco.id).subscribe(sucesso => {
+        this.logger.info('ReservasSolicitadasDetailPage :: confirmarExclusaoReservaSolicitadaHandler :: reservaBarcoService.deleteById() :: sucesso :: ', sucesso);
+        this.navCtrl.push(ReservasSolicitadasListPage);
+      }, (error: any) => {
+        this.logger.error('ReservasSolicitadasDetailPage :: confirmarExclusaoReservaSolicitadaHandler :: reservaBarcoService.deleteById() :: error :: ', error);
+      });
+    
+  }
+
+
+
+  public salvarReservaSolicitada(){
+    this.logger.info('ReservasSolicitadasDetailPage :: salvarReservaSolicitada'); 
+
+    this.submitted = true;
+    if ( this.reservaBarcoForm.valid ){
+      this.logger.info('ReservasSolicitadasDetailPage :: salvarReservaSolicitada :: form validado OK');
+      let where = {
+        id: this.reservaBarco.id
+      };      
+      
+      this.reservaBarcoService.upsertWithWhere(where, this.reservaBarco).subscribe( sucesso => {
+        this.logger.info('ReservasSolicitadasDetailPage :: salvarReservaSolicitada :: opcionalService.upsertWithWhere() :: sucesso :: ', sucesso);
+        this.navCtrl.push(ReservasSolicitadasListPage);        
+      }, (error: any) => {
+        this.logger.error('ReservasSolicitadasDetailPage :: salvarReservaSolicitada :: opcionalService.upsertWithWhere() :: error :: ', error);
+      });
+    }  
+    else {
+      this.logger.info('ReservasSolicitadasDetailPage :: salvarReservaSolicitada :: form invalido');
+    } 
+  }
+
+
+  public goEditarReserva(habilitaEdicao: boolean): void{
+    this.podeEditar = habilitaEdicao;  
+  }
+
+  public cancelarEdicaoReservaSolicitada(){
+    this.goEditarReserva(false);
+    this.reservaBarco = Object.assign({}, this.reservaBarcoTemporario);
+  }
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReservasSolicitadasDetailPage');
+    this.logger.info('ionViewDidLoad ReservasSolicitadasDetailPage');
+    this.reservaBarcoTemporario = Object.assign({}, this.reservaBarco);
   }
 
 }

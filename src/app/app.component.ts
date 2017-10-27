@@ -21,6 +21,8 @@ import { ReservasSolicitadasListPage } from '../pages/reservas/dono-barco/reserv
 
 import { ReservasListPage } from '../pages/reservas/usuario-comum/reservas-list/reservas-list';
 
+import { OpcionaisListPage } from '../pages/barcos/opcionais/opcionais-list/opcionais-list';
+
 import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 
 
@@ -53,6 +55,7 @@ export class MyApp {
       { title: 'Planejar Reservas', component: ReservasPlanejamentoListPage }, // funcionalidade destinada para os donos de barcos pssam listar os planos de reserva que estes cadastraram    
       { title: 'Reservas solicitadas', component: ReservasSolicitadasListPage }, // funcionalidade destinada para os donos de barcos para que estes possam listar as solicitacoes de reserva que foram feitas para algum de seus barcos
       { title: 'Sobre', component: SobreDetailPage },
+      { title: 'Opcionais', component: OpcionaisListPage }, // temporariamente esta funcionalidade ira aparecer aqui e depois será disponivel a partir da tela de detalhes de um imovel      
       { title: 'Logout', component: LogoutPage }      
     ];
 

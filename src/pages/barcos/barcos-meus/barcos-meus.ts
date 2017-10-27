@@ -27,7 +27,6 @@ export class BarcosMeusPage {
       this.logger.info('BarcosMeusPage :: constructor'); 
 
       this.listarMeusBarcos();
-
   }
 
   public listarMeusBarcos(): void {

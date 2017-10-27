@@ -38,9 +38,9 @@ export class ReservasListPage {
     });
   }
 
-  public visualizarDetalhesReservaBarco(planoReservabarco){
-    this.logger.info('ReservasListPage :: visualizarDetalhesReservaBarco', planoReservabarco); 
-    this.navCtrl.push(ReservasDetailPage, { planoReservabarco: planoReservabarco });
+  public visualizarDetalhesReservaBarco(reservaBarco){
+    this.logger.info('ReservasListPage :: visualizarDetalhesReservaBarco', reservaBarco); 
+    this.navCtrl.push(ReservasDetailPage, { reservaBarco: reservaBarco });
 
   }
 

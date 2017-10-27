@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { PlanoReservabarco, PlanoReservabarcoApi, LoggerService } from "../../../../../app/shared/angular-client/index";
 import { LoopBackConfig } from "../../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
 
+import { ReservasPlanejamentoListPage } from '../reservas-planejamento-list/reservas-planejamento-list';
 /**
  * Descricao:  Permite ao dono do barco visualizar os detalhes as 
  *             informações de uma plano de reserva de barco que ele criou
@@ -20,8 +21,10 @@ export class ReservasPlanejamentoDetailPage {
 
   
   public planoReservabarco: PlanoReservabarco;
+  public planoReservabarcoTemporario: PlanoReservabarco;
   submitted = false;
   planoReservabarcoForm: FormGroup;
+  podeEditar: boolean = false;
 
   public id: AbstractControl;
   public valorAluguel: AbstractControl;
@@ -37,6 +40,7 @@ export class ReservasPlanejamentoDetailPage {
               public navParams: NavParams,
               public planoReservabarcoService: PlanoReservabarcoApi,
               private formBuilder: FormBuilder, 
+              private alertCtrl: AlertController,
               private logger: LoggerService) {
 
           this.logger.info('ReservasPlanejamentoDetailPage :: constructor'); 
@@ -48,7 +52,71 @@ export class ReservasPlanejamentoDetailPage {
           });
 
           this.planoReservabarco = new PlanoReservabarco();
+          this.planoReservabarcoTemporario = new PlanoReservabarco();          
           this.limparForm();
+          this.carregaDetalhePlanoReservaBarco();
+  }
+
+  public goExcluirReserva() {
+    this.logger.info('Selecionada opção de Excluir Plano Reserva Barco');
+    const confirmacao = this.alertCtrl.create({
+      title: 'Confirmar Exclusão',
+      message: 'Deseja realmente excluir esse plano reserva barco?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            this.logger.info('"Cancelar" escolhido');
+          }
+        },
+        {
+          text: 'Confirmar',
+          cssClass: 'text-danger',
+          handler: () => {
+            this.confirmarExclusaoPlanoReservaBarcoHandler();
+          }
+        }
+      ]
+    });
+    confirmacao.present();
+  }
+
+  private confirmarExclusaoPlanoReservaBarcoHandler() {
+    this.logger.info('"Confirmar" escolhido');
+    
+      this.planoReservabarcoService.deleteById(this.planoReservabarco.id).subscribe(sucesso => {
+        this.logger.info('ReservasPlanejamentoDetailPage :: confirmarExclusaoPlanoReservaBarcoHandler :: opcionalService.deleteById() :: sucesso :: ', sucesso);
+        this.navCtrl.push(ReservasPlanejamentoListPage);
+      }, (error: any) => {
+        this.logger.error('ReservasPlanejamentoDetailPage :: confirmarExclusaoPlanoReservaBarcoHandler :: opcionalService.deleteById() :: error :: ', error);
+      });
+    
+  }
+
+
+  public goEditarReserva(habilitaEdicao: boolean): void{
+    this.podeEditar = habilitaEdicao;  
+  }
+
+  public cancelarEdicaoPlanoReservaBarco(){
+    this.goEditarReserva(false);
+    this.planoReservabarco = Object.assign({}, this.planoReservabarcoTemporario);
+  }
+
+  public carregaDetalhePlanoReservaBarco():void {
+    this.logger.info('ReservasPlanejamentoDetailPage :: carregaDetalhePlanoReservaBarco :: inicio');
+
+    this.planoReservabarco = this.navParams.get('planoReservabarco');
+    this.submitted = false;
+    this.podeEditar = false;
+    
+    this.planoReservabarcoService.findById(this.planoReservabarco.id).subscribe((planoReservabarco: PlanoReservabarco) => {          
+      this.planoReservabarco = planoReservabarco;           
+      this.logger.info('ReservasPlanejamentoDetailPage :: carregaDetalhePlanoReservaBarco :: planoReservabarcoService.findById :: ', this.planoReservabarco);             
+    }, (erro) => {
+      this.logger.error('ReservasPlanejamentoDetailPage :: carregaDetalhePlanoReservaBarco :: planoReservabarcoService.findById :: error :: ', erro);         
+    });
   }
 
   public limparForm() {    
@@ -73,6 +141,8 @@ export class ReservasPlanejamentoDetailPage {
    });
 
  }
+
+ 
 
  public salvarPlanoReservaBarco(){
   this.logger.info('ReservasPlanejamentoPage :: salvarPlanoReservaBarco :: inicio');
@@ -104,7 +174,8 @@ public cancelarCadastroPlanoReservaBarco(){
 }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReservasPlanejamentoDetailPage');
+    this.logger.info('ionViewDidLoad ReservasPlanejamentoDetailPage');
+    this.planoReservabarcoTemporario = Object.assign({}, this.planoReservabarco);
   }
 
 }
