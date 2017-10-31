@@ -41,7 +41,6 @@ export class ReservasListPage {
   public visualizarDetalhesReservaBarco(reservaBarco){
     this.logger.info('ReservasListPage :: visualizarDetalhesReservaBarco', reservaBarco); 
     this.navCtrl.push(ReservasDetailPage, { reservaBarco: reservaBarco });
-
   }
 
   ionViewDidLoad() {

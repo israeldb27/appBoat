@@ -55,7 +55,7 @@ export class BarcosPesquisaPage {
     this.submitted = true;
 
     // Definir melhor como vai ser esta query
-   /* this.barcos = [];
+    this.barcos = [];
     let dataInicioReserva: Date = this.dataInicio.value;
     let dataFimReserva: Date = this.dataFim.value;
 
@@ -78,17 +78,10 @@ export class BarcosPesquisaPage {
     this.barcoService.find(filtro).subscribe((barcos: Barco[]) => {
       this.logger.info('BarcosPesquisaPage :: listarBarcos ::barcoService.find :: sucesso :: ', barcos);
       this.barcos = barcos;
+      this.navCtrl.push(BarcosResultadoPesquisaPage, { barcos: barcos })
     }, (error: any) => {
       this.logger.error('BarcosPesquisaPage :: listarBarcos ::barcoService :: error :: ', error);
     });
-
-*/
-    
-
-    this.navCtrl.push(BarcosResultadoPesquisaPage);
-
-    
-
   }
 
   public listarBarcos(filtro: LoopBackFilter): void {

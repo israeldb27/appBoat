@@ -19,10 +19,9 @@ export class PagamentosMeusPage {
               public navParams: NavParams,
               private logger: LoggerService) {
                 
-      LoopBackConfig.setBaseURL(BASE_URL);
-      LoopBackConfig.setApiVersion(API_VERSION);
-
       this.logger.info('PagamentosMeusPage :: constructor');
+      LoopBackConfig.setBaseURL(BASE_URL);
+      LoopBackConfig.setApiVersion(API_VERSION);       
 
       this.listarMeusPagamentos();          
 

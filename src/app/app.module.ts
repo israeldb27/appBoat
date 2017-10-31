@@ -16,7 +16,10 @@ import { BarcosResultadoPesquisaPage } from '../pages/barcos/barcos-resultado-pe
 import { BarcosDetailPage } from '../pages/barcos/barcos-detail/barcos-detail';
 import { BarcosCreatePage } from '../pages/barcos/barcos-create/barcos-create';
 
+import { BarcosSolicitarReservaPage } from '../pages/barcos/barcos-solicitar-reserva/barcos-solicitar-reserva';
+
 import { ContaDetailPage } from '../pages/conta/conta-detail/conta-detail';
+import { ContaEditPage } from '../pages/conta/conta-edit/conta-edit';
 
 import { LoginPage } from '../pages/usuario/login/login';
 import { LogoutPage } from '../pages/usuario/logout/logout';
@@ -34,6 +37,8 @@ import { ReservasSolicitadasListPage } from '../pages/reservas/dono-barco/reserv
 import { ReservasSolicitadasDetailPage } from '../pages/reservas/dono-barco/reservas-solicitadas/reservas-solicitadas-detail/reservas-solicitadas-detail';
 
 import { ReservasListPage } from '../pages/reservas/usuario-comum/reservas-list/reservas-list';
+import { ReservasDetailPage } from '../pages/reservas/usuario-comum/reservas-detail/reservas-detail';
+import { ReservasPagamentoPage } from '../pages/reservas/usuario-comum/reservas-pagamento/reservas-pagamento';
 
 import { OpcionaisListPage } from '../pages/barcos/opcionais/opcionais-list/opcionais-list';
 import { OpcionaisCreatePage } from '../pages/barcos/opcionais/opcionais-create/opcionais-create';
@@ -55,10 +60,13 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     BarcosDetailPage,
     BarcosCreatePage,
     ContaDetailPage,
+    ContaEditPage,
     PagamentosListPage,
     PagamentosMeusPage,
     PagamentosDetailPage,
     ReservasListPage,
+    ReservasDetailPage,
+    ReservasPagamentoPage,
     ReservasPlanejamentoCreatePage,
     ReservasPlanejamentoListPage,
     ReservasPlanejamentoDetailPage,
@@ -70,7 +78,8 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     UsuarioCreatePage,
     OpcionaisListPage,
     OpcionaisCreatePage,
-    OpcionaisDetailPage
+    OpcionaisDetailPage,
+    BarcosSolicitarReservaPage
   ],
   imports: [
     BrowserModule,
@@ -89,10 +98,13 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     BarcosDetailPage,
     BarcosCreatePage,
     ContaDetailPage,
+    ContaEditPage,
     PagamentosListPage,
     PagamentosMeusPage,
     PagamentosDetailPage,
     ReservasListPage,
+    ReservasDetailPage,
+    ReservasPagamentoPage,
     ReservasPlanejamentoCreatePage,
     ReservasPlanejamentoListPage,
     ReservasPlanejamentoDetailPage,
@@ -104,7 +116,8 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     UsuarioCreatePage,
     OpcionaisListPage,
     OpcionaisCreatePage,
-    OpcionaisDetailPage  
+    OpcionaisDetailPage,
+    BarcosSolicitarReservaPage 
   ],
   providers: [
     StatusBar,

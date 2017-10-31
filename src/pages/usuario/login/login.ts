@@ -60,9 +60,9 @@ export class LoginPage {
     this.logger.info('LoginPage :: realizarLogin');
 
     if(this.usuarioForm.valid){
-      this.logger.info('LoginPage :: onLogin :: usuario ', this.usuario.login);
-      this.submitted = true;
-    
+      this.logger.info('LoginPage :: realizarLogin :: form valido OK ');
+      this.logger.info('LoginPage :: realizarLogin :: usuario ', this.usuario.login);
+      this.submitted = true;    
       /*
       this.usuarioService.login({username: this.usuario.login, password: this.usuario.password}).subscribe((usuario) => {
        // this.navCtrl.setRoot(HomePage);
@@ -72,6 +72,10 @@ export class LoginPage {
       });
       */
     } 
+    else {
+      this.logger.error('LoginPage :: realizarLogin :: form invalido'); 
+    }
+
   }
 
   showAlert() {

@@ -34,15 +34,14 @@
               <ion-input type="text" formControlName="statusReserva" [(ngModel)]="reservaBarco.statusReserva" spellcheck="false" autocapitalize="off" required>
               </ion-input>
             </ion-item>
-          <p ion-text [hidden]="statusReserva.valid || submitted == false" color="danger" padding-left>
-            Campo é obrigatório
-          </p>
+              <p ion-text [hidden]="statusReserva.valid || submitted == false" color="danger" padding-left>
+                Campo é obrigatório
+              </p>
     
             <ion-item [hidden]="podeEditar">
               <h2>Data Solicitação</h2>
               <p>{{reservaBarco.dataSolicitacao}}</p>
-            </ion-item>
-           
+            </ion-item>           
 
             <ion-item [hidden]="podeEditar">
               <h2>Data Pagamento</h2>
