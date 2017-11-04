@@ -45,6 +45,36 @@ export class ReservasSolicitadasDetailPage {
 
   }
 
+  public carregaDetalhesReservaBarco() {
+    this.logger.info('ReservasSolicitadasDetailPage :: carregaDetalhesReservaBarco');
+    this.reservaBarco = this.navParams.get('reservaBarco');
+    this.logger.info('ReservasSolicitadasDetailPage :: carregaDetalhesReservaBarco :: Reserva Barco', this.reservaBarco );
+  }
+
+  public alterarStatusReservaBarco(): void {
+    this.logger.info('ReservasSolicitadasDetailPage :: alterarStatusReservaBarco');     
+    
+    this.submitted = true;
+    
+    if ( this.reservaBarcoForm.valid ){
+      this.logger.info('ReservasSolicitadasDetailPage :: alterarStatusReservaBarco :: form valido Ok');
+      let where = {
+        id: this.reservaBarco.id
+      }; 
+         
+      this.reservaBarcoService.upsertWithWhere(where, this.reservaBarco).subscribe( sucesso => {    
+        this.logger.info('ReservasSolicitadasDetailPage :: alterarStatusReservaBarco :: reservaBarcoService.upsertWithWhere() :: sucesso :: ', sucesso);
+        //this.navCtrl.push(BarcosMeusPage);         
+      }, (error: any) => {
+        this.logger.error('ReservasSolicitadasDetailPage :: alterarStatusReservaBarco :: reservaBarcoService.upsertWithWhere() :: error :: ', error);        
+      });      
+    }  
+    else {
+      this.logger.info('ReservasSolicitadasDetailPage :: alterarStatusReservaBarco :: form invalido');
+    }
+
+  }
+
 
   public goExcluirReserva() {
     this.logger.info('Selecionada opção de Excluir Reserva Solicitada');

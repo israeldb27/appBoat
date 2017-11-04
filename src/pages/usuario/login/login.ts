@@ -5,6 +5,8 @@ import { LoopBackConfig } from "../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
 
+import { BarcosPesquisaPage } from '../../barcos/barcos-pesquisa/barcos-pesquisa';
+
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -63,6 +65,7 @@ export class LoginPage {
       this.logger.info('LoginPage :: realizarLogin :: form valido OK ');
       this.logger.info('LoginPage :: realizarLogin :: usuario ', this.usuario.login);
       this.submitted = true;    
+      this.navCtrl.setRoot(BarcosPesquisaPage);
       /*
       this.usuarioService.login({username: this.usuario.login, password: this.usuario.password}).subscribe((usuario) => {
        // this.navCtrl.setRoot(HomePage);

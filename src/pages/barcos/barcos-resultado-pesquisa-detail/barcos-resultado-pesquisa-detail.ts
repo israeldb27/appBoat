@@ -34,6 +34,11 @@ export class BarcosResultadoPesquisaDetailPage {
     this.logger.info('BarcosResultadoPesquisaDetailPage :: carregaDetalhesBarco :: barco selecionado' , this.barco);
   }
 
+  public voltarPesquisa(){
+    this.logger.info('BarcosResultadoPesquisaDetailPage :: voltarPesquisa ');
+    this.navCtrl.pop();
+  }
+
   public  solicitarReserva(){
     this.logger.info('BarcosResultadoPesquisaDetailPage :: solicitarReserva :: barco selecionado-reserva' , this.barco);
     this.navCtrl.push( BarcosSolicitarReservaPage, { barco: this.barco} );

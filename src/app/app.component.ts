@@ -12,6 +12,7 @@ import { BarcosPesquisaPage } from '../pages/barcos/barcos-pesquisa/barcos-pesqu
 import { ContaDetailPage } from '../pages/conta/conta-detail/conta-detail';
 
 import { LogoutPage } from '../pages/usuario/logout/logout';
+import { LoginPage } from '../pages/usuario/login/login';
 
 import { PagamentosListPage } from '../pages/pagamentos/pagamentos-list/pagamentos-list';
 import { PagamentosMeusPage } from '../pages/pagamentos/pagamentos-meus/pagamentos-meus';
@@ -32,7 +33,8 @@ import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = BarcosPesquisaPage;
+  //rootPage: any = BarcosPesquisaPage;
+  rootPage: any = LoginPage;
 
   pages: Array<{title: string, component: any}>;
 

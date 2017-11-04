@@ -13,6 +13,8 @@ import { BarcosMeusPage } from '../pages/barcos/barcos-meus/barcos-meus';
 import { BarcosPesquisaPage } from '../pages/barcos/barcos-pesquisa/barcos-pesquisa';
 import { BarcosPresentFilterPage } from '../pages/barcos/barcos-present-filter/barcos-present-filter';
 import { BarcosResultadoPesquisaPage } from '../pages/barcos/barcos-resultado-pesquisa/barcos-resultado-pesquisa';
+import { BarcosResultadoPesquisaDetailPage } from '../pages/barcos/barcos-resultado-pesquisa-detail/barcos-resultado-pesquisa-detail';
+
 import { BarcosDetailPage } from '../pages/barcos/barcos-detail/barcos-detail';
 import { BarcosCreatePage } from '../pages/barcos/barcos-create/barcos-create';
 
@@ -57,6 +59,7 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     BarcosPesquisaPage,
     BarcosPresentFilterPage,
     BarcosResultadoPesquisaPage,
+    BarcosResultadoPesquisaDetailPage,
     BarcosDetailPage,
     BarcosCreatePage,
     ContaDetailPage,
@@ -95,6 +98,7 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     BarcosPesquisaPage,
     BarcosPresentFilterPage,
     BarcosResultadoPesquisaPage,
+    BarcosResultadoPesquisaDetailPage,
     BarcosDetailPage,
     BarcosCreatePage,
     ContaDetailPage,

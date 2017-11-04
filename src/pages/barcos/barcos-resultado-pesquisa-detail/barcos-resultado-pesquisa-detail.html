@@ -23,7 +23,10 @@
             <p>Capacidade Pessoas: {{barco.capacidadePessoas}}  </p>        
     </ion-list>  
 
-    <ion-row responsive-sm >        
+    <ion-row responsive-sm > 
+        <ion-col>
+            <button ion-button (click)="voltarPesquisa()" color="light" block>Cancelar</button>
+          </ion-col>        
         <ion-col>
           <button ion-button (click)="solicitarReserva()" type="submit" block>Solicitar Reserva</button>
         </ion-col>

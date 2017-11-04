@@ -21,6 +21,10 @@ export class BarcosSolicitarReservaPage {
   public id: AbstractControl;
   public dataReservaBarco: AbstractControl;
 
+  public habilitaDataEspecifica: boolean;
+  public habilitaChecaDisponibilidade: boolean;
+
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private reservaBarcoService: ReservaBarcoApi,              
@@ -34,40 +38,60 @@ export class BarcosSolicitarReservaPage {
         this.reservaBarcoForm = formBuilder.group({
           dataReservaBarco: ["", Validators.required]          
         });
-        this.limparForm();            
+        this.limparForm();    
+        this.habilitaDataEspecifica = true;
+        this.habilitaChecaDisponibilidade = false;
+  }
 
+  public habilitarDisponibilidades(): void {
+    this.logger.info('BarcosSolicitarReservaPage :: habilitarDisponibilidades');
+    this.habilitaDataEspecifica = true;
+    this.habilitaChecaDisponibilidade = false;
+  }
+
+  public habilitarDataEspecifica(): void {
+    this.logger.info('BarcosSolicitarReservaPage :: habilitarDataEspecifica');
+    this.habilitaDataEspecifica = false;
+    this.habilitaChecaDisponibilidade = true;
   }
 
   public limparForm(){
     this.logger.info('BarcosSolicitarReservaPage :: limparForm');  
     this.id = new FormControl(null, []); 
-    this.dataReservaBarco = new FormControl('', Validators.required);
+    //this.dataReservaBarco = new FormControl('', Validators.required);
 
     this.reservaBarcoForm = new FormGroup({
-      id: this.id,
-      dataReservaBarco: this.dataReservaBarco
+      id: this.id
+     // dataReservaBarco: this.dataReservaBarco
     });
     
     this.reservaBarcoForm.reset();
   }
 
-  public cadastrarReservaBarco(): void{
-    this.logger.info('BarcosSolicitarReservaPage :: cadastrarReservaBarco'); 
-    this.logger.info('BarcosSolicitarReservaPage :: cadastrarReservaBarco :: Data reserva :: ', this.dataReservaBarco); 
+  public confirmarReservaBarco(): void{
+    this.logger.info('BarcosSolicitarReservaPage :: confirmarReservaBarco'); 
+    this.logger.info('BarcosSolicitarReservaPage :: confirmarReservaBarco :: Data reserva :: ', this.dataReservaBarco); 
 
     this.submitted = true;
 
-    if ( this.reservaBarcoForm.valid ){            
-        this.logger.info('BarcosSolicitarReservaPage :: cadastrarReservaBarco :: form validado OK');
-        this.reservaBarcoService.create(this.barco).subscribe( sucesso => {
-          this.logger.info('BarcosSolicitarReservaPage :: cadastrarReservaBarco :: reservaBarcoService.create() :: sucesso :: ', sucesso);
+    if ( this.reservaBarcoForm.valid ){       
+        this.reservaBarco.dataReservaBarco = new Date();
+        this.reservaBarco.dataSolicitacao = new Date();
+        this.reservaBarco.dataUltimaAtualizacao = new Date();
+        this.reservaBarco.statusReserva = 'solicitado';
+        this.reservaBarco.usuarioSolicitanteId = 1;  
+        this.reservaBarco.barcoId = 1;
+        this.reservaBarco.planoreservabarcoId = 1;
+        this.logger.info('BarcosSolicitarReservaPage :: confirmarReservaBarco :: form validado OK');
+        this.reservaBarcoService.create(this.reservaBarco).subscribe( sucesso => {
+          this.logger.info('BarcosSolicitarReservaPage :: confirmarReservaBarco :: reservaBarcoService.create() :: sucesso :: ', sucesso);
         // this.navCtrl.push(BarcosMeusPage);         
         }, (error: any) => {
-          this.logger.error('BarcosSolicitarReservaPage :: cadastrarReservaBarco :: reservaBarcoService.create() :: error :: ', error);        
+          this.logger.error('BarcosSolicitarReservaPage :: confirmarReservaBarco :: reservaBarcoService.create() :: error :: ', error);        
         });      
     }  
     else {
-      this.logger.info('BarcosSolicitarReservaPage :: cadastrarReservaBarco :: form invalido');
+      this.logger.info('BarcosSolicitarReservaPage :: confirmarReservaBarco :: form invalido');
     }
   }
 
