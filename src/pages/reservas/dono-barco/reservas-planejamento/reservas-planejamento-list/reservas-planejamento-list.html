@@ -21,6 +21,10 @@
             <p>Hora Fim Disponibilidade: {{planoReservabarco.horaFimDisponivel}}  </p>
             <p>Quantidade Horas Disponiveis: {{planoReservabarco.quantidadeHorasDisponiveis}}  </p>            
         </ion-item>  
-    </ion-list>   
+    </ion-list> 
+    
+    <ion-fab bottom right>
+        <button ion-fab (click)="goCriarPlanoReservaBarco()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
 
 </ion-content>

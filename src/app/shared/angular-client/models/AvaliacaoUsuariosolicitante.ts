@@ -48,6 +48,7 @@ export class AvaliacaoUsuariosolicitante implements AvaliacaoUsuariosolicitanteI
       name: 'AvaliacaoUsuariosolicitante',
       plural: 'avaliacaousuariosolicitantes',
       path: 'avaliacaousuariosolicitantes',
+      idName: 'id',
       properties: {
         "dataAvaliacao": {
           name: 'dataAvaliacao',

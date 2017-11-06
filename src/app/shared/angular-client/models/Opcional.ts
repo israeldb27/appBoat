@@ -50,6 +50,7 @@ export class Opcional implements OpcionalInterface {
       name: 'Opcional',
       plural: 'Opcionais',
       path: 'Opcionais',
+      idName: 'id',
       properties: {
         "nome": {
           name: 'nome',

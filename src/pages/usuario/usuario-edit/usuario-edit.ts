@@ -23,6 +23,11 @@ export class UsuarioEditPage {
 
   ionViewDidLoad() {
     this.logger.info('ionViewDidLoad UsuarioEditPage');
+    this.logger.info('UsuarioEditPage :: usuarioSessao', this.logado);
   }
+
+  logado(): any {
+		return localStorage['usuarioSessao'];
+	}
 
 }

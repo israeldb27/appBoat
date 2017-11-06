@@ -28,7 +28,6 @@ export class UsuarioCreatePage {
   public cpf: AbstractControl;
 
 
-
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public usuarioService: UsuarioApi,
@@ -55,6 +54,34 @@ export class UsuarioCreatePage {
       this.limpaForm();
   }
 
+  public cadastrarUsuario(): void {
+    this.logger.info('UsuarioCreatePage :: cadastrarUsuario'); 
+
+    this.submitted = true;
+    
+    if ( this.usuarioForm.valid ){
+      this.logger.info('UsuarioCreatePage :: cadastrarUsuario :: form validado OK');
+      this.logger.info('UsuarioCreatePage :: cadastrarUsuario :: usuario ', this.usuario);
+      this.usuario.status = 'criado';
+      this.usuario.dataCadastro = new Date();
+      this.usuario.dataNascimento = new Date();
+      this.usuario.dataUltimaAtualizacao = new Date();
+      this.usuarioService.create(this.usuario).subscribe( sucesso => {
+        this.logger.info('UsuarioCreatePage :: cadastrarUsuario :: usuarioService.create() :: sucesso :: ', sucesso);
+        this.navCtrl.pop();       
+      }, (error: any) => {
+        this.logger.error('UsuarioCreatePage :: cadastrarUsuario :: usuarioService.create() :: error :: ', error);        
+      });      
+    }  
+    else {
+      this.logger.info('UsuarioCreatePage :: cadastrarUsuario:: form invalido');
+    }
+
+  }
+
+
+  
+
   public limpaForm(): void {
     this.logger.info('UsuarioCreatePage :: limpaForm :: inicio');
 
@@ -74,11 +101,13 @@ export class UsuarioCreatePage {
       password: this.password, 
       confirmaPassword: this.confirmaPassword, 
       email: this.email, 
-      perfil: this.cpf
+      perfil: this.perfil,
+      cpf: this.cpf
     });
     
     this.usuarioForm.reset(); 
   }
+
 
   ionViewDidLoad() {
     this.logger.info('ionViewDidLoad UsuarioCreatePage');

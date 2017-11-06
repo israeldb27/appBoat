@@ -5,6 +5,7 @@ import { LoopBackConfig } from "../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
 
+import { ContaEditPage } from '../conta-edit/conta-edit';
 
 @IonicPage()
 @Component({
@@ -32,16 +33,13 @@ export class ContaDetailPage {
   }
 
   public visualizarDetalhesConta(){
-
     this.logger.info('ContaDetailPage :: visualizarDetalhesConta');
-    
-
   }
-
+  
 
   public goEditarConta(): void{
     this.logger.info('ContaDetailPage :: goEditarConta');  
-   
+    this.navCtrl.push(ContaEditPage);   
   }
 
   ionViewDidLoad() {

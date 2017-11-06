@@ -1142,6 +1142,34 @@ export class UsuarioApi extends BaseLoopBackApi {
   }
 
   /**
+   * submit login
+   *
+   * @param {object} data Request data.
+   *
+   *  - `login` – `{string}` - 
+   *
+   *  - `password` – `{string}` - 
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public realizarLogin(login: any, password: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Usuarios/\realizarLogin";
+    let _routeParams: any = {};
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof login !== 'undefined' && login !== null) _urlParams.login = login;
+    if (typeof password !== 'undefined' && password !== null) _urlParams.password = password;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
    * Creates a new instance in avaliacaoUsuariosolicitantes of this model.
    *
    * @param {any} id Usuario id

@@ -75,6 +75,7 @@ export class Usuario implements UsuarioInterface {
       name: 'Usuario',
       plural: 'Usuarios',
       path: 'Usuarios',
+      idName: 'id',
       properties: {
         "nome": {
           name: 'nome',
@@ -129,27 +130,42 @@ export class Usuario implements UsuarioInterface {
         avaliacaoUsuariosolicitantes: {
           name: 'avaliacaoUsuariosolicitantes',
           type: 'AvaliacaoUsuariosolicitante[]',
-          model: 'AvaliacaoUsuariosolicitante'
+          model: 'AvaliacaoUsuariosolicitante',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'usuarioSolicitanteId'
         },
         avaliacaoUsuariosolicitantes_fk2: {
           name: 'avaliacaoUsuariosolicitantes_fk2',
           type: 'AvaliacaoUsuariosolicitante[]',
-          model: 'AvaliacaoUsuariosolicitante'
+          model: 'AvaliacaoUsuariosolicitante',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'donoBarcoId'
         },
         avaliacaodonobarcos: {
           name: 'avaliacaodonobarcos',
           type: 'Avaliacaodonobarco[]',
-          model: 'Avaliacaodonobarco'
+          model: 'Avaliacaodonobarco',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'usuarioSolicitanteId'
         },
         avaliacaodonobarcos_fk2: {
           name: 'avaliacaodonobarcos_fk2',
           type: 'Avaliacaodonobarco[]',
-          model: 'Avaliacaodonobarco'
+          model: 'Avaliacaodonobarco',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'donoBarcoId'
         },
         reservaBarcos_fk2: {
           name: 'reservaBarcos_fk2',
           type: 'ReservaBarco[]',
-          model: 'ReservaBarco'
+          model: 'ReservaBarco',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'usuarioSolicitanteId'
         },
       }
     }

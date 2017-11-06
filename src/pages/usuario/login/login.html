@@ -36,6 +36,10 @@
               <button ion-button (click)="realizarLogin(usuarioForm)" type="submit" block>Acessar</button>
             </ion-col>
         </ion-row>
+        <p>
+           <button ion-button (click)="goCriarConta()" type="submit" color="dark" clear block>Cadastre-se aqui!</button>
+        </p>
+        <p ion-text color="danger" padding-left > {{mensagemRetorno}}</p>
     </form>
 
 </ion-content>

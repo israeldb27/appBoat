@@ -83,6 +83,7 @@ export class Barco implements BarcoInterface {
       name: 'Barco',
       plural: 'Barcos',
       path: 'Barcos',
+      idName: 'id',
       properties: {
         "nome": {
           name: 'nome',
@@ -161,17 +162,26 @@ export class Barco implements BarcoInterface {
         avaliacaobarcos: {
           name: 'avaliacaobarcos',
           type: 'Avaliacaobarco[]',
-          model: 'Avaliacaobarco'
+          model: 'Avaliacaobarco',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'barcoId'
         },
         opcionais: {
           name: 'opcionais',
           type: 'Opcional[]',
-          model: 'Opcional'
+          model: 'Opcional',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'barcoId'
         },
         reservaBarcos: {
           name: 'reservaBarcos',
           type: 'ReservaBarco[]',
-          model: 'ReservaBarco'
+          model: 'ReservaBarco',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'barcoId'
         },
       }
     }

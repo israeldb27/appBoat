@@ -4,6 +4,7 @@ import { PlanoReservabarco, PlanoReservabarcoApi, LoggerService } from "../../..
 import { LoopBackConfig } from "../../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { ReservasPlanejamentoListPage } from '../reservas-planejamento-list/reservas-planejamento-list';
 
 /**
  *  Descricao: usado para que o Dono do barco possa cadastrar um plano 
@@ -81,16 +82,17 @@ export class ReservasPlanejamentoCreatePage {
    this.submitted = true;
    
    if ( this.planoReservabarcoForm.valid ){
-
-     /*
+     this.planoReservabarco.status = "criado";
+     this.logger.info('ReservasPlanejamentoPage :: cadastrarPlanoReservaBarco :: plano', this.planoReservabarco);
+    
      this.logger.info('ReservasPlanejamentoPage :: cadastrarPlanoReservaBarco :: form validado OK');
      this.planoReservabarcoService.create(this.planoReservabarco).subscribe( sucesso => {
        this.logger.info('ReservasPlanejamentoPage :: cadastrarPlanoReservaBarco :: planoReservabarcoService.create() :: sucesso :: ', sucesso);
-       this.navCtrl.push(BarcosMeusPage);         
+       this.navCtrl.push(ReservasPlanejamentoListPage);         
      }, (error: any) => {
        this.logger.error('ReservasPlanejamentoPage :: cadastrarPlanoReservaBarco :: planoReservabarcoService.create() :: error :: ', error);        
      });
-     */
+     
    }  
    else {
      this.logger.info('ReservasPlanejamentoPage :: cadastrarPlanoReservaBarco :: form invalido');

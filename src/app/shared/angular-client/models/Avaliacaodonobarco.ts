@@ -48,6 +48,7 @@ export class Avaliacaodonobarco implements AvaliacaodonobarcoInterface {
       name: 'Avaliacaodonobarco',
       plural: 'avaliacaodonobarcos',
       path: 'avaliacaodonobarcos',
+      idName: 'id',
       properties: {
         "dataAvaliacao": {
           name: 'dataAvaliacao',

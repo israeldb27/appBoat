@@ -56,6 +56,7 @@ export class ReservaBarco implements ReservaBarcoInterface {
       name: 'ReservaBarco',
       plural: 'ReservaBarcos',
       path: 'ReservaBarcos',
+      idName: 'id',
       properties: {
         "dataSolicitacao": {
           name: 'dataSolicitacao',

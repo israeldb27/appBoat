@@ -53,6 +53,7 @@ export class Avaliacaobarco implements AvaliacaobarcoInterface {
       name: 'Avaliacaobarco',
       plural: 'Avaliacaobarcos',
       path: 'Avaliacaobarcos',
+      idName: 'id',
       properties: {
         "dataAvaliacao": {
           name: 'dataAvaliacao',
@@ -83,7 +84,10 @@ export class Avaliacaobarco implements AvaliacaobarcoInterface {
         barco: {
           name: 'barco',
           type: 'Barco',
-          model: 'Barco'
+          model: 'Barco',
+          relationType: 'belongsTo',
+                  keyFrom: 'barcoId',
+          keyTo: 'id'
         },
       }
     }

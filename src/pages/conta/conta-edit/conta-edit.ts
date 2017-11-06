@@ -13,8 +13,19 @@ import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validat
 })
 export class ContaEditPage {
 
-  usuario: Usuario;
-  usuarioForm: FormGroup;
+    usuario: Usuario;
+    usuarioForm: FormGroup;
+    public submitted: boolean;
+  
+    public id: AbstractControl;
+    public nome: AbstractControl;
+    public login: AbstractControl;
+    public password: AbstractControl;
+    public confirmaPassword: AbstractControl;  
+    public email: AbstractControl;
+    public status: AbstractControl;
+    public perfil: AbstractControl;
+    public cpf: AbstractControl;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -24,18 +35,66 @@ export class ContaEditPage {
 
         LoopBackConfig.setBaseURL(BASE_URL);
         LoopBackConfig.setApiVersion(API_VERSION);
+
+        this.submitted = false;
+        this.usuario = new Usuario();
+        
+        this.usuarioForm = formBuilder.group({
+          nome: ["", Validators.required],
+          login: ["", Validators.required],
+          password: ["", Validators.required],
+          confirmaPassword: ["", Validators.required],
+          email: ["", Validators.required],
+          perfil: ["", Validators.required],
+          cpf: ["", Validators.required]
+        });
                 
         this.logger.info('BarcosDetailPage :: constructor');
-        this.carregaDetalhesConta();          
+        this.carregaDetalhesConta();  
+        this.limpaForm();        
   }
 
   public carregaDetalhesConta(){
     this.logger.info('ContaEditPage ;: carregaDetalhesConta');
-
+    
+    let id: any;
+    id = localStorage['usuarioSessao'];
+    this.logger.info(' ContaEditPage :: usuarioSessao :: ', id);
   }
+
+  public limpaForm(): void {
+    this.logger.info('UsuarioCreatePage :: limpaForm :: inicio');
+
+    this.id = new FormControl(null, []);
+    this.nome = new FormControl('', Validators.required);   
+    this.login = new FormControl('', Validators.required);
+    this.password = new FormControl('', Validators.required);
+    this.confirmaPassword = new FormControl('', Validators.required);
+    this.email = new FormControl('', Validators.required);
+    this.perfil = new FormControl('', Validators.required);
+    this.cpf = new FormControl('', Validators.required);
+
+    this.usuarioForm = new FormGroup({
+      id: this.id,
+      nome: this.nome,
+      login: this.login, 
+      password: this.password, 
+      confirmaPassword: this.confirmaPassword, 
+      email: this.email, 
+      perfil: this.perfil,
+      cpf: this.cpf
+    });
+    
+    this.usuarioForm.reset(); 
+  }
+
+  logado(): Usuario {
+		return localStorage['usuarioSessao'];
+	}
 
   ionViewDidLoad() {
     this.logger.info('ionViewDidLoad ContaEditPage');
+    
   }
 
   public salvarConta(): void {

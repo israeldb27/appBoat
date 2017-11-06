@@ -48,6 +48,7 @@ export class TipoFormapagamento implements TipoFormapagamentoInterface {
       name: 'TipoFormapagamento',
       plural: 'tipoformapagamentos',
       path: 'tipoformapagamentos',
+      idName: 'id',
       properties: {
         "nomeTipo": {
           name: 'nomeTipo',
@@ -74,7 +75,10 @@ export class TipoFormapagamento implements TipoFormapagamentoInterface {
         formagPagamentoUsuarios: {
           name: 'formagPagamentoUsuarios',
           type: 'any[]',
-          model: ''
+          model: '',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'tipoformapagamentoId'
         },
       }
     }

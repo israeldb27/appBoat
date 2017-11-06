@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Usuario, UsuarioApi, LoggerService } from "../../../app/shared/angular-client/index";
-import { LoopBackConfig } from "../../../app/shared/angular-client"
+import { LoopBackConfig, LoopBackFilter } from "../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { BarcosPesquisaPage } from '../../barcos/barcos-pesquisa/barcos-pesquisa';
+
+import { UsuarioCreatePage } from '../usuario-create/usuario-create';
 
 @IonicPage()
 @Component({
@@ -15,8 +17,12 @@ import { BarcosPesquisaPage } from '../../barcos/barcos-pesquisa/barcos-pesquisa
 export class LoginPage {
 
   public usuario: Usuario;
+  public usuarioSessao: Usuario;
   public submitted: boolean;
   usuarioForm: FormGroup;
+
+  usuarios: Usuario[];
+  mensagemRetorno: string;
 
   public login: AbstractControl;
   public password: AbstractControl;
@@ -40,6 +46,8 @@ export class LoginPage {
       });
       
       this.usuario = new Usuario();
+      this.usuarioSessao = new Usuario();
+      this.mensagemRetorno = '';
       this.limpaForm();
   }
 
@@ -64,21 +72,49 @@ export class LoginPage {
     if(this.usuarioForm.valid){
       this.logger.info('LoginPage :: realizarLogin :: form valido OK ');
       this.logger.info('LoginPage :: realizarLogin :: usuario ', this.usuario.login);
-      this.submitted = true;    
-      this.navCtrl.setRoot(BarcosPesquisaPage);
-      /*
-      this.usuarioService.login({username: this.usuario.login, password: this.usuario.password}).subscribe((usuario) => {
-       // this.navCtrl.setRoot(HomePage);
-      }, (error) => {
-        this.showAlert();
-        this.logger.error('LoginPage :: usuario.login :: erro ao logar o usuario :: ', error);
+      this.submitted = true;   
+      let login = this.usuario.login;
+      let pwd = this.usuario.password;
+ 
+      this.logger.info('LoginPage :: realizarLogin :: login ', login);
+      this.logger.info('LoginPage :: realizarLogin :: pwd ', pwd);
+      let filtro: LoopBackFilter = {
+        "where": {
+          "and": [
+            {
+              "login": login              
+            },
+            {
+              "password": pwd             
+            }
+          ]      
+        }
+      };
+
+      this.logger.info('LoginPage :: realizarLogin :: filtros ', filtro);
+      this.usuarioService.find(filtro).subscribe((usuarios: Usuario[]) => { 
+        this.logger.info('LoginPage :: realizarLogin ::usuarioService.find :: sucesso :: ', usuarios);
+        if ( usuarios.length == 0 ){
+            this.mensagemRetorno = 'Usuario não encontrado';
+        } 
+        if ( usuarios.length == 1 ){
+          this.navCtrl.setRoot(BarcosPesquisaPage);
+          let user = usuarios[0];
+          localStorage['usuarioSessao'] = user.id;
+        }         
+        
+      }, (error: any) => {
+        this.logger.error('LoginPage :: realizarLogin ::usuarioService :: error :: ', error);
       });
-      */
     } 
     else {
       this.logger.error('LoginPage :: realizarLogin :: form invalido'); 
     }
+  }
 
+  public goCriarConta(){
+    this.logger.info('LoginPage :: goCriarConta ::');
+    this.navCtrl.push(UsuarioCreatePage);
   }
 
   showAlert() {

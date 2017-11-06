@@ -8,8 +8,8 @@ export interface PlanoReservabarcoInterface {
   "valorAluguel": number;
   "diaSemana"?: string;
   "dataEspecifica"?: Date;
-  "horaInicioDisponivel"?: Date;
-  "horaFimDisponivel"?: Date;
+  "horaInicioDisponivel"?: number;
+  "horaFimDisponivel"?: number;
   "quantidadeHorasDisponiveis"?: number;
   "status": string;
   "id"?: number;
@@ -20,8 +20,8 @@ export class PlanoReservabarco implements PlanoReservabarcoInterface {
   "valorAluguel": number;
   "diaSemana": string;
   "dataEspecifica": Date;
-  "horaInicioDisponivel": Date;
-  "horaFimDisponivel": Date;
+  "horaInicioDisponivel": number;
+  "horaFimDisponivel": number;
   "quantidadeHorasDisponiveis": number;
   "status": string;
   "id": number;
@@ -57,6 +57,7 @@ export class PlanoReservabarco implements PlanoReservabarcoInterface {
       name: 'PlanoReservabarco',
       plural: 'planoreservabarcos',
       path: 'planoreservabarcos',
+      idName: 'id',
       properties: {
         "valorAluguel": {
           name: 'valorAluguel',
@@ -72,11 +73,11 @@ export class PlanoReservabarco implements PlanoReservabarcoInterface {
         },
         "horaInicioDisponivel": {
           name: 'horaInicioDisponivel',
-          type: 'Date'
+          type: 'number'
         },
         "horaFimDisponivel": {
           name: 'horaFimDisponivel',
-          type: 'Date'
+          type: 'number'
         },
         "quantidadeHorasDisponiveis": {
           name: 'quantidadeHorasDisponiveis',
@@ -95,7 +96,10 @@ export class PlanoReservabarco implements PlanoReservabarcoInterface {
         reservaBarcos: {
           name: 'reservaBarcos',
           type: 'ReservaBarco[]',
-          model: 'ReservaBarco'
+          model: 'ReservaBarco',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'planoreservabarcoId'
         },
       }
     }
