@@ -21,7 +21,8 @@ export class UsuarioCreatePage {
   public nome: AbstractControl;
   public login: AbstractControl;
   public password: AbstractControl;
-  public confirmaPassword: AbstractControl;  
+  public confirmaPassword: AbstractControl; 
+  public dataNascimento: AbstractControl;  
   public email: AbstractControl;
   public status: AbstractControl;
   public perfil: AbstractControl;
@@ -45,6 +46,7 @@ export class UsuarioCreatePage {
         login: ["", Validators.required],
         password: ["", Validators.required],
         confirmaPassword: ["", Validators.required],
+        dataNascimento: ["", Validators.required],        
         email: ["", Validators.required],
         perfil: ["", Validators.required],
         cpf: ["", Validators.required]
@@ -64,7 +66,6 @@ export class UsuarioCreatePage {
       this.logger.info('UsuarioCreatePage :: cadastrarUsuario :: usuario ', this.usuario);
       this.usuario.status = 'criado';
       this.usuario.dataCadastro = new Date();
-      this.usuario.dataNascimento = new Date();
       this.usuario.dataUltimaAtualizacao = new Date();
       this.usuarioService.create(this.usuario).subscribe( sucesso => {
         this.logger.info('UsuarioCreatePage :: cadastrarUsuario :: usuarioService.create() :: sucesso :: ', sucesso);
@@ -80,8 +81,6 @@ export class UsuarioCreatePage {
   }
 
 
-  
-
   public limpaForm(): void {
     this.logger.info('UsuarioCreatePage :: limpaForm :: inicio');
 
@@ -90,6 +89,7 @@ export class UsuarioCreatePage {
     this.login = new FormControl('', Validators.required);
     this.password = new FormControl('', Validators.required);
     this.confirmaPassword = new FormControl('', Validators.required);
+    this.dataNascimento = new FormControl('', Validators.required);    
     this.email = new FormControl('', Validators.required);
     this.perfil = new FormControl('', Validators.required);
     this.cpf = new FormControl('', Validators.required);
@@ -100,6 +100,7 @@ export class UsuarioCreatePage {
       login: this.login, 
       password: this.password, 
       confirmaPassword: this.confirmaPassword, 
+      dataNascimento: this.dataNascimento,
       email: this.email, 
       perfil: this.perfil,
       cpf: this.cpf

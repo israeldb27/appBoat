@@ -50,7 +50,7 @@
           
           <ion-item>
               <ion-label stacked color="primary">Confirma Password</ion-label>
-              <ion-input formControlName="confirmaPassword" type="text" required>
+              <ion-input formControlName="confirmaPassword" type="password" required>
               </ion-input>
           </ion-item> 
           <p ion-text [hidden]="confirmaPassword.valid || submitted == false" color="danger" padding-left>
@@ -67,9 +67,20 @@
           </p>
 
           <ion-item>
+            <ion-label stacked color="primary">Data de Nascimento</ion-label>
+            <ion-input formControlName="dataNascimento" [(ngModel)]="usuario.dataNascimento" type="date" required>
+            </ion-input>
+        </ion-item>  
+        <p ion-text [hidden]="dataNascimento.valid || submitted == false" color="danger" padding-left>
+            Campo é obrigatório
+        </p>
+
+          <ion-item>
               <ion-label stacked color="primary">Perfil</ion-label>
-              <ion-input formControlName="perfil" [(ngModel)]="usuario.perfil" type="text" required>
-              </ion-input>
+              <ion-select [(ngModel)]="usuario.perfil" formControlName="perfil" >
+                <ion-option value="comum">Usuário Comum</ion-option>
+                <ion-option value="donoBarco">Dono de Barco</ion-option>
+              </ion-select>   
           </ion-item>  
           <p ion-text [hidden]="perfil.valid || submitted == false" color="danger" padding-left>
               Campo é obrigatório

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Usuario, UsuarioApi, LoggerService } from "../../../app/shared/angular-client/index";
-import { LoopBackConfig } from "../../../app/shared/angular-client"
+import { LoopBackConfig, LoopBackFilter } from "../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
 
@@ -16,12 +16,14 @@ export class ContaEditPage {
     usuario: Usuario;
     usuarioForm: FormGroup;
     public submitted: boolean;
+    public podeEditar: boolean;
   
     public id: AbstractControl;
     public nome: AbstractControl;
     public login: AbstractControl;
     public password: AbstractControl;
-    public confirmaPassword: AbstractControl;  
+    public confirmaPassword: AbstractControl; 
+    public dataNascimento: AbstractControl;
     public email: AbstractControl;
     public status: AbstractControl;
     public perfil: AbstractControl;
@@ -38,6 +40,7 @@ export class ContaEditPage {
 
         this.submitted = false;
         this.usuario = new Usuario();
+        this.podeEditar = false;
         
         this.usuarioForm = formBuilder.group({
           nome: ["", Validators.required],
@@ -46,6 +49,7 @@ export class ContaEditPage {
           confirmaPassword: ["", Validators.required],
           email: ["", Validators.required],
           perfil: ["", Validators.required],
+          dataNascimento: ["", Validators.required],          
           cpf: ["", Validators.required]
         });
                 
@@ -60,6 +64,32 @@ export class ContaEditPage {
     let id: any;
     id = localStorage['usuarioSessao'];
     this.logger.info(' ContaEditPage :: usuarioSessao :: ', id);
+
+    let filtro: LoopBackFilter = {
+      "where": {
+        "and": [
+          {
+            "id": id              
+          }
+        ]      
+      }
+    };
+
+    this.usuarioService.find(filtro).subscribe((usuarios: Usuario[]) => { 
+      this.logger.info('LoginPage :: realizarLogin ::usuarioService.find :: sucesso :: ', usuarios);
+      if ( usuarios.length == 0 ){
+         // this.mensagemRetorno = 'Usuario não encontrado';
+      } 
+      if ( usuarios.length == 1 ){    
+        let user = usuarios[0];
+        this.usuario = user;
+        this.podeEditar = false;
+      }         
+      
+    }, (error: any) => {
+      this.logger.error('LoginPage :: realizarLogin ::usuarioService :: error :: ', error);
+    });
+
   }
 
   public limpaForm(): void {
@@ -73,6 +103,7 @@ export class ContaEditPage {
     this.email = new FormControl('', Validators.required);
     this.perfil = new FormControl('', Validators.required);
     this.cpf = new FormControl('', Validators.required);
+    this.dataNascimento = new FormControl('', Validators.required);    
 
     this.usuarioForm = new FormGroup({
       id: this.id,
@@ -82,10 +113,16 @@ export class ContaEditPage {
       confirmaPassword: this.confirmaPassword, 
       email: this.email, 
       perfil: this.perfil,
+      dataNascimento: this.dataNascimento,
       cpf: this.cpf
     });
     
     this.usuarioForm.reset(); 
+  }
+
+  public goEditarConta(habilitaEditar: boolean){
+    this.logger.info('ContaDetailPage :: goEditarConta'); 
+    this.podeEditar = habilitaEditar;
   }
 
   logado(): Usuario {

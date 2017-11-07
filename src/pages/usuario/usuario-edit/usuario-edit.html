@@ -1,18 +1,131 @@
-<!--
-  Generated template for the UsuarioEditPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>usuario-edit</ion-title>
+    <ion-title>Editar Conta</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+    <form [formGroup]="usuarioForm" novalidate>
+        <ion-list no-lines>
+            <ion-item [hidden]="podeEditar">
+              <h2>Nome</h2>
+              <p>{{usuario.nome}}</p>
+            </ion-item>
+            <ion-item [hidden]="!podeEditar">      
+              <ion-label stacked color="primary">Nome</ion-label>
+              <ion-input type="text" formControlName="nome" [(ngModel)]="usuario.nome" spellcheck="false" autocapitalize="off" required>
+              </ion-input>
+            </ion-item>
+          <p ion-text [hidden]="nome.valid || submitted == false" color="danger" padding-left>
+            Campo é obrigatório
+          </p>
+    
+           <ion-item [hidden]="podeEditar">
+              <h2>Login</h2>
+              <p>{{usuario.login}}</p>
+            </ion-item>
+            <ion-item [hidden]="!podeEditar">  
+              <ion-label stacked color="primary">Login</ion-label>
+              <ion-input formControlName="login" [(ngModel)]="usuario.login" type="text" required>
+              </ion-input>
+           </ion-item>
+            <p ion-text [hidden]="login.valid || submitted == false" color="danger" padding-left>
+                Campo é obrigatório
+            </p>
+    
+            <ion-item [hidden]="podeEditar">
+                <h2>Email</h2>
+                <p>{{usuario.email}}</p>
+            </ion-item>
+            <ion-item [hidden]="!podeEditar"> 
+              <ion-label stacked color="primary">Email</ion-label>
+              <ion-input formControlName="email" [(ngModel)]="usuario.email" type="text" required>
+              </ion-input>
+          </ion-item>  
+          <p ion-text [hidden]="email.valid || submitted == false" color="danger" padding-left>
+              Campo é obrigatório
+          </p>
+
+          <ion-item [hidden]="podeEditar">
+              <h2>Password</h2>
+              <p>{{usuario.password}}</p>
+          </ion-item>
+          <ion-item [hidden]="!podeEditar"> 
+              <ion-label stacked color="primary">Password</ion-label>
+              <ion-input formControlName="password" [(ngModel)]="usuario.password" type="password" required>
+              </ion-input>
+          </ion-item> 
+          <p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
+              Campo é obrigatório
+          </p>
+          
+          <ion-item [hidden]="podeEditar">
+              <h2>Confirma Password</h2>
+              <p>{{usuario.confirmaPassword}}</p>
+          </ion-item>
+          <ion-item [hidden]="!podeEditar"> 
+              <ion-label stacked color="primary">Confirma Password</ion-label>
+              <ion-input formControlName="confirmaPassword" type="password" required>
+              </ion-input>
+          </ion-item> 
+          <p ion-text [hidden]="confirmaPassword.valid || submitted == false" color="danger" padding-left>
+              Campo é obrigatório
+          </p>
+
+          <ion-item [hidden]="podeEditar">
+              <h2>CPF</h2>
+              <p>{{usuario.cpf}}</p>
+          </ion-item>
+          <ion-item [hidden]="!podeEditar"> 
+              <ion-label stacked color="primary">CPF</ion-label>
+              <ion-input formControlName="cpf" [(ngModel)]="usuario.cpf" type="text" required>
+              </ion-input>
+          </ion-item>  
+          <p ion-text [hidden]="cpf.valid || submitted == false" color="danger" padding-left>
+              Campo é obrigatório
+          </p>
+
+          <ion-item [hidden]="podeEditar">
+              <h2>Data de Nascimento</h2>
+              <p>{{usuario.dataNascimento}}</p>
+          </ion-item>
+          <ion-item [hidden]="!podeEditar"> 
+            <ion-label stacked color="primary">Data de Nascimento</ion-label>
+            <ion-input formControlName="dataNascimento" [(ngModel)]="usuario.dataNascimento" type="date" required>
+            </ion-input>
+        </ion-item>  
+        <p ion-text [hidden]="dataNascimento.valid || submitted == false" color="danger" padding-left>
+            Campo é obrigatório
+        </p>
+
+          <ion-item [hidden]="podeEditar">
+              <h2>Perfil</h2>
+              <p>{{usuario.perfil}}</p>
+          </ion-item>
+          <ion-item [hidden]="!podeEditar"> 
+              <ion-label stacked color="primary">Perfil</ion-label>
+              <ion-select [(ngModel)]="usuario.perfil" formControlName="perfil" >
+                <ion-option value="comum">Usuário Comum</ion-option>
+                <ion-option value="donoBarco">Dono de Barco</ion-option>
+              </ion-select>   
+          </ion-item>  
+          <p ion-text [hidden]="perfil.valid || submitted == false" color="danger" padding-left>
+              Campo é obrigatório
+          </p>
+          
+
+      </ion-list>
+
+      <ion-row responsive-sm>          
+          <ion-col>
+            <button ion-button (click)="cadastrarUsuario(usuarioForm)" type="submit" block>Criar</button>
+          </ion-col>
+      </ion-row>
+
+    </form>
 
 </ion-content>

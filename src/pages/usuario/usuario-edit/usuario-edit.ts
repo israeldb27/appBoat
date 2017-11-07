@@ -11,6 +11,8 @@ import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
 })
 export class UsuarioEditPage {
 
+  public podeEditar: boolean;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public usuarioService: UsuarioApi,
@@ -19,11 +21,13 @@ export class UsuarioEditPage {
       this.logger.info('UsuarioEditPage :: constructor');            
       LoopBackConfig.setBaseURL(BASE_URL);
       LoopBackConfig.setApiVersion(API_VERSION);  
+
+      this.podeEditar = false;
   }
 
   ionViewDidLoad() {
     this.logger.info('ionViewDidLoad UsuarioEditPage');
-    this.logger.info('UsuarioEditPage :: usuarioSessao', this.logado);
+    this.logger.info('UsuarioEditPage :: usuarioSessao id', this.logado);
   }
 
   logado(): any {

@@ -13,7 +13,7 @@ export interface UsuarioInterface {
   "email": string;
   "status": string;
   "perfil": string;
-  "cpf": number;
+  "cpf": string;
   "dataCadastro": Date;
   "dataNascimento": Date;
   "dataUltimaAtualizacao": Date;
@@ -33,7 +33,7 @@ export class Usuario implements UsuarioInterface {
   "email": string;
   "status": string;
   "perfil": string;
-  "cpf": number;
+  "cpf": string;
   "dataCadastro": Date;
   "dataNascimento": Date;
   "dataUltimaAtualizacao": Date;
@@ -103,7 +103,7 @@ export class Usuario implements UsuarioInterface {
         },
         "cpf": {
           name: 'cpf',
-          type: 'number'
+          type: 'string'
         },
         "dataCadastro": {
           name: 'dataCadastro',
