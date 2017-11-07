@@ -5,6 +5,8 @@ import { LoopBackConfig } from "../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
 
+import { EmailValidator } from '../../../services/EmailValidador';
+
 
 @IonicPage()
 @Component({
@@ -47,7 +49,10 @@ export class UsuarioCreatePage {
         password: ["", Validators.required],
         confirmaPassword: ["", Validators.required],
         dataNascimento: ["", Validators.required],        
-        email: ["", Validators.required],
+   //     email: ["", Validators.required],
+        email: ["", Validators.compose([  
+                        Validators.required,
+                        EmailValidator.validate])],
         perfil: ["", Validators.required],
         cpf: ["", Validators.required]
       });
