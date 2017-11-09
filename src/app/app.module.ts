@@ -9,27 +9,31 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { BarcosMeusPage } from '../pages/barcos/barcos-meus/barcos-meus';
-import { BarcosPesquisaPage } from '../pages/barcos/barcos-pesquisa/barcos-pesquisa';
-import { BarcosPresentFilterPage } from '../pages/barcos/barcos-present-filter/barcos-present-filter';
-import { BarcosResultadoPesquisaPage } from '../pages/barcos/barcos-resultado-pesquisa/barcos-resultado-pesquisa';
-import { BarcosResultadoPesquisaDetailPage } from '../pages/barcos/barcos-resultado-pesquisa-detail/barcos-resultado-pesquisa-detail';
+import { BarcosMeusPage } from '../pages/barcos/dono-barco/barcos-meus/barcos-meus';
+import { BarcosMeusDetailPage } from '../pages/barcos/dono-barco/barcos-meus-detail/barcos-meus-detail';
 
-import { BarcosDetailPage } from '../pages/barcos/barcos-detail/barcos-detail';
-import { BarcosCreatePage } from '../pages/barcos/barcos-create/barcos-create';
+import { BarcosPesquisaPage } from '../pages/barcos/usuario-comum/barcos-pesquisa/barcos-pesquisa';
+import { BarcosPresentFilterPage } from '../pages/barcos/usuario-comum/barcos-present-filter/barcos-present-filter';
+import { BarcosResultadoPesquisaPage } from '../pages/barcos/usuario-comum/barcos-resultado-pesquisa/barcos-resultado-pesquisa';
+import { BarcosResultadoPesquisaDetailPage } from '../pages/barcos/usuario-comum/barcos-resultado-pesquisa-detail/barcos-resultado-pesquisa-detail';
 
-import { BarcosSolicitarReservaPage } from '../pages/barcos/barcos-solicitar-reserva/barcos-solicitar-reserva';
+import { BarcosDetailPage } from '../pages/barcos/usuario-comum/barcos-detail/barcos-detail';
+
+import { BarcosCreatePage } from '../pages/barcos/dono-barco/barcos-create/barcos-create';
+
+import { BarcosSolicitarReservaPage } from '../pages/barcos/usuario-comum/barcos-solicitar-reserva/barcos-solicitar-reserva';
 
 import { ContaDetailPage } from '../pages/conta/conta-detail/conta-detail';
-import { ContaEditPage } from '../pages/conta/conta-edit/conta-edit';
 
 import { LoginPage } from '../pages/usuario/login/login';
 import { LogoutPage } from '../pages/usuario/logout/logout';
 import { UsuarioCreatePage } from '../pages/usuario/usuario-create/usuario-create';
 
-import { PagamentosListPage } from '../pages/pagamentos/pagamentos-list/pagamentos-list';
-import { PagamentosMeusPage } from '../pages/pagamentos/pagamentos-meus/pagamentos-meus';
-import { PagamentosDetailPage } from '../pages/pagamentos/pagamentos-detail/pagamentos-detail';
+import { PagamentosListPage } from '../pages/pagamentos/dono-barco/pagamentos-list/pagamentos-list';
+import { PagamentosDetailPage } from '../pages/pagamentos/dono-barco/pagamentos-detail/pagamentos-detail';
+
+import { PagamentosMeusPage } from '../pages/pagamentos/usuario-comum/pagamentos-meus/pagamentos-meus';
+
 
 import { ReservasPlanejamentoListPage } from '../pages/reservas/dono-barco/reservas-planejamento/reservas-planejamento-list/reservas-planejamento-list';
 import { ReservasPlanejamentoCreatePage } from '../pages/reservas/dono-barco/reservas-planejamento/reservas-planejamento-create/reservas-planejamento-create';
@@ -42,9 +46,12 @@ import { ReservasListPage } from '../pages/reservas/usuario-comum/reservas-list/
 import { ReservasDetailPage } from '../pages/reservas/usuario-comum/reservas-detail/reservas-detail';
 import { ReservasPagamentoPage } from '../pages/reservas/usuario-comum/reservas-pagamento/reservas-pagamento';
 
-import { OpcionaisListPage } from '../pages/barcos/opcionais/opcionais-list/opcionais-list';
-import { OpcionaisCreatePage } from '../pages/barcos/opcionais/opcionais-create/opcionais-create';
-import { OpcionaisDetailPage } from '../pages/barcos/opcionais/opcionais-detail/opcionais-detail';
+import { OpcionaisListPage } from '../pages/barcos/dono-barco/opcionais/opcionais-list/opcionais-list';
+import { OpcionaisCreatePage } from '../pages/barcos/dono-barco/opcionais/opcionais-create/opcionais-create';
+import { OpcionaisDetailPage } from '../pages/barcos/dono-barco/opcionais/opcionais-detail/opcionais-detail';
+
+import { AvaliacaoBarcoCreatePage } from '../pages/avaliacao-barco/avaliacao-barco-create/avaliacao-barco-create';
+import { AvaliacaoBarcoListPage } from '../pages/avaliacao-barco/avaliacao-barco-list/avaliacao-barco-list';
 
 import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 
@@ -62,8 +69,7 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     BarcosResultadoPesquisaDetailPage,
     BarcosDetailPage,
     BarcosCreatePage,
-    ContaDetailPage,
-    ContaEditPage,
+    ContaDetailPage,    
     PagamentosListPage,
     PagamentosMeusPage,
     PagamentosDetailPage,
@@ -82,7 +88,9 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     OpcionaisListPage,
     OpcionaisCreatePage,
     OpcionaisDetailPage,
-    BarcosSolicitarReservaPage
+    BarcosSolicitarReservaPage,
+    AvaliacaoBarcoCreatePage,
+    AvaliacaoBarcoListPage
   ],
   imports: [
     BrowserModule,
@@ -101,8 +109,7 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     BarcosResultadoPesquisaDetailPage,
     BarcosDetailPage,
     BarcosCreatePage,
-    ContaDetailPage,
-    ContaEditPage,
+    ContaDetailPage,    
     PagamentosListPage,
     PagamentosMeusPage,
     PagamentosDetailPage,
@@ -121,7 +128,9 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     OpcionaisListPage,
     OpcionaisCreatePage,
     OpcionaisDetailPage,
-    BarcosSolicitarReservaPage 
+    BarcosSolicitarReservaPage,
+    AvaliacaoBarcoCreatePage,
+    AvaliacaoBarcoListPage
   ],
   providers: [
     StatusBar,

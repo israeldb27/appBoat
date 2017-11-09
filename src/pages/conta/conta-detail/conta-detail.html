@@ -1,15 +1,13 @@
 
-<ion-header>     
-  
-    <ion-buttons end>      
-          <button ion-button color="primary" icon-start (click)="goEditarConta(true)">
-            <ion-icon name="create"></ion-icon>
-            <span hideWhen="portrait">Editar</span>
-          </button>    
-   </ion-buttons>
-    
+<ion-header>        
     <ion-navbar>
       <ion-title>Editar Conta</ion-title>
+      <ion-buttons end>      
+            <button ion-button color="primary" icon-start (click)="goEditarConta(true)">
+            <ion-icon name="create"></ion-icon>
+            <span hideWhen="portrait">Editar</span>
+            </button>    
+      </ion-buttons>
     </ion-navbar>
   
   </ion-header>
@@ -127,7 +125,7 @@
                 </ion-list> 
           
               </form>
-        <ion-row responsive-sm>  
+        <ion-row responsive-sm [hidden]="!podeEditar">   
             <ion-col>
                 <button ion-button (click)="cancelarEditarConta()" color="light" block>Cancelar</button>
               </ion-col>         

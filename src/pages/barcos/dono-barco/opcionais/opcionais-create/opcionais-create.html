@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Adicionar Opcional</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <form [formGroup]="opcionalForm" novalidate>
+        <ion-list no-lines>
+          <ion-item>
+            <ion-label stacked color="primary">Nome</ion-label>
+            <ion-input type="text" formControlName="nome" [(ngModel)]="opcional.nome" spellcheck="false" autocapitalize="off" required>
+            </ion-input>
+          </ion-item>
+          <p ion-text [hidden]="nome.valid || submitted == false" color="danger" padding-left>
+            Campo é obrigatório
+          </p>
+    
+          <ion-item>
+            <ion-label stacked color="primary">Descrição</ion-label>
+            <ion-input formControlName="descricao" [(ngModel)]="opcional.descricao" type="text" >
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+              <ion-label stacked color="primary">Observação</ion-label>
+              <ion-input formControlName="observacao" [(ngModel)]="opcional.observacao" type="text" >
+              </ion-input>
+            </ion-item>
+        </ion-list>
+
+        <ion-row responsive-sm>
+            <ion-col>
+              <button ion-button (click)="cancelarCadastroOpcional()" color="light" block>Cancelar</button>
+            </ion-col>
+            <ion-col>
+              <button ion-button (click)="cadastrarOpcional(opcionalForm)" type="submit" block>Criar</button>
+            </ion-col>
+          </ion-row>
+
+    </form>  
+
+</ion-content>

@@ -6,23 +6,23 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
-import { BarcosMeusPage } from '../pages/barcos/barcos-meus/barcos-meus';
-import { BarcosPesquisaPage } from '../pages/barcos/barcos-pesquisa/barcos-pesquisa';
+import { BarcosMeusPage } from '../pages/barcos/dono-barco/barcos-meus/barcos-meus';
+import { BarcosPesquisaPage } from '../pages/barcos/usuario-comum/barcos-pesquisa/barcos-pesquisa';
 
 import { ContaDetailPage } from '../pages/conta/conta-detail/conta-detail';
 
 import { LogoutPage } from '../pages/usuario/logout/logout';
 import { LoginPage } from '../pages/usuario/login/login';
 
-import { PagamentosListPage } from '../pages/pagamentos/pagamentos-list/pagamentos-list';
-import { PagamentosMeusPage } from '../pages/pagamentos/pagamentos-meus/pagamentos-meus';
+import { PagamentosListPage } from '../pages/pagamentos/dono-barco/pagamentos-list/pagamentos-list';
+import { PagamentosMeusPage } from '../pages/pagamentos/usuario-comum/pagamentos-meus/pagamentos-meus';
 
 import { ReservasPlanejamentoListPage } from '../pages/reservas/dono-barco/reservas-planejamento/reservas-planejamento-list/reservas-planejamento-list';
 import { ReservasSolicitadasListPage } from '../pages/reservas/dono-barco/reservas-solicitadas/reservas-solicitadas-list/reservas-solicitadas-list';
 
 import { ReservasListPage } from '../pages/reservas/usuario-comum/reservas-list/reservas-list';
 
-import { OpcionaisListPage } from '../pages/barcos/opcionais/opcionais-list/opcionais-list';
+import { OpcionaisListPage } from '../pages/barcos/dono-barco/opcionais/opcionais-list/opcionais-list';
 
 import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 
