@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { PlanoReservabarco, PlanoReservabarcoApi, LoggerService } from "../../../../../app/shared/angular-client/index";
+import { PlanoReservabarco, PlanoReservabarcoApi, Barco, LoggerService } from "../../../../../app/shared/angular-client/index";
 import { LoopBackConfig } from "../../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { ReservasPlanejamentoListPage } from '../reservas-planejamento-list/reservas-planejamento-list';
+import { ReservasPlanejamentoCreatePage } from '../reservas-planejamento-create/reservas-planejamento-create';
 /**
  * Descricao:  Permite ao dono do barco visualizar os detalhes as 
  *             informações de uma plano de reserva de barco que ele criou
+ * 
+ *  Obs.: Cada barco vai ter no maximo um único plano reserva ativo
+ *  Obs.: O "reservas-planejamento-list" vai armazenar o historico de planos de reservas anteriores
+ *        criados para barcos, isto é, planos de reserva não ativos.
  * 
  */
 
@@ -25,6 +30,8 @@ export class ReservasPlanejamentoDetailPage {
   submitted = false;
   planoReservabarcoForm: FormGroup;
   podeEditar: boolean = false;
+
+  public barco: Barco;
 
   public id: AbstractControl;
   public valorAluguel: AbstractControl;
@@ -52,9 +59,27 @@ export class ReservasPlanejamentoDetailPage {
           });
 
           this.planoReservabarco = new PlanoReservabarco();
-          this.planoReservabarcoTemporario = new PlanoReservabarco();          
+          this.planoReservabarcoTemporario = new PlanoReservabarco();   
+          this.barco = new Barco();       
           this.limparForm();
+          this.carregarDetalhesBarco();
           this.carregaDetalhePlanoReservaBarco();
+  }
+
+  public goListarPlano(){
+    this.logger.info('ReservasPlanejamentoDetailPage :: goListarPlano '); 
+    this.navCtrl.push(ReservasPlanejamentoListPage,{ barco: this.barco});
+  }
+
+  public goCriarNovoPlano(){
+    this.logger.info('ReservasPlanejamentoDetailPage :: goCriarNovoPlano :: barco selecionado :: ', this.barco); 
+    this.navCtrl.push(ReservasPlanejamentoCreatePage, {barco: this.barco})
+  }
+
+  public carregarDetalhesBarco(){
+    this.logger.info('ReservasPlanejamentoDetailPage :: carregarDetalhesBarco'); 
+    this.barco = this.navParams.get('barco');
+    this.logger.info('ReservasPlanejamentoDetailPage :: carregarDetalhesBarco :: barco selecionado :: ', this.barco); 
   }
 
   public goExcluirReserva() {
@@ -154,15 +179,14 @@ export class ReservasPlanejamentoDetailPage {
     let where = {
       id: this.planoReservabarco.id
     }; 
-
-    /*    
+      
     this.planoReservabarcoService.upsertWithWhere(where, this.planoReservabarco).subscribe( sucesso => {    
       this.logger.info('ReservasPlanejamentoPage :: salvarPlanoReservaBarco :: planoReservabarcoService.create() :: sucesso :: ', sucesso);
       //this.navCtrl.push(BarcosMeusPage);         
     }, (error: any) => {
       this.logger.error('ReservasPlanejamentoPage :: salvarPlanoReservaBarco :: planoReservabarcoService.create() :: error :: ', error);        
     });
-    */
+    
   }  
   else {
     this.logger.info('ReservasPlanejamentoPage :: salvarPlanoReservaBarco :: form invalido');

@@ -47,24 +47,24 @@ export class AvaliacaoBarcoCreatePage {
   }
 
   public cadastrarAvaliacaoBarco(): void {
-    
-          this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco'); 
-          
-          this.submitted = true;
-          
-          if ( this.avaliacaobarcoForm.valid ){        
-            this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco :: form validado OK');
-            this.avaliacaobarcoService.create(this.avaliacaobarco).subscribe( sucesso => {
-              this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco :: avaliacaobarcoService.create() :: sucesso :: ', sucesso);
-              //this.navCtrl.push(BarcosMeusPage);         
-            }, (error: any) => {
-              this.logger.error('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco :: avaliacaobarcoService.create() :: error :: ', error);        
-            });            
-          }  
-          else {
-            this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco :: form invalido');
-          }
-      }
+
+        this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco'); 
+        
+        this.submitted = true;
+        
+        if ( this.avaliacaobarcoForm.valid ){        
+          this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco :: form validado OK');
+          this.avaliacaobarcoService.create(this.avaliacaobarco).subscribe( sucesso => {
+            this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco :: avaliacaobarcoService.create() :: sucesso :: ', sucesso);
+            //this.navCtrl.push(BarcosMeusPage);         
+          }, (error: any) => {
+            this.logger.error('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco :: avaliacaobarcoService.create() :: error :: ', error);        
+          });            
+        }  
+        else {
+          this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco :: form invalido');
+        }
+    }
 
   public limpaForm(){
     this.logger.info('AvaliacaoBarcoCreatePage :: limpaForm');

@@ -2,12 +2,121 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>reservas-detail</ion-title>
+    <ion-title>Detalhes Reserva</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+    <form [formGroup]="reservaBarcoForm" novalidate>
+        <ion-list no-lines>
+            <ion-item>
+                <h2>Status Reserva</h2>
+                <p>{{reservaBarco.statusReserva}}</p>
+            </ion-item>
+
+            <ion-item>
+              <h2>Data Solicitação</h2>
+              <p>{{reservaBarco.dataSolicitacao}}</p>
+            </ion-item>
+
+            <ion-item>
+                <h2>Data Pagamento</h2>
+                <p>{{reservaBarco.dataPagamento}}</p>
+            </ion-item>
+            
+            <ion-item>
+                <h2>Data Reserva</h2>
+                <p>{{reservaBarco.dataReservaBarco}}</p>
+            </ion-item>
+    
+            <ion-item>
+                <h2>Data Cancelamento</h2>
+                <p>{{reservaBarco.dataCancelamento}}</p>
+            </ion-item>
+            
+            <ion-item>
+                <h2>Data Última Atualização</h2>
+                <p>{{reservaBarco.dataUltimaAtualizacao}}</p>
+            </ion-item>
+        </ion-list>
+    </form>
+
+    <hr>
+
+    <ion-list no-lines>        
+        <ion-item >
+          <h2>Nome</h2>
+          <p>{{barco.nome}}</p>
+        </ion-item>      
+
+        <ion-item >
+            <h2>Cor</h2>
+            <p>{{barco.cor}}</p>
+        </ion-item>        
+
+        <ion-item >
+            <h2>Capacidade Pessoas</h2>
+            <p>{{barco.capacidadePessoas}}</p>
+        </ion-item>  
+
+        <ion-item >
+            <h2>Velocidade</h2>
+            <p>{{barco.velocidade}}</p>
+        </ion-item>     
+
+        <ion-item >
+            <h2>Autonomia</h2>
+            <p>{{barco.autonomia}}</p>
+        </ion-item>    
+
+        <ion-item >
+            <h2>Comprimento</h2>
+            <p>{{barco.comprimento}}</p>
+        </ion-item>   
+
+        <ion-item >
+            <h2>Tipo Casco</h2>
+            <p>{{barco.tipoCasco}}</p>
+        </ion-item>
+            
+        <ion-item >
+            <h2>Tipo Combustivel</h2>
+            <p>{{barco.tipoCombustivel}}</p>
+        </ion-item>
+     
+        <ion-item >
+            <h2>Capacidade Combustivel</h2>
+            <p>{{barco.capacidadeCombustivel}}</p>
+        </ion-item>
+  
+        <ion-item >
+            <h2>Quantidade Cabines</h2>
+            <p>{{barco.quantidadeCabines}}</p>
+        </ion-item>
+      
+        <ion-item >
+            <h2>Motor</h2>
+            <p>{{barco.motor}}</p>
+        </ion-item>
+
+        <ion-item >
+            <h2>pes</h2>
+            <p>{{barco.pes}}</p>
+        </ion-item>
+      
+        <ion-item >
+            <h2>Descricao</h2>
+            <p>{{barco.descricao}}</p>
+        </ion-item>  
+      </ion-list>  
+
+      <ion-row responsive-sm >   
+          <ion-col>
+              <button ion-button (click)="goVoltar()" color="light" block>Voltar</button>
+            </ion-col>                   
+      </ion-row>
 
 </ion-content>

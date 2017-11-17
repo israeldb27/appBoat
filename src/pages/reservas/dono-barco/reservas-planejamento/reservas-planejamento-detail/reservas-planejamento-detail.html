@@ -69,10 +69,16 @@
   
           <ion-row responsive-sm>
               <ion-col>
+                  <button ion-button (click)="goListarPlano()" type="submit" block>Listar Planos</button>
+                </ion-col>
+              <ion-col>
                 <button ion-button (click)="cancelarEdicaoPlanoReservaBarco()" color="light" block>Cancelar</button>
               </ion-col>
               <ion-col>
                 <button ion-button (click)="salvarPlanoReservaBarco(planoReservabarcoForm)" type="submit" block>Salvar</button>
+              </ion-col>
+              <ion-col>
+                <button ion-button (click)="goCriarNovoPlano()" type="submit" block>Criar Plano</button>
               </ion-col>
           </ion-row>
       </form>

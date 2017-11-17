@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ReservaBarco, ReservaBarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
-import { LoopBackConfig } from "../../../../app/shared/angular-client"
+import { LoopBackConfig,LoopBackFilter } from "../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
 
 import { ReservasDetailPage } from "../reservas-detail/reservas-detail";
@@ -14,6 +14,7 @@ import { ReservasDetailPage } from "../reservas-detail/reservas-detail";
 export class ReservasListPage {
 
   reservaBarcos: ReservaBarco[];
+  usuarioSolicitanteId: any;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -31,9 +32,24 @@ export class ReservasListPage {
   public listarReservas() {
 
     this.logger.info('ReservasListPage :: listarReservas');
-    this.reservaBarcoService.find().subscribe( (reservaBarcos: ReservaBarco[]) => {
+    
+    this.usuarioSolicitanteId = localStorage['usuarioSessao'];
+    this.logger.info(' ReservasListPage :: usuarioSessaoId :: ', this.usuarioSolicitanteId);
+    
+      let filtro: LoopBackFilter = {
+        "where": {
+          "and": [
+            {
+              "this.usuarioSolicitanteId": this.usuarioSolicitanteId              
+            }
+          ]      
+        }
+      };
+
+    this.reservaBarcoService.find(filtro).subscribe( (reservaBarcos: ReservaBarco[]) => {
       this.reservaBarcos = reservaBarcos;
-    }, (error: any) => {
+      this.logger.info('ReservasListPage :: listarReservas :: OK ;; resultado ', this.reservaBarcos);
+    }, (error: any) => {      
       this.logger.error('ReservasListPage :: listarReservas :: reservaBarcoService.find :: error :: ', error);
     });
   }

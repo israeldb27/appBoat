@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { PlanoReservabarco,  PlanoReservabarcoApi, LoggerService } from "../../../../../app/shared/angular-client/index";
+import { PlanoReservabarco,  PlanoReservabarcoApi, Barco, LoggerService } from "../../../../../app/shared/angular-client/index";
 import { LoopBackConfig } from "../../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -22,6 +22,7 @@ export class ReservasPlanejamentoListPage {
   
   public planoReservabarco: PlanoReservabarco;
   planoReservabarcos: PlanoReservabarco[];
+  public barco: Barco;
 
 
   constructor(public navCtrl: NavController, 
@@ -33,14 +34,25 @@ export class ReservasPlanejamentoListPage {
         this.logger.info('ReservasPlanejamentoListPage :: constructor'); 
         LoopBackConfig.setBaseURL(BASE_URL);
         LoopBackConfig.setApiVersion(API_VERSION);
-
+        this.barco = new Barco();        
         this.planoReservabarco = new PlanoReservabarco();
+        this.carregarDetalhesBarco();
         this.listarPlanoReservaBarco();
+  }
+
+  public carregarDetalhesBarco(){
+    this.logger.info('ReservasPlanejamentoListPage :: carregarDetalhesBarco'); 
+    this.barco = this.navParams.get('barco');
+
+
   }
 
   public listarPlanoReservaBarco(){
     
       this.logger.info('ReservasPlanejamentoListPage :: listarPlanoReservaBarco :: inicio'); 
+      
+      // criar o campo barcoId na tabela PlanoReservabarco e usar o ID  do barco para realizar a pesquisa abaixo
+
       this.planoReservabarcoService.find().subscribe( (planoReservabarcos: PlanoReservabarco[]) => {
         this.planoReservabarcos = planoReservabarcos;
       }, (error: any) => {

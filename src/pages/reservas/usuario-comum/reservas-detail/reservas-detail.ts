@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ReservaBarco, ReservaBarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
-import { LoopBackConfig } from "../../../../app/shared/angular-client"
+import { ReservaBarco, ReservaBarcoApi, Barco, PlanoReservabarco, BarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
+import { LoopBackConfig, LoopBackFilter } from "../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
 
@@ -18,18 +18,24 @@ export class ReservasDetailPage {
   public submitted: boolean;
   reservaBarcoForm: FormGroup;
 
+  public barco: Barco;
+  barcos: Barco[];
+  public planoReservabarco :PlanoReservabarco;
+
   public id: AbstractControl;
   public statusReserva: AbstractControl;  
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              public reservaBarcoService: ReservaBarcoApi,
+              private reservaBarcoService: ReservaBarcoApi, 
+              private barcoService: BarcoApi;
               private logger: LoggerService) {
 
       this.logger.info('ReservasDetailPage :: constructor');          
       LoopBackConfig.setBaseURL(BASE_URL);
       LoopBackConfig.setApiVersion(API_VERSION);
       this.reservaBarco = new ReservaBarco();
+      this.planoReservabarco = new PlanoReservabarco();
       this.visualizarDetalhesReserva();           
   }
 
@@ -38,11 +44,40 @@ export class ReservasDetailPage {
     this.navCtrl.push(ReservasPagamentoPage, {reservaBarco: this.reservaBarco});
   }
 
+  public goVoltar(){
+      this.logger.info('ReservasDetailPage :: goVoltar');
+      this.navCtrl.pop();
+  }
+
 
   public visualizarDetalhesReserva(){
     this.logger.info('ReservasDetailPage :: visualizarDetalhesReserva');
     this.reservaBarco = this.navParams.get('reserVaBarco');
-    this.logger.info('ReservasDetailPage :: visualizarDetalhesReserva :: Reserva Barco Selecionad ');    
+    this.logger.info('ReservasDetailPage :: visualizarDetalhesReserva :: Reserva Barco Selecionad ', this.reservaBarco);    
+
+    
+    let filtro: LoopBackFilter = {
+      "where": {
+        "and": [
+          {
+            "id": this.reservaBarco.barcoId         
+          }
+        ]      
+      }
+    };
+
+    this.barcoService.find(filtro).subscribe((barcos: Barco[]) => { 
+      this.logger.info('ReservasDetailPage :: visualizarDetalhesReserva :: barcoService.find :: sucesso :: ');
+  
+      if ( barcos.length == 1 ){    
+        this.barco = barcos[0];        
+        this.logger.info('ReservasDetailPage :: visualizarDetalhesReserva :: barco selecionado ');
+      }         
+      
+    }, (error: any) => {
+      this.logger.error('LoginPage :: realizarLogin ::usuarioService :: error :: ', error);
+    });
+
   }
 
   public cancelarReservaBarco() {

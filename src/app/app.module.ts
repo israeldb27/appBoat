@@ -53,6 +53,8 @@ import { OpcionaisDetailPage } from '../pages/barcos/dono-barco/opcionais/opcion
 import { AvaliacaoBarcoCreatePage } from '../pages/avaliacao-barco/avaliacao-barco-create/avaliacao-barco-create';
 import { AvaliacaoBarcoListPage } from '../pages/avaliacao-barco/avaliacao-barco-list/avaliacao-barco-list';
 
+import { AvaliacaoDonoBarcoCreatePage } from '../pages/avaliacao-dono-barco/avaliacao-dono-barco-create/avaliacao-dono-barco-create';
+
 import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 
 import { SDKBrowserModule } from './shared/angular-client/index';
@@ -90,7 +92,8 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     OpcionaisDetailPage,
     BarcosSolicitarReservaPage,
     AvaliacaoBarcoCreatePage,
-    AvaliacaoBarcoListPage
+    AvaliacaoBarcoListPage,
+    AvaliacaoDonoBarcoCreatePage
   ],
   imports: [
     BrowserModule,
@@ -130,7 +133,8 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     OpcionaisDetailPage,
     BarcosSolicitarReservaPage,
     AvaliacaoBarcoCreatePage,
-    AvaliacaoBarcoListPage
+    AvaliacaoBarcoListPage,
+    AvaliacaoDonoBarcoCreatePage
   ],
   providers: [
     StatusBar,

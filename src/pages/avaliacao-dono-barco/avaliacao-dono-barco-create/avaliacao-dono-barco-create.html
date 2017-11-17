@@ -1,0 +1,43 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Avaliar Dono Barco</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <form [formGroup]="avaliacaodonobarcoForm" novalidate>
+        <ion-list no-lines>
+          <ion-item>
+            <ion-label stacked color="primary">Pontuação</ion-label>
+            <ion-input type="text" formControlName="pontuacao" [(ngModel)]="avaliacaodonobarco.pontuacao" spellcheck="false" autocapitalize="off" required>
+            </ion-input>
+          </ion-item>
+          <p ion-text [hidden]="pontuacao.valid || submitted == false" color="danger" padding-left>
+            Campo é obrigatório
+          </p>
+    
+          <ion-item>
+            <ion-label stacked color="primary">Observação</ion-label>
+            <ion-input formControlName="observacao" [(ngModel)]="avaliacaodonobarco.observacao" type="text" >
+            </ion-input>
+          </ion-item>
+
+        </ion-list>
+
+        <ion-row responsive-sm>
+            <ion-col>
+              <button ion-button (click)="cancelarCadastroAvaliacaoDonoBarco()" color="light" block>Cancelar</button>
+            </ion-col>
+            <ion-col>
+              <button ion-button (click)="cadastrarAvaliacaoDonoBarco(avaliacaodonobarcoForm)" type="submit" block>Avaliar</button>
+            </ion-col>
+          </ion-row>
+    </form>
+
+    
+
+</ion-content>

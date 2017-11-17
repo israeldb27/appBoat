@@ -8,6 +8,8 @@ import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validat
 import { OpcionaisListPage } from '../opcionais/opcionais-list/opcionais-list';
 import { OpcionaisCreatePage } from '../opcionais/opcionais-create/opcionais-create';
 
+import { ReservasPlanejamentoDetailPage } from '../../../reservas/dono-barco/reservas-planejamento/reservas-planejamento-detail/reservas-planejamento-detail';
+
 @IonicPage()
 @Component({
   selector: 'page-barcos-meus-detail',
@@ -58,6 +60,11 @@ export class BarcosMeusDetailPage {
       this.barcoTemporario = new Barco();
       this.limpaForm();  
       this.carregaDetalhesBarco();  
+  }
+
+  public goPlanejarReservaBarco(){
+    this.logger.info('BarcosMeusDetailPage ::  goPlanejarReservaBarco ::  ');
+    this.navCtrl.push(ReservasPlanejamentoDetailPage, {barco: this.barco});
   }
 
   public listarOpcionais(){

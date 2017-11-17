@@ -116,8 +116,7 @@ export class BarcosCreatePage {
           this.navCtrl.push(BarcosMeusPage);         
         }, (error: any) => {
           this.logger.error('BarcosCreatePage :: cadastrarBarco :: barcoService.create() :: error :: ', error);        
-        });
-        
+        });        
       }  
       else {
         this.logger.info('BarcosCreatePage :: cadastrarBarco :: form invalido');

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { PlanoReservabarco, PlanoReservabarcoApi, LoggerService } from "../../../../../app/shared/angular-client/index";
+import { PlanoReservabarco, PlanoReservabarcoApi, Barco, LoggerService } from "../../../../../app/shared/angular-client/index";
 import { LoopBackConfig } from "../../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -23,6 +23,8 @@ export class ReservasPlanejamentoCreatePage {
   public planoReservabarco: PlanoReservabarco;
   submitted = false;
   planoReservabarcoForm: FormGroup;
+
+  public barco: Barco;
 
   public id: AbstractControl;
   public valorAluguel: AbstractControl;
@@ -48,8 +50,15 @@ export class ReservasPlanejamentoCreatePage {
         valorAluguel: ["", Validators.required]          
       });
 
+      this.barco = new Barco();
       this.planoReservabarco = new PlanoReservabarco();
       this.limparForm();
+      this.carregarDetalhesBarco();
+  }
+
+  public carregarDetalhesBarco(){
+    this.logger.info('ReservasListPage :: limparForm');
+    this.barco = this.navParams.get('barco');
   }
 
   public limparForm() {    
@@ -83,9 +92,10 @@ export class ReservasPlanejamentoCreatePage {
    
    if ( this.planoReservabarcoForm.valid ){
      this.planoReservabarco.status = "criado";
-     this.logger.info('ReservasPlanejamentoPage :: cadastrarPlanoReservaBarco :: plano', this.planoReservabarco);
-    
+     this.logger.info('ReservasPlanejamentoPage :: cadastrarPlanoReservaBarco :: plano', this.planoReservabarco);    
      this.logger.info('ReservasPlanejamentoPage :: cadastrarPlanoReservaBarco :: form validado OK');
+
+     this.planoReservabarco.
      this.planoReservabarcoService.create(this.planoReservabarco).subscribe( sucesso => {
        this.logger.info('ReservasPlanejamentoPage :: cadastrarPlanoReservaBarco :: planoReservabarcoService.create() :: sucesso :: ', sucesso);
        this.navCtrl.push(ReservasPlanejamentoListPage);         
