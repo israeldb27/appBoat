@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ReservaBarco, ReservaBarcoApi, LoggerService } from "../../../../../app/shared/angular-client/index";
-import { LoopBackConfig } from "../../../../../app/shared/angular-client"
+import { LoopBackConfig, LoopBackFilter } from "../../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../../app/shared/constantes";
 
 import { ReservasSolicitadasDetailPage } from "../reservas-solicitadas-detail/reservas-solicitadas-detail";
@@ -39,7 +39,25 @@ export class ReservasSolicitadasListPage {
 
       this.logger.info('ReservasSolicitadasListPage :: listarReservasSolicitadas');
 
-      this.reservaBarcoService.find().subscribe( (reservaBarcos: ReservaBarco[]) => {
+      let id: any;
+      id = localStorage['usuarioSessao'];
+      // criar campo 'donoBarcoId' na tabela ReservaBarco para facilitar com  que o Dono do barco possa mais facilmente 
+      //  listar as reservas que foram solicitadas para ele
+
+      let filtro: LoopBackFilter = {
+        "where": {
+          "and": [
+            {
+              "donoBarcoId": id              
+            },
+            {
+              "statusReserva": "solicitado"
+            }
+          ]      
+        }
+      };
+
+      this.reservaBarcoService.find(filtro).subscribe( (reservaBarcos: ReservaBarco[]) => {
         this.reservaBarcos = reservaBarcos;
       }, (error: any) => {
         this.logger.error('ReservasSolicitadasListPage :: listarReservasSolicitadas :: reservaBarcoService.find :: error :: ', error);

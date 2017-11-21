@@ -30,6 +30,15 @@ export class ReservasSolicitadasDetailPage {
   podeEditar: boolean = false;
   reservaBarcoForm: FormGroup;
 
+  /**
+   * 
+   * Obs.: Dentro do Reserva-solicitada-detail o Dono do Barco poderá apenas 'Rejeitar' ou 'Aceitar' a reserva
+   * 
+   * Obs.: E para cada uma destas ações 'Alert' que solicitará a confirmação da ação para o Dono do barco
+   * 
+   * Obs: Nao haverão mais as ações para Alterar Status, Editar Reserva, Excluir reserva, entre outros
+   */
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public reservaBarcoService: ReservaBarcoApi,
@@ -41,8 +50,7 @@ export class ReservasSolicitadasDetailPage {
           LoopBackConfig.setApiVersion(API_VERSION);
 
           this.reservaBarco = new ReservaBarco();
-          this.reservaBarcoTemporario = new ReservaBarco();   
-
+          this.reservaBarcoTemporario = new ReservaBarco();
   }
 
   public carregaDetalhesReservaBarco() {

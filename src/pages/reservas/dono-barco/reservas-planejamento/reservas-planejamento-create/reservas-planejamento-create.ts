@@ -93,6 +93,8 @@ export class ReservasPlanejamentoCreatePage {
      status:  this.status     
    });
 
+   this.planoReservabarcoForm.reset();
+
  }
 
 
@@ -116,7 +118,7 @@ export class ReservasPlanejamentoCreatePage {
      });     
    }  
    else {
-     this.logger.info('ReservasPlanejamentoCreatePage :: cadastrarPlanoReservaBarco :: form invalido');
+     this.logger.error('ReservasPlanejamentoCreatePage :: cadastrarPlanoReservaBarco :: form invalido');
    }
  }
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {  Barco, BarcoApi, ReservaBarco, ReservaBarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
+import {  Barco, BarcoApi, PlanoReservabarco, ReservaBarco, ReservaBarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
 import { LoopBackConfig } from "../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -18,11 +18,14 @@ export class BarcosSolicitarReservaPage {
   public submitted: boolean;
   reservaBarcoForm: FormGroup;
 
+  public planoReservabarco: PlanoReservabarco;
+
   public id: AbstractControl;
   public dataReservaBarco: AbstractControl;
 
   public habilitaDataEspecifica: boolean;
   public habilitaChecaDisponibilidade: boolean;
+  public mensagemRetorno: any;
 
 
   constructor(public navCtrl: NavController, 
@@ -41,6 +44,15 @@ export class BarcosSolicitarReservaPage {
         this.limparForm();    
         this.habilitaDataEspecifica = true;
         this.habilitaChecaDisponibilidade = false;
+        this.planoReservabarco = new PlanoReservabarco();
+        this.carregarDetalhesBarco();        
+  }
+
+  public carregarDetalhesBarco(){
+    this.logger.info('BarcosSolicitarReservaPage :: carregarDetalhesBarco');
+    this.barco = this.navParams.get('barco');
+    this.planoReservabarco = this.navParams.get('planoReservabarco');    
+
   }
 
   public habilitarDisponibilidades(): void {
@@ -79,12 +91,13 @@ export class BarcosSolicitarReservaPage {
         this.reservaBarco.dataSolicitacao = new Date();
         this.reservaBarco.dataUltimaAtualizacao = new Date();
         this.reservaBarco.statusReserva = 'solicitado';
-        this.reservaBarco.usuarioSolicitanteId = 1;  
-        this.reservaBarco.barcoId = 1;
-        this.reservaBarco.planoreservabarcoId = 1;
+        this.reservaBarco.usuarioSolicitanteId = localStorage['usuarioSessao'];  
+        this.reservaBarco.barcoId = this.barco.id;
+        this.reservaBarco.planoreservabarcoId = this.planoReservabarco.id;
         this.logger.info('BarcosSolicitarReservaPage :: confirmarReservaBarco :: form validado OK');
         this.reservaBarcoService.create(this.reservaBarco).subscribe( sucesso => {
           this.logger.info('BarcosSolicitarReservaPage :: confirmarReservaBarco :: reservaBarcoService.create() :: sucesso :: ', sucesso);
+          this.mensagemRetorno = 'Solicitação de Reserva enviada para o Responsável do barco';
         // this.navCtrl.push(BarcosMeusPage);         
         }, (error: any) => {
           this.logger.error('BarcosSolicitarReservaPage :: confirmarReservaBarco :: reservaBarcoService.create() :: error :: ', error);        

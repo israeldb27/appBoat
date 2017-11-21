@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import {  LoggerService } from "../app/shared/angular-client/index";
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -38,11 +39,18 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
+  perfilUsuarioSessao: any;
+  pagesDonoBarco: Array<{title: string, component: any}>; // usado para montar o menu para o perfil de Dono Barco
+  pagesCliente: Array<{title: string, component: any}>;   // usado para montar o menu para o perfil de Cliente
+
   constructor(public platform: Platform, 
               public statusBar: StatusBar,
+              private logger: LoggerService,
               public splashScreen: SplashScreen) {
     this.initializeApp();
 
+    this.logger.info('MyApp :: iniciando o App ...'); 
+    this.carregarPerfilUsuarioSessao();
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -61,7 +69,33 @@ export class MyApp {
       { title: 'Logout', component: LogoutPage }      
     ];
 
+    this.pagesDonoBarco = [
+      { title: 'Meus Barcos', component: BarcosMeusPage },
+      { title: 'Reservas solicitadas', component: ReservasSolicitadasListPage }, // funcionalidade destinada para os donos de barcos para que estes possam listar as solicitacoes de reserva que foram feitas para algum de seus barcos
+      { title: 'Pagamentos', component: PagamentosListPage },
+      { title: 'Planejar Reservas', component: ReservasPlanejamentoListPage }, // funcionalidade destinada para os donos de barcos pssam listar os planos de reserva que estes cadastraram    
+      { title: 'Conta', component: ContaDetailPage },
+      { title: 'Sobre', component: SobreDetailPage },
+      { title: 'Logout', component: LogoutPage }    
+    ];
+
+    this.pagesCliente = [
+      { title: 'Pesquisar Barcos', component: BarcosPesquisaPage },
+      { title: 'Reservas', component: ReservasListPage }, // funcionalidade destinada para os usuarios comuns para checarem as reservas de barco que estes fizeram
+      { title: 'Meus Pagamentos', component: PagamentosMeusPage },
+      { title: 'Conta', component: ContaDetailPage },
+      { title: 'Sobre', component: SobreDetailPage },
+      { title: 'Logout', component: LogoutPage }
+
+    ];
   }
+  
+  public carregarPerfilUsuarioSessao(){
+    this.logger.info('MyApp :: carregarPerfilUsuarioSessao '); 
+    this.perfilUsuarioSessao = localStorage['perfilUsuarioSessao'];
+
+  }
+
 
   initializeApp() {
     this.platform.ready().then(() => {

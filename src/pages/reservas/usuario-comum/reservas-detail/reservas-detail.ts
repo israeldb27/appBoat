@@ -21,6 +21,7 @@ export class ReservasDetailPage {
   public barco: Barco;
   barcos: Barco[];
   public planoReservabarco :PlanoReservabarco;
+  public mensagemRetorno: any;
 
   public id: AbstractControl;
   public statusReserva: AbstractControl;  
@@ -66,18 +67,13 @@ export class ReservasDetailPage {
       }
     };
 
-    this.barcoService.find(filtro).subscribe((barcos: Barco[]) => { 
+    this.barcoService.findOne(filtro).subscribe((barco: Barco) => { 
       this.logger.info('ReservasDetailPage :: visualizarDetalhesReserva :: barcoService.find :: sucesso :: ');
-  
-      if ( barcos.length == 1 ){    
-        this.barco = barcos[0];        
-        this.logger.info('ReservasDetailPage :: visualizarDetalhesReserva :: barco selecionado ');
-      }         
-      
+      this.barco = barco;
+      this.logger.info('ReservasDetailPage :: visualizarDetalhesReserva :: barco selecionado ', this.barco);      
     }, (error: any) => {
       this.logger.error('LoginPage :: realizarLogin ::usuarioService :: error :: ', error);
     });
-
   }
 
   public cancelarReservaBarco() {
@@ -96,7 +92,7 @@ export class ReservasDetailPage {
          
       this.reservaBarcoService.upsertWithWhere(where, this.reservaBarco).subscribe( sucesso => {    
         this.logger.info('ReservasDetailPage :: cancelarReservaBarco :: reservaBarcoService.upsertWithWhere() :: sucesso :: ', sucesso);
-        //this.navCtrl.push(BarcosMeusPage);         
+        this.mensagemRetorno = 'Reserva Cancelada';
       }, (error: any) => {
         this.logger.error('ReservasDetailPage :: cancelarReservaBarco :: reservaBarcoService.upsertWithWhere() :: error :: ', error);        
       });      

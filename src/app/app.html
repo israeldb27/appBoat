@@ -10,6 +10,19 @@
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
+
+      <div *ngIf="perfilUsuarioSessao == 'donoBarco'">
+          <button menuClose ion-item *ngFor="let p of pagesDonoBarco" (click)="openPage(p)">
+              {{p.title}}
+          </button>
+      </div>
+
+      <div *ngIf="perfilUsuarioSessao == 'cliente'">
+          <button menuClose ion-item *ngFor="let p of pagesCliente" (click)="openPage(p)">
+              {{p.title}}
+          </button>
+      </div>
+
     </ion-list>
   </ion-content>
 

@@ -63,6 +63,8 @@ export class LoginPage {
       login: this.login, 
       password: this.password      
     });
+
+    this.usuarioForm.reset();
     
   }
 
@@ -101,6 +103,7 @@ export class LoginPage {
           this.navCtrl.setRoot(BarcosPesquisaPage);
           let user = usuarios[0];
           localStorage['usuarioSessao'] = user.id;
+          localStorage['perfilUsuarioSessao'] = user.perfil;
         }         
         
       }, (error: any) => {

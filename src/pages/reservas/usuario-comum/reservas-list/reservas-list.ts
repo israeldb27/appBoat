@@ -41,6 +41,9 @@ export class ReservasListPage {
           "and": [
             {
               "this.usuarioSolicitanteId": this.usuarioSolicitanteId              
+            },
+            {
+              "statusReserva": "solicitado"
             }
           ]      
         }
