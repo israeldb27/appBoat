@@ -63,11 +63,13 @@ export class OpcionaisCreatePage {
       this.logger.info('OpcionaisCreatePage :: cadastrarOpcional');       
       this.submitted = true;      
       if ( this.opcionalForm.valid ){
-        
+        this.opcional.barcoId = this.barco.id;
+        this.opcional.dataCadastro = new Date();
+        this.opcional.dataUltimaAtualizacao = new Date();
         this.logger.info('OpcionaisCreatePage :: cadastrarOpcional :: form validado OK');
         this.opcionalService.create(this.opcional).subscribe( sucesso => {
           this.logger.info('OpcionaisCreatePage :: cadastrarOpcional :: opcionalService.create() :: sucesso :: ', sucesso);
-          this.navCtrl.push(OpcionaisListPage);         
+          this.navCtrl.push(OpcionaisListPage, {barco: this.barco});         
         }, (error: any) => {
           this.logger.error('OpcionaisCreatePage :: cadastrarOpcional :: opcionalService.create() :: error :: ', error);        
         });        
@@ -79,7 +81,7 @@ export class OpcionaisCreatePage {
     
   public cancelarCadastroOpcional() {
     this.logger.info('OpcionaisCreatePage :: cancelarCadastroOpcional ::  ');
-    this.navCtrl.push(OpcionaisListPage);
+    this.navCtrl.pop();
   }
 
   public limparForm(){

@@ -5,6 +5,7 @@ import { LoopBackConfig, LoopBackFilter } from "../../../../app/shared/angular-c
 import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
 
 import { BarcosCreatePage } from '../barcos-create/barcos-create';
+import { BarcosMeusDetailPage } from '../barcos-meus-detail/barcos-meus-detail';
 
 
 @IonicPage()
@@ -69,6 +70,7 @@ export class BarcosMeusPage {
 
   public visualizarDetalhes(barco){
     this.logger.info('BarcosMeusPage :: visualizarDetalhes :: ', barco); 
+    this.navCtrl.push(BarcosMeusDetailPage, {barco: barco});
     
   }
 

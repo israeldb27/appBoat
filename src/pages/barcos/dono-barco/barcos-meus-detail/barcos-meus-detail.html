@@ -3,9 +3,13 @@
     <ion-title>Detalhes Barco</ion-title>
       <ion-buttons end>      
             <button ion-button color="primary" icon-start (click)="goEditarBarco(true)">
-            <ion-icon name="create"></ion-icon>
-            <span hideWhen="portrait">Editar</span>
-            </button>    
+                <ion-icon name="create"></ion-icon>
+                <span hideWhen="portrait">Editar</span>
+            </button> 
+            <button ion-button color="danger" icon-start (click)="confirmarExclusaoBarco()">
+                <ion-icon name="trash"></ion-icon>
+                <span hideWhen="portrait">Excluir</span>
+            </button>   
       </ion-buttons>
   </ion-navbar>
 </ion-header>

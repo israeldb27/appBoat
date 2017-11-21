@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { PlanoReservabarco,  PlanoReservabarcoApi, Barco, LoggerService } from "../../../../../app/shared/angular-client/index";
-import { LoopBackConfig } from "../../../../../app/shared/angular-client"
+import { PlanoReservabarco,  PlanoReservabarcoApi, Barco, HistoricoPlanoReservaBarco, HistoricoPlanoReservaBarcoApi, LoggerService } from "../../../../../app/shared/angular-client/index";
+import { LoopBackConfig, LoopBackFilter } from "../../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
 
@@ -24,10 +24,14 @@ export class ReservasPlanejamentoListPage {
   planoReservabarcos: PlanoReservabarco[];
   public barco: Barco;
 
+  private historicoPlanoReservaBarco: HistoricoPlanoReservaBarco;
+  historicos: HistoricoPlanoReservaBarco[];
+
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public planoReservabarcoService: PlanoReservabarcoApi,
+              private historicoPlanoReservaBarcoService: HistoricoPlanoReservaBarcoApi,
               private formBuilder: FormBuilder, 
               private logger: LoggerService) {                
 
@@ -37,6 +41,7 @@ export class ReservasPlanejamentoListPage {
         this.barco = new Barco();        
         this.planoReservabarco = new PlanoReservabarco();
         this.carregarDetalhesBarco();
+        this.historicoPlanoReservaBarco = new HistoricoPlanoReservaBarco();
         this.listarPlanoReservaBarco();
   }
 
@@ -44,7 +49,22 @@ export class ReservasPlanejamentoListPage {
     this.logger.info('ReservasPlanejamentoListPage :: carregarDetalhesBarco'); 
     this.barco = this.navParams.get('barco');
 
+    let filtro: LoopBackFilter = {
+      "where": {
+        "and": [
+          {
+            "barcoId": this.barco.id              
+          }
+        ]      
+      }
+    };
 
+   this.historicoPlanoReservaBarcoService.find(filtro).subscribe( (historicos: HistoricoPlanoReservaBarco[]) => {
+     this.historicos = historicos;
+     this.logger.info(' ReservasPlanejamentoListPage :: carregarDetalhesBarco :: historicos :: ', this.historicos);
+   }, (error: any) => {
+     this.logger.error('ReservasPlanejamentoListPage :: carregarDetalhesBarco :: historicoPlanoReservaBarcoService.find :: error :: ', error);
+   });
   }
 
   public listarPlanoReservaBarco(){

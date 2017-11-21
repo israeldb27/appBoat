@@ -78,15 +78,13 @@
           <ion-item>
               <ion-label stacked color="primary">Perfil</ion-label>
               <ion-select [(ngModel)]="usuario.perfil" formControlName="perfil" >
-                <ion-option value="comum">Usuário Comum</ion-option>
+                <ion-option value="cliente">Cliente</ion-option>
                 <ion-option value="donoBarco">Dono de Barco</ion-option>
               </ion-select>   
           </ion-item>  
           <p ion-text [hidden]="perfil.valid || submitted == false" color="danger" padding-left>
               Campo é obrigatório
           </p>
-          
-
       </ion-list>
 
       <ion-row responsive-sm>          

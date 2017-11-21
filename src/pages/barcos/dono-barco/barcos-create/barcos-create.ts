@@ -105,12 +105,17 @@ export class BarcosCreatePage {
 
   public cadastrarBarco(): void {
 
-      this.logger.info('BarcosCreatePage :: cadastrarBarco'); 
-      
+      this.logger.info('BarcosCreatePage :: cadastrarBarco');       
       this.submitted = true;
       
-      if ( this.barcoForm.valid ){        
+      if ( this.barcoForm.valid ){ 
         this.logger.info('BarcosCreatePage :: cadastrarBarco :: form validado OK');
+        let idDonoBarco: any;
+        idDonoBarco = localStorage['usuarioSessao'];
+        this.barco.idDonoBarco = idDonoBarco;     
+        this.logger.info('BarcosCreatePage :: cadastrarBarco :: idDonobarco :: ', this.barco.idDonoBarco);
+        this.barco.dataCadastro = new Date();
+        this.barco.dataUtilmaAtualizacao = new Date();
         this.barcoService.create(this.barco).subscribe( sucesso => {
           this.logger.info('BarcosCreatePage :: cadastrarBarco :: barcoService.create() :: sucesso :: ', sucesso);
           this.navCtrl.push(BarcosMeusPage);         

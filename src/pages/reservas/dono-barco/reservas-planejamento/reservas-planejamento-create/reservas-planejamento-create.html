@@ -11,42 +11,68 @@
   
       <form [formGroup]="planoReservabarcoForm" novalidate>
           <ion-list no-lines>
+
             <ion-item>
               <ion-label stacked color="primary">Valor Aluguel</ion-label>
-              <ion-input type="text" formControlName="valorAluguel" [(ngModel)]="planoReservabarco.valorAluguel" spellcheck="false" autocapitalize="off" required>
+              <ion-input type="text" formControlName="valorAluguelKm" [(ngModel)]="planoReservabarco.valorAluguelKm" spellcheck="false" autocapitalize="off" required>
               </ion-input>
             </ion-item>
-            <p ion-text [hidden]="valorAluguel.valid || submitted == false" color="danger" padding-left>
+            <p ion-text [hidden]="valorAluguelKm.valid || submitted == false" color="danger" padding-left>
               Campo é obrigatório
+            </p>
+            
+            <ion-item>
+                <ion-label stacked color="primary">Opção Plano</ion-label>
+                <ion-select [(ngModel)]="planoReservabarco.opcaoPlano" formControlName="opcaoPlano" >
+                  <ion-option value="D">Diariamente Disponível</ion-option>
+                  <ion-option value="P">Por Data</ion-option>
+                </ion-select>   
+            </ion-item>  
+            <p ion-text [hidden]="opcaoPlano.valid || submitted == false" color="danger" padding-left>
+                Campo é obrigatório
             </p>
       
             <ion-item>
-              <ion-label stacked color="primary">Dia da Semana</ion-label>
-              <ion-input formControlName="diaSemana" [(ngModel)]="planoReservabarco.diaSemana" type="text" >
+              <ion-label stacked color="primary">Data Inicio</ion-label>
+              <ion-input formControlName="dataInicio" [(ngModel)]="planoReservabarco.dataInicio" type="date" >
               </ion-input>
-            </ion-item>
-  
-  
+            </ion-item>    
+            
             <ion-item>
-                <ion-label stacked color="primary">Hora inicio Disponibilidade</ion-label>
-                <ion-input formControlName="horaInicioDisponivel" [(ngModel)]="planoReservabarco.horaInicioDisponivel" type="text" >
-                  </ion-input>
-            </ion-item>
-  
+                <ion-label stacked color="primary">Data Fim</ion-label>
+                <ion-input formControlName="dataFim" [(ngModel)]="planoReservabarco.dataFim" type="date" >
+                </ion-input>
+            </ion-item>  
+           
             <ion-item>
-                <ion-label stacked color="primary">Hora fim Disponibilidade</ion-label>
-                <ion-input formControlName="horaFimDisponivel" [(ngModel)]="planoReservabarco.horaFimDisponivel" type="text" >
-                  </ion-input>               
+                <ion-label stacked color="primary">Quantidade Máxima Pessoas</ion-label>
+                <ion-input formControlName="quantMaxPessoas" [(ngModel)]="planoReservabarco.quantMaxPessoas" type="text" >
+                </ion-input>
+            </ion-item>
+           
+            <ion-item>
+                <ion-label stacked color="primary">Distância Máxima</ion-label>
+                <ion-input formControlName="distanciaMax" [(ngModel)]="planoReservabarco.distanciaMax" type="text" >
+                </ion-input>
+            </ion-item>
+
+           
+            <ion-item>
+                <ion-label stacked color="primary">Quantidade Horas Disponível</ion-label>
+                <ion-input formControlName="quantHorasDisponivel" [(ngModel)]="planoReservabarco.quantHorasDisponivel" type="text" >
+                </ion-input>
             </ion-item>
   
           </ion-list>
+
+          <p ion-text color="danger" padding-left > {{mensagemRetorno}}</p>
   
           <ion-row responsive-sm>
               <ion-col>
-                <button ion-button (click)="cancelarCadastroPlanoReservaBarco()" color="light" block>Cancelar</button>
-              </ion-col>
+                  <button ion-button (click)="cancelarPlano()" type="submit" block>Cancelar </button>
+              </ion-col> 
               <ion-col>
-                <button ion-button (click)="cadastrarPlanoReservaBarco(planoReservabarcoForm)" type="submit" block>Criar</button>
+                <button ion-button (click)="cadastrarPlanoReservaBarco()" type="submit" block>Cadastrar Plano</button>
               </ion-col>
           </ion-row>
       </form>

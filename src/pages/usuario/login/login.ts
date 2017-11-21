@@ -5,7 +5,7 @@ import { LoopBackConfig, LoopBackFilter } from "../../../app/shared/angular-clie
 import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
 
-import { BarcosPesquisaPage } from '../../barcos/barcos-pesquisa/barcos-pesquisa';
+import { BarcosPesquisaPage } from '../../barcos/usuario-comum/barcos-pesquisa/barcos-pesquisa';
 
 import { UsuarioCreatePage } from '../usuario-create/usuario-create';
 

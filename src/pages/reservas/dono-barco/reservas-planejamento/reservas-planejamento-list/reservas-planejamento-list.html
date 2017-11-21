@@ -4,7 +4,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Lista de Planos de Reservas</ion-title>
+    <ion-title>Histórico Planos de Reservas</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -12,19 +12,16 @@
 <ion-content padding>
 
     <ion-list>
-        <ion-item *ngFor="let planoReservabarco of planoReservabarcos" (click)="visualizarDetalhesPlanoReservaBarco(planoReservabarco)">
-            <p>Valor Aluguel:   {{planoReservabarco.valorAluguel}} </p>
-            <p>Status: {{planoReservabarco.status}}  </p>
-            <p>Dia da Semana:  {{planoReservabarco.diaSemana}}  </p>
-            <p>Data Especifica: {{planoReservabarco.dataEspecifica}}  </p>
-            <p>Hora Inicio Disponibilidade: {{planoReservabarco.horaInicioDisponivel}}  </p>
-            <p>Hora Fim Disponibilidade: {{planoReservabarco.horaFimDisponivel}}  </p>
-            <p>Quantidade Horas Disponiveis: {{planoReservabarco.quantidadeHorasDisponiveis}}  </p>            
+        <ion-item *ngFor="let historico of historicos" >
+            <p>Valor Aluguel Km:   {{historico.valorAluguelKm}} </p>
+            <p>Data Cadastro:  {{historico.dataCadastro}}  </p>
+            <p>Quantidade Máxima Pessoas: {{historico.quantMaxPessoas}}  </p>
+            <p>Distancia Máxima Pessoas: {{historico.distanciaMax}}  </p>
+            <p>Quantidade Horas Disponível: {{historico.quantHorasDisponivel}}  </p>
+            <p>Opção Plano: {{planoReservabarco.opcaoPlano}}  </p>   
+            <p>Data Início: {{planoReservabarco.dataInicio}}  </p>  
+            <p>Data Fim: {{planoReservabarco.dataFim}}  </p>  
+            <hr>         
         </ion-item>  
     </ion-list> 
-    
-    <ion-fab bottom right>
-        <button ion-fab (click)="goCriarPlanoReservaBarco()"><ion-icon name="add"></ion-icon></button>
-    </ion-fab>
-
 </ion-content>

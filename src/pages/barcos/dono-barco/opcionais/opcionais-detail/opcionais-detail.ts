@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { Opcional, OpcionalApi, LoggerService } from "../../../../../app/shared/angular-client/index";
+import { Opcional, OpcionalApi, Barco, LoggerService } from "../../../../../app/shared/angular-client/index";
 import { LoopBackConfig } from "../../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -31,6 +31,8 @@ export class OpcionaisDetailPage {
   public descricao: AbstractControl;
   public observacao: AbstractControl;
 
+  public barco: Barco;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public opcionalService: OpcionalApi,
@@ -46,13 +48,19 @@ export class OpcionaisDetailPage {
         this.opcionalForm = formBuilder.group({
           nome: ["", Validators.required]          
         });
-
+        this.barco = new Barco();
         this.opcional = new Opcional();        
         this.opcionalTemporario = new Opcional();
         this.limparForm();
 
         this.carregaDetalhesOpcional();
+        this.carregaDetalhesBarco();
 
+  }
+
+  public carregaDetalhesBarco(){
+    this.logger.info('OpcionaisDetailPage :: carregaDetalhesBarco'); 
+    this.barco = this.navParams.get('barco');
   }
 
   public limparForm(){
@@ -103,7 +111,7 @@ export class OpcionaisDetailPage {
     
       this.opcionalService.deleteById(this.opcional.id).subscribe(sucesso => {
         this.logger.info('OpcionaisDetailPage :: confirmarExclusaoOpcionalHandler :: opcionalService.deleteById() :: sucesso :: ', sucesso);
-        this.navCtrl.push(OpcionaisListPage);
+        this.navCtrl.push(OpcionaisListPage, {barco: this.barco});
       }, (error: any) => {
         this.logger.error('OpcionaisDetailPage :: confirmarExclusaoOpcionalHandler :: opcionalService.deleteById() :: error :: ', error);
       });
@@ -122,7 +130,7 @@ export class OpcionaisDetailPage {
       
       this.opcionalService.upsertWithWhere(where, this.opcional).subscribe( sucesso => {
         this.logger.info('OpcionaisDetailPage :: salvarOpcional :: opcionalService.upsertWithWhere() :: sucesso :: ', sucesso);
-        this.navCtrl.push(OpcionaisListPage);        
+        this.navCtrl.push(OpcionaisListPage, {barco: this.barco});        
       }, (error: any) => {
         this.logger.error('OpcionaisDetailPage :: salvarOpcional :: opcionalService.upsertWithWhere() :: error :: ', error);
       });

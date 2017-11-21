@@ -9,6 +9,8 @@ import { Avaliacaodonobarco } from '../../models/Avaliacaodonobarco';
 import { ReservaBarco } from '../../models/ReservaBarco';
 import { PlanoReservabarco } from '../../models/PlanoReservabarco';
 import { TipoFormapagamento } from '../../models/TipoFormapagamento';
+import { Ordempagamento } from '../../models/Ordempagamento';
+import { HistoricoPlanoReservaBarco } from '../../models/HistoricoPlanoReservaBarco';
 
 export interface Models { [name: string]: any }
 
@@ -25,6 +27,8 @@ export class SDKModels {
     ReservaBarco: ReservaBarco,
     PlanoReservabarco: PlanoReservabarco,
     TipoFormapagamento: TipoFormapagamento,
+    Ordempagamento: Ordempagamento,
+    HistoricoPlanoReservaBarco: HistoricoPlanoReservaBarco,
     
   };
 

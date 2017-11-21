@@ -7,7 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
 import { BarcosMeusPage } from '../pages/barcos/dono-barco/barcos-meus/barcos-meus';
-import { BarcosPesquisaPage } from '../pages/barcos/usuario-comum/barcos-pesquisa/barcos-pesquisa';
+import { BarcosPesquisaPage } from '../pages/barcos/usuario-comum/barcos-pesquisa/barcos-pesquisa'; 
 
 import { ContaDetailPage } from '../pages/conta/conta-detail/conta-detail';
 

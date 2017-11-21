@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { PlanoReservabarco, PlanoReservabarcoApi, Barco, LoggerService } from "../../../../../app/shared/angular-client/index";
-import { LoopBackConfig } from "../../../../../app/shared/angular-client"
+import { PlanoReservabarco, PlanoReservabarcoApi, Barco, HistoricoPlanoReservaBarco, HistoricoPlanoReservaBarcoApi, LoggerService } from "../../../../../app/shared/angular-client/index";
+import { LoopBackConfig, LoopBackFilter } from "../../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
 
@@ -27,25 +27,28 @@ export class ReservasPlanejamentoDetailPage {
   
   public planoReservabarco: PlanoReservabarco;
   public planoReservabarcoTemporario: PlanoReservabarco;
+  public planoReservabarcoOld: PlanoReservabarco;
   submitted = false;
   planoReservabarcoForm: FormGroup;
   podeEditar: boolean = false;
-
+  public mensagemRetorno: any;
+  public existePlano: boolean;
   public barco: Barco;
-
+  public historico: HistoricoPlanoReservaBarco;
   public id: AbstractControl;
-  public valorAluguel: AbstractControl;
-  public diaSemana: AbstractControl;
-  public dataEspecifica: AbstractControl;
-  public horaInicioDisponivel: AbstractControl;
-  public horaFimDisponivel: AbstractControl;
-  public quantidadeHorasDisponiveis: AbstractControl;
   public status: AbstractControl;
-
+  public dataInicio: AbstractControl;
+  public dataFim: AbstractControl;
+  public valorAluguelKm: AbstractControl;
+  public quantMaxPessoas: AbstractControl;
+  public distanciaMax: AbstractControl;
+  public quantHorasDisponivel: AbstractControl;
+  public opcaoPlano: AbstractControl;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public planoReservabarcoService: PlanoReservabarcoApi,
+              private historicoPlanoReservaBarcoService: HistoricoPlanoReservaBarcoApi,
               private formBuilder: FormBuilder, 
               private alertCtrl: AlertController,
               private logger: LoggerService) {
@@ -55,12 +58,16 @@ export class ReservasPlanejamentoDetailPage {
           LoopBackConfig.setApiVersion(API_VERSION);
 
           this.planoReservabarcoForm = formBuilder.group({
-            valorAluguel: ["", Validators.required]          
+            valorAluguelKm: ["", Validators.required],
+            opcaoPlano: ["", Validators.required]            
           });
 
+          this.existePlano = false;
+          this.podeEditar = false;
           this.planoReservabarco = new PlanoReservabarco();
           this.planoReservabarcoTemporario = new PlanoReservabarco();   
           this.barco = new Barco();       
+          this.historico = new HistoricoPlanoReservaBarco();
           this.limparForm();
           this.carregarDetalhesBarco();
           this.carregaDetalhePlanoReservaBarco();
@@ -131,16 +138,38 @@ export class ReservasPlanejamentoDetailPage {
 
   public carregaDetalhePlanoReservaBarco():void {
     this.logger.info('ReservasPlanejamentoDetailPage :: carregaDetalhePlanoReservaBarco :: inicio');
-
-    this.planoReservabarco = this.navParams.get('planoReservabarco');
     this.submitted = false;
     this.podeEditar = false;
-    
-    this.planoReservabarcoService.findById(this.planoReservabarco.id).subscribe((planoReservabarco: PlanoReservabarco) => {          
-      this.planoReservabarco = planoReservabarco;           
-      this.logger.info('ReservasPlanejamentoDetailPage :: carregaDetalhePlanoReservaBarco :: planoReservabarcoService.findById :: ', this.planoReservabarco);             
-    }, (erro) => {
-      this.logger.error('ReservasPlanejamentoDetailPage :: carregaDetalhePlanoReservaBarco :: planoReservabarcoService.findById :: error :: ', erro);         
+
+    let filtro: LoopBackFilter = {
+      "where": {
+        "and": [
+          {
+            "barcoId": this.barco.id              
+          },          
+          {
+            "status": "criado"             
+          }
+        ]      
+      }
+    };
+
+    this.planoReservabarcoService.find(filtro).subscribe((planoReservabarcos: PlanoReservabarco[]) => { 
+      this.logger.info('ReservasPlanejamentoDetailPage :: carregaDetalhePlanoReservaBarco ::planoReservabarcoService.find :: sucesso :: ', planoReservabarcos);
+      if ( planoReservabarcos.length == 0 ){
+          this.mensagemRetorno = 'Barco não possui nenhum associado';
+          this.existePlano = false;
+      } 
+      if ( planoReservabarcos.length == 1 ){    
+        let plano = planoReservabarcos[0];
+        this.planoReservabarco = plano;
+        this.planoReservabarcoOld = plano;
+        this.podeEditar = false;
+        this.existePlano = true;
+        this.logger.info('ReservasPlanejamentoDetailPage :: carregaDetalhePlanoReservaBarco :: ', this.planoReservabarco);
+      } 
+    }, (error: any) => {
+      this.logger.error('ReservasPlanejamentoDetailPage :: carregaDetalhePlanoReservaBarco ::planoReservabarcoService.find :: error :: ', error);
     });
   }
 
@@ -148,20 +177,24 @@ export class ReservasPlanejamentoDetailPage {
     this.logger.info('ReservasPlanejamentoDetailPage :: limparForm');
     
     this.id = new FormControl(null, []);
-    this.valorAluguel = new FormControl('', Validators.required);
-    this.diaSemana = new FormControl(null, []);
-    this.horaInicioDisponivel = new FormControl(null, []);
-    this.horaFimDisponivel = new FormControl(null, []); 
-    this.quantidadeHorasDisponiveis = new FormControl(null, []); 
+    this.valorAluguelKm = new FormControl('', Validators.required);
+    this.quantMaxPessoas = new FormControl(null, []);
+    this.distanciaMax = new FormControl(null, []);
+    this.quantHorasDisponivel = new FormControl(null, []); 
+    this.opcaoPlano = new FormControl('', Validators.required);
     this.status = new FormControl(null, []); 
+    this.dataInicio = new FormControl(null, []); 
+    this.dataFim = new FormControl(null, []); 
     
     this.planoReservabarcoForm = new FormGroup({
      id: this.id,
-     valorAluguel: this.valorAluguel,      
-     diaSemana: this.diaSemana,
-     horaInicioDisponivel: this.horaInicioDisponivel,
-     horaFimDisponivel: this.horaFimDisponivel,
-     quantidadeHorasDisponiveis:  this.quantidadeHorasDisponiveis,
+     valorAluguelKm: this.valorAluguelKm,      
+     quantMaxPessoas: this.quantMaxPessoas,
+     distanciaMax: this.distanciaMax,
+     quantHorasDisponivel: this.quantHorasDisponivel,
+     opcaoPlano:  this.opcaoPlano,
+     dataInicio:  this.dataInicio,
+     dataFim:  this.dataFim,
      status:  this.status     
    });
 
@@ -182,7 +215,9 @@ export class ReservasPlanejamentoDetailPage {
       
     this.planoReservabarcoService.upsertWithWhere(where, this.planoReservabarco).subscribe( sucesso => {    
       this.logger.info('ReservasPlanejamentoPage :: salvarPlanoReservaBarco :: planoReservabarcoService.create() :: sucesso :: ', sucesso);
-      //this.navCtrl.push(BarcosMeusPage);         
+      //this.navCtrl.push(BarcosMeusPage); 
+      this.cadastrarHistoricoPlanoReserva(this.barco, this.planoReservabarcoOld);  
+      this.podeEditar = false;      
     }, (error: any) => {
       this.logger.error('ReservasPlanejamentoPage :: salvarPlanoReservaBarco :: planoReservabarcoService.create() :: error :: ', error);        
     });
@@ -193,8 +228,33 @@ export class ReservasPlanejamentoDetailPage {
   }
 }
 
+public cadastrarHistoricoPlanoReserva(barco: Barco, planoReserva: PlanoReservabarco) {
+  this.logger.info('ReservasPlanejamentoCreatePage :: cadastrarHistoricoPlanoReserva :: barco selecionado :: ', barco);
+  
+  this.historico.dataCadastro = new Date();
+  this.historico.dataFim = planoReserva.dataFim;
+  this.historico.dataInicio = planoReserva.dataInicio;
+  this.historico.opcaoPlano = planoReserva.opcaoPlano;
+  this.historico.distanciaMax = planoReserva.distanciaMax;
+  this.historico.quantHorasDisponivel= planoReserva.quantHorasDisponivel;
+  this.historico.quantMaxPessoas = planoReserva.quantMaxPessoas;
+  this.historico.valorAluguelKm = planoReserva.valorAluguelKm;
+  this.historico.barcoId = barco.id;
+
+  this.historicoPlanoReservaBarcoService.create(this.historico).subscribe( sucesso => {
+    this.logger.info('ReservasPlanejamentoCreatePage :: cadastrarHistoricoPlanoReserva :: historicoPlanoReservaBarcoService.create() :: sucesso :: ', sucesso);        
+  }, (error: any) => {
+    this.logger.error('ReservasPlanejamentoCreatePage :: cadastrarHistoricoPlanoReserva :: historicoPlanoReservaBarcoService.create() :: error :: ', error);        
+  });
+}
+
 public cancelarCadastroPlanoReservaBarco(){
   this.logger.info('ReservasPlanejamentoPage :: cancelarEdicaoPlanoReservaBarco');
+}
+
+public cancelarSalvarPlano(){
+  this.logger.info('ReservasPlanejamentoPage :: cancelarEdicaoPlanoReservaBarco');
+  this.carregaDetalhePlanoReservaBarco();
 }
 
   ionViewDidLoad() {

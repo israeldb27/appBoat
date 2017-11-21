@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Barco, BarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
 import { LoopBackConfig } from "../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
@@ -46,6 +46,7 @@ export class BarcosMeusDetailPage {
               public navParams: NavParams,
               public barcoService: BarcoApi,
               private formBuilder: FormBuilder, 
+              private alertCtrl: AlertController,
               private logger: LoggerService) {
 
       this.logger.info('BarcosMeusDetailPage :: constructor');  
@@ -61,6 +62,44 @@ export class BarcosMeusDetailPage {
       this.limpaForm();  
       this.carregaDetalhesBarco();  
   }
+
+  public confirmarExclusaoBarco(){
+    this.logger.info('BarcosMeusDetailPage ::  confirmarExclusaoBarco ::  ');
+
+    const confirmacao = this.alertCtrl.create({
+      title: 'Confirmar Exclusão',
+      message: 'Deseja realmente excluir esse barco?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            this.logger.info('"Cancelar" escolhido');
+          }
+        },
+        {
+          text: 'Confirmar',
+          cssClass: 'text-danger',
+          handler: () => {
+            this.confirmarExclusaoBarcoHandler();
+          }
+        }
+      ]
+    });
+    confirmacao.present();
+}
+
+private confirmarExclusaoBarcoHandler() {
+  this.logger.info('"Confirmar" escolhido');
+  
+  this.barcoService.deleteById(this.barco.id).subscribe(sucesso => {
+      this.logger.info('BarcosMeusDetailPage :: excluirBarco :: barcoService.deleteById() :: sucesso :: ', sucesso);
+   //   this.navCtrl.push(CategoriaListPage);
+    }, (error: any) => {
+      this.logger.error('BarcosMeusDetailPage :: excluirBarco :: barcoService.deleteById() :: error :: ', error);
+    });
+   
+}
 
   public goPlanejarReservaBarco(){
     this.logger.info('BarcosMeusDetailPage ::  goPlanejarReservaBarco ::  ');

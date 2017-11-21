@@ -28,7 +28,7 @@ export class ReservasDetailPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private reservaBarcoService: ReservaBarcoApi, 
-              private barcoService: BarcoApi;
+              private barcoService: BarcoApi,
               private logger: LoggerService) {
 
       this.logger.info('ReservasDetailPage :: constructor');          

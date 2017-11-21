@@ -1,11 +1,7 @@
 /* tslint:disable */
-import {
-  ReservaBarco
-} from '../index';
 
 declare var Object: any;
-export interface PlanoReservabarcoInterface {
-  "status": string;
+export interface HistoricoPlanoReservaBarcoInterface {
   "dataInicio"?: Date;
   "dataFim"?: Date;
   "valorAluguelKm"?: number;
@@ -14,12 +10,11 @@ export interface PlanoReservabarcoInterface {
   "quantHorasDisponivel"?: number;
   "opcaoPlano": string;
   "barcoId": number;
+  "dataCadastro": Date;
   "id"?: number;
-  reservaBarcos?: ReservaBarco[];
 }
 
-export class PlanoReservabarco implements PlanoReservabarcoInterface {
-  "status": string;
+export class HistoricoPlanoReservaBarco implements HistoricoPlanoReservaBarcoInterface {
   "dataInicio": Date;
   "dataFim": Date;
   "valorAluguelKm": number;
@@ -28,26 +23,26 @@ export class PlanoReservabarco implements PlanoReservabarcoInterface {
   "quantHorasDisponivel": number;
   "opcaoPlano": string;
   "barcoId": number;
+  "dataCadastro": Date;
   "id": number;
-  reservaBarcos: ReservaBarco[];
-  constructor(data?: PlanoReservabarcoInterface) {
+  constructor(data?: HistoricoPlanoReservaBarcoInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `PlanoReservabarco`.
+   * i.e. `HistoricoPlanoReservaBarco`.
    */
   public static getModelName() {
-    return "PlanoReservabarco";
+    return "HistoricoPlanoReservaBarco";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of PlanoReservabarco for dynamic purposes.
+  * This method creates an instance of HistoricoPlanoReservaBarco for dynamic purposes.
   **/
-  public static factory(data: PlanoReservabarcoInterface): PlanoReservabarco{
-    return new PlanoReservabarco(data);
+  public static factory(data: HistoricoPlanoReservaBarcoInterface): HistoricoPlanoReservaBarco{
+    return new HistoricoPlanoReservaBarco(data);
   }
   /**
   * @method getModelDefinition
@@ -58,15 +53,11 @@ export class PlanoReservabarco implements PlanoReservabarcoInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'PlanoReservabarco',
-      plural: 'planoreservabarcos',
-      path: 'planoreservabarcos',
+      name: 'HistoricoPlanoReservaBarco',
+      plural: 'HistoricosPlanoReservaVarco',
+      path: 'HistoricosPlanoReservaVarco',
       idName: 'id',
       properties: {
-        "status": {
-          name: 'status',
-          type: 'string'
-        },
         "dataInicio": {
           name: 'dataInicio',
           type: 'Date'
@@ -99,20 +90,16 @@ export class PlanoReservabarco implements PlanoReservabarcoInterface {
           name: 'barcoId',
           type: 'number'
         },
+        "dataCadastro": {
+          name: 'dataCadastro',
+          type: 'Date'
+        },
         "id": {
           name: 'id',
           type: 'number'
         },
       },
       relations: {
-        reservaBarcos: {
-          name: 'reservaBarcos',
-          type: 'ReservaBarco[]',
-          model: 'ReservaBarco',
-          relationType: 'hasMany',
-                  keyFrom: 'id',
-          keyTo: 'planoreservabarcoId'
-        },
       }
     }
   }

@@ -44,16 +44,13 @@ export class OpcionaisListPage {
 
   public listarOpcionais(){
     this.logger.info('OpcionaisListPage :: listarOpcionais '); 
-
-    let barcoId: any;
-    barcoId = localStorage['usuarioSessao'];
     this.logger.info(' OpcionaisListPage :: listarOpcionais :: barco selecionado ', this.barco );
   
     let filtro: LoopBackFilter = {
       "where": {
         "and": [
           {
-            "barcoId": barcoId              
+            "barcoId": this.barco.id              
           }
         ]      
       }
@@ -69,7 +66,7 @@ export class OpcionaisListPage {
 
   public visualizarDetalhesOpcional(opcional){
     this.logger.info('OpcionaisListPage :: visualizarDetalhesOpcional :: selecionado ', opcional); 
-    this.navCtrl.push(OpcionaisDetailPage, { opcional: opcional });
+    this.navCtrl.push(OpcionaisDetailPage, { opcional: opcional, barco: this.barco } );
   }
 
   ionViewDidLoad() {

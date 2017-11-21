@@ -8,5 +8,7 @@ export * from './Avaliacaodonobarco';
 export * from './ReservaBarco';
 export * from './PlanoReservabarco';
 export * from './TipoFormapagamento';
+export * from './Ordempagamento';
+export * from './HistoricoPlanoReservaBarco';
 export * from './BaseModels';
 export * from './FireLoopRef';
