@@ -23,6 +23,7 @@ export class AvaliacaoDonoBarcoCreatePage {
   usuarioSolicitanteId: number;
   donoBarcoId: number;
 
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public avaliacaodonobarcoService: AvaliacaodonobarcoApi,
@@ -39,6 +40,8 @@ export class AvaliacaoDonoBarcoCreatePage {
 
           this.avaliacaodonobarco = new Avaliacaodonobarco();
           this.limpaForm();
+          this.carregarDonoBarco();
+          
   }
 
   public cadastrarAvaliacaoDonoBarco(){
@@ -48,6 +51,9 @@ export class AvaliacaoDonoBarcoCreatePage {
     
     if ( this.avaliacaodonobarcoForm.valid ){        
       this.logger.info('AvaliacaoDonoBarcoCreatePage :: cadastrarAvaliacaoDonoBarco :: form validado OK');
+      this.avaliacaodonobarco.dataAvaliacao = new Date();
+      this.avaliacaodonobarco.donoBarcoId = this.donoBarcoId;
+
       this.avaliacaodonobarcoService.create(this.avaliacaodonobarco).subscribe( sucesso => {
         this.logger.info('AvaliacaoDonoBarcoCreatePage :: cadastrarAvaliacaoDonoBarco :: avaliacaodonobarcoService.create() :: sucesso :: ', sucesso);
       //  this.navCtrl.push(BarcosMeusPage);         
@@ -58,6 +64,11 @@ export class AvaliacaoDonoBarcoCreatePage {
     else {
       this.logger.info('AvaliacaoDonoBarcoCreatePage :: cadastrarAvaliacaoDonoBarco :: form invalido');
     }
+  }
+
+  public carregarDonoBarco(){
+    this.logger.info('AvaliacaoDonoBarcoCreatePage :: cancelarCadastroAvaliacaoDonoBarco ');
+    this.donoBarcoId = this.navParams.get('donoBarcoId');
   }
 
   public cancelarCadastroAvaliacaoDonoBarco(){

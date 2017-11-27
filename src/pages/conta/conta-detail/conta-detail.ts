@@ -135,24 +135,24 @@ ionViewDidLoad() {
 
 public salvarConta(): void {
   
-      this.logger.info('ContaDetailPage :: salvarConta'); 
-  
-      if ( this.usuarioForm.valid ){
-        this.logger.info('BarcosDetailPage :: salvarConta :: form validado OK');
-        let where = {
-          id: this.usuario.id
-        };      
-        
-        this.usuarioService.upsertWithWhere(where, this.usuario).subscribe( sucesso => {
-          this.logger.info('ContaDetailPage :: salvarConta :: usuarioService.upsertWithWhere() :: sucesso :: ', sucesso);
-          //this.navCtrl.push(GruposListPage);        
-        }, (error: any) => {
-          this.logger.error('ContaDetailPage :: salvarConta :: usuarioService.upsertWithWhere() :: error :: ', error);
-        });
-      }  
-      else {
-        this.logger.info('ContaDetailPage :: salvarConta :: form invalido');
-      } 
+    this.logger.info('ContaDetailPage :: salvarConta'); 
+
+    if ( this.usuarioForm.valid ){
+      this.logger.info('BarcosDetailPage :: salvarConta :: form validado OK');
+      let where = {
+        id: this.usuario.id
+      };      
+      
+      this.usuarioService.upsertWithWhere(where, this.usuario).subscribe( sucesso => {
+        this.logger.info('ContaDetailPage :: salvarConta :: usuarioService.upsertWithWhere() :: sucesso :: ', sucesso);
+        //this.navCtrl.push(GruposListPage);        
+      }, (error: any) => {
+        this.logger.error('ContaDetailPage :: salvarConta :: usuarioService.upsertWithWhere() :: error :: ', error);
+      });
+    }  
+    else {
+      this.logger.info('ContaDetailPage :: salvarConta :: form invalido');
+    } 
 
 }
 

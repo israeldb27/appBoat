@@ -9,6 +9,11 @@ import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
   selector: 'page-pagamentos-meus',
   templateUrl: 'pagamentos-meus.html',
 })
+
+/**
+ * Descrição: Esta classe irá listar todos os pagamentos realizados pelo cliente
+ * 
+ */
 export class PagamentosMeusPage {
 
   pagamentos: any[] = [];

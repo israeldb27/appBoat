@@ -1,0 +1,87 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Detalhes Forma Pagamento </ion-title>
+    <ion-buttons end>      
+        <button ion-button color="primary" icon-start (click)="goEditarFormaPagamento(true)">
+            <ion-icon name="create"></ion-icon>
+            <span hideWhen="portrait">Editar</span>
+        </button>         
+  </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <form [formGroup]="formaPagamentoUsuarioForm" novalidate>
+        <ion-list no-lines>
+
+          <ion-item [hidden]="podeEditar">
+            <h2>Banco</h2>
+            <p>{{formaPagamentoUsuario.banco}}</p>
+          </ion-item>
+          <ion-item [hidden]="!podeEditar"> 
+            <ion-label stacked color="primary">Banco</ion-label>
+            <ion-input type="text" formControlName="banco" [(ngModel)]="formaPagamentoUsuario.banco" spellcheck="false" autocapitalize="off" required>
+            </ion-input>
+          </ion-item>
+          <p ion-text [hidden]="banco.valid || submitted == false" color="danger" padding-left>
+            Campo é obrigatório
+          </p>
+    
+           <ion-item [hidden]="podeEditar">
+              <h2>Numero Cartao</h2>
+              <p>{{formaPagamentoUsuario.numeroCartao}}</p>
+            </ion-item>
+            <ion-item [hidden]="!podeEditar"> 
+            <ion-label stacked color="primary">Numero Cartao</ion-label>
+            <ion-input formControlName="numeroCartao" [(ngModel)]="formaPagamentoUsuario.numeroCartao" type="text" required>
+            </ion-input>
+          </ion-item>
+          <p ion-text [hidden]="numeroCartao.valid || submitted == false" color="danger" padding-left>
+              Campo é obrigatório
+          </p>
+    
+           <ion-item [hidden]="podeEditar">
+              <h2>Agencia</h2>
+              <p>{{formaPagamentoUsuario.agencia}}</p>
+            </ion-item>
+            <ion-item [hidden]="!podeEditar"> 
+              <ion-label stacked color="primary">Agencia</ion-label>
+              <ion-input formControlName="agencia" [(ngModel)]="formaPagamentoUsuario.agencia" type="text" required>
+              </ion-input>
+          </ion-item>  
+          <p ion-text [hidden]="agencia.valid || submitted == false" color="danger" padding-left>
+              Campo é obrigatório
+          </p>
+
+           <ion-item [hidden]="podeEditar">
+              <h2>Conta</h2>
+              <p>{{formaPagamentoUsuario.conta}}</p>
+            </ion-item>
+            <ion-item [hidden]="!podeEditar"> 
+              <ion-label stacked color="primary">Conta</ion-label>
+              <ion-input formControlName="conta" [(ngModel)]="formaPagamentoUsuario.conta" type="text" required>
+              </ion-input>
+          </ion-item>  
+          <p ion-text [hidden]="conta.valid || submitted == false" color="danger" padding-left>
+              Campo é obrigatório
+          </p>
+
+        </ion-list>
+
+        <ion-row responsive-sm>  
+            <ion-col>
+                <button ion-button (click)="cancelarEditarFormaPagamento(false)" color="light" block>Cancelar</button>
+              </ion-col>        
+            <ion-col>
+              <button ion-button (click)="salvarFormaPagamentoCliente(formaPagamentoUsuarioForm)" type="submit" block>Salvar</button>
+            </ion-col>
+        </ion-row>
+
+    </form>
+
+</ion-content>

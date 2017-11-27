@@ -147,7 +147,7 @@ private confirmarExclusaoBarcoHandler() {
   public cancelarEditarBarco(desabilitaEditar: boolean){
     this.logger.info('BarcosMeusDetailPage :: cancelarEditarBarco' );
     this.podeEditar = desabilitaEditar;
-    this.barcoTemporario = Object.assign({}, this.barco);
+    this.barco = Object.assign({}, this.barcoTemporario);
   }
 
 

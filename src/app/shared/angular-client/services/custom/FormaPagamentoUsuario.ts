@@ -10,15 +10,15 @@ import { JSONSearchParams } from '../core/search.params';
 import { ErrorHandler } from '../core/error.service';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Rx';
-import { TipoFormapagamento } from '../../models/TipoFormapagamento';
+import { FormaPagamentoUsuario } from '../../models/FormaPagamentoUsuario';
 import { SocketConnection } from '../../sockets/socket.connections';
 
 
 /**
- * Api services for the `TipoFormapagamento` model.
+ * Api services for the `FormaPagamentoUsuario` model.
  */
 @Injectable()
-export class TipoFormapagamentoApi extends BaseLoopBackApi {
+export class FormaPagamentoUsuarioApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(Http) protected http: Http,
@@ -44,13 +44,13 @@ export class TipoFormapagamentoApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `TipoFormapagamento` object.)
+   * This usually means the response is a `FormaPagamentoUsuario` object.)
    * </em>
    */
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/tipoformapagamentos";
+    "/FormaPagamentoUsuarios";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -63,7 +63,7 @@ export class TipoFormapagamentoApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id TipoFormapagamento id
+   * @param {any} id FormaPagamentoUsuario id
    *
    * @param {object} data Request data.
    *
@@ -75,13 +75,13 @@ export class TipoFormapagamentoApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `TipoFormapagamento` object.)
+   * This usually means the response is a `FormaPagamentoUsuario` object.)
    * </em>
    */
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/tipoformapagamentos/:id";
+    "/FormaPagamentoUsuarios/:id";
     let _routeParams: any = {
       id: id
     };
@@ -95,9 +95,9 @@ export class TipoFormapagamentoApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `TipoFormapagamento`.
+   * i.e. `FormaPagamentoUsuario`.
    */
   public getModelName() {
-    return "TipoFormapagamento";
+    return "FormaPagamentoUsuario";
   }
 }

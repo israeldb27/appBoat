@@ -8,6 +8,7 @@ export * from './Avaliacaodonobarco';
 export * from './ReservaBarco';
 export * from './PlanoReservabarco';
 export * from './TipoFormapagamento';
+export * from './FormaPagamentoUsuario';
 export * from './Ordempagamento';
 export * from './HistoricoPlanoReservaBarco';
 export * from './SDKModels';

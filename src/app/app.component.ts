@@ -23,7 +23,11 @@ import { ReservasSolicitadasListPage } from '../pages/reservas/dono-barco/reserv
 
 import { ReservasListPage } from '../pages/reservas/usuario-comum/reservas-list/reservas-list';
 
+import { FormaPagamentoClienteDetailPage } from '../pages/forma-pagamento/usuario-comum/forma-pagamento-cliente-detail/forma-pagamento-cliente-detail';
+
 import { OpcionaisListPage } from '../pages/barcos/dono-barco/opcionais/opcionais-list/opcionais-list';
+
+import { ReservasPagamentoListPage } from '../pages/reservas/usuario-comum/reservas-pagamento-list/reservas-pagamento-list';
 
 import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 
@@ -83,10 +87,11 @@ export class MyApp {
       { title: 'Pesquisar Barcos', component: BarcosPesquisaPage },
       { title: 'Reservas', component: ReservasListPage }, // funcionalidade destinada para os usuarios comuns para checarem as reservas de barco que estes fizeram
       { title: 'Meus Pagamentos', component: PagamentosMeusPage },
+      { title: 'Ordens de Pagamento', component: ReservasPagamentoListPage }, // lista as ordens de pagamento com status 'solicitado' para o cliente
       { title: 'Conta', component: ContaDetailPage },
+      { title: 'Forma Pagamento', component: FormaPagamentoClienteDetailPage },  // permite o usuario cliente salvar ou cadastrar uma forma de pagamento que será usada pelo usuario realizar pagamentos das reservas.
       { title: 'Sobre', component: SobreDetailPage },
       { title: 'Logout', component: LogoutPage }
-
     ];
   }
   

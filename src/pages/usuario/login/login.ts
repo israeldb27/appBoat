@@ -104,7 +104,7 @@ export class LoginPage {
           let user = usuarios[0];
           localStorage['usuarioSessao'] = user.id;
           localStorage['perfilUsuarioSessao'] = user.perfil;
-        }         
+        }       
         
       }, (error: any) => {
         this.logger.error('LoginPage :: realizarLogin ::usuarioService :: error :: ', error);

@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Detalhes Ordem de Pagamento Reserva</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <p><strong>Valor Pagamento: </strong>{{ordem.valorPagamento}}</p>
+    <p><strong>Data Criação: </strong>{{ordem.dataCriacao}}</p>
+
+    <ion-row responsive-sm>
+        <ion-col>
+          <button ion-button (click)="realizarPagamento()" type="submit" block>Realizar Pagamento</button>
+        </ion-col>
+    </ion-row>
+
+</ion-content>

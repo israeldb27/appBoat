@@ -7,7 +7,6 @@ export interface TipoFormapagamentoInterface {
   "descricao"?: string;
   "observacao"?: string;
   "id"?: number;
-  formagPagamentoUsuarios?: any[];
 }
 
 export class TipoFormapagamento implements TipoFormapagamentoInterface {
@@ -16,7 +15,6 @@ export class TipoFormapagamento implements TipoFormapagamentoInterface {
   "descricao": string;
   "observacao": string;
   "id": number;
-  formagPagamentoUsuarios: any[];
   constructor(data?: TipoFormapagamentoInterface) {
     Object.assign(this, data);
   }
@@ -72,14 +70,6 @@ export class TipoFormapagamento implements TipoFormapagamentoInterface {
         },
       },
       relations: {
-        formagPagamentoUsuarios: {
-          name: 'formagPagamentoUsuarios',
-          type: 'any[]',
-          model: '',
-          relationType: 'hasMany',
-                  keyFrom: 'id',
-          keyTo: 'tipoformapagamentoId'
-        },
       }
     }
   }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Avaliacaobarco, AvaliacaobarcoApi, LoggerService } from "../../../app/shared/angular-client/index";
+import { Avaliacaobarco, AvaliacaobarcoApi, Barco, LoggerService } from "../../../app/shared/angular-client/index";
 import { LoopBackConfig, LoopBackFilter } from "../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -23,6 +23,8 @@ export class AvaliacaoBarcoCreatePage {
 
   idUsuarioSolicitante: any;
   barcoId: any;
+
+  barco: Barco;
   
 
   constructor(public navCtrl: NavController, 
@@ -37,23 +39,34 @@ export class AvaliacaoBarcoCreatePage {
       this.logger.info('AvaliacaoBarcoCreatePage :: constructor'); 
 
       this.submitted = false;
+      this.avaliacaobarco = new Avaliacaobarco();
       
       this.avaliacaobarcoForm = formBuilder.group({
         pontuacao: ["", Validators.required]                          
       });
 
       this.limpaForm();
+      this.carregarBarcoSelecionado();
+
+  }
+
+  public carregarBarcoSelecionado(): void{
+    this.logger.info('AvaliacaoBarcoCreatePage :: carregarBarcoSelecionado'); 
+    this.barco = this.navParams.get('barco');
+    this.logger.info('AvaliacaoBarcoCreatePage :: carregarBarcoSelecionado :: barco selecionado '); 
 
   }
 
   public cadastrarAvaliacaoBarco(): void {
 
-        this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco'); 
-        
+        this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco');         
         this.submitted = true;
         
         if ( this.avaliacaobarcoForm.valid ){        
           this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco :: form validado OK');
+          this.avaliacaobarco.barcoId = this.barco.id;
+          this.avaliacaobarco.dataAvaliacao = new Date();
+
           this.avaliacaobarcoService.create(this.avaliacaobarco).subscribe( sucesso => {
             this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco :: avaliacaobarcoService.create() :: sucesso :: ', sucesso);
             //this.navCtrl.push(BarcosMeusPage);         
@@ -64,7 +77,12 @@ export class AvaliacaoBarcoCreatePage {
         else {
           this.logger.info('AvaliacaoBarcoCreatePage :: cadastrarAvaliacaoBarco :: form invalido');
         }
-    }
+  }
+
+  public cancelarAvaliacaoBarco(){
+    this.logger.info('AvaliacaoBarcoCreatePage :: cancelarAvaliacaoBarco'); 
+    this.navCtrl.pop();
+  }
 
   public limpaForm(){
     this.logger.info('AvaliacaoBarcoCreatePage :: limpaForm');

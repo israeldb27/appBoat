@@ -44,7 +44,13 @@ import { ReservasSolicitadasDetailPage } from '../pages/reservas/dono-barco/rese
 
 import { ReservasListPage } from '../pages/reservas/usuario-comum/reservas-list/reservas-list';
 import { ReservasDetailPage } from '../pages/reservas/usuario-comum/reservas-detail/reservas-detail';
-import { ReservasPagamentoPage } from '../pages/reservas/usuario-comum/reservas-pagamento/reservas-pagamento';
+
+import { ReservasPagamentoDetailPage } from '../pages/reservas/usuario-comum/reservas-pagamento-detail/reservas-pagamento-detail';
+import { ReservasPagamentoListPage } from '../pages/reservas/usuario-comum/reservas-pagamento-list/reservas-pagamento-list';
+
+import { ReservasPagarPage } from '../pages/reservas/usuario-comum/reservas-pagar/reservas-pagar';
+
+import { FormaPagamentoClienteDetailPage } from '../pages/forma-pagamento/usuario-comum/forma-pagamento-cliente-detail/forma-pagamento-cliente-detail';
 
 import { OpcionaisListPage } from '../pages/barcos/dono-barco/opcionais/opcionais-list/opcionais-list';
 import { OpcionaisCreatePage } from '../pages/barcos/dono-barco/opcionais/opcionais-create/opcionais-create';
@@ -78,12 +84,15 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     PagamentosDetailPage,
     ReservasListPage,
     ReservasDetailPage,
-    ReservasPagamentoPage,
+    ReservasPagamentoListPage,
+    ReservasPagamentoDetailPage,
+    ReservasPagarPage,
     ReservasPlanejamentoCreatePage,
     ReservasPlanejamentoListPage,
     ReservasPlanejamentoDetailPage,
     ReservasSolicitadasListPage,
-    ReservasSolicitadasDetailPage,    
+    ReservasSolicitadasDetailPage,   
+    FormaPagamentoClienteDetailPage, 
     SobreDetailPage,    
     LoginPage,
     LogoutPage,
@@ -120,12 +129,15 @@ import { SDKBrowserModule } from './shared/angular-client/index';
     PagamentosDetailPage,
     ReservasListPage,
     ReservasDetailPage,
-    ReservasPagamentoPage,
+    ReservasPagamentoListPage,
+    ReservasPagamentoDetailPage,
+    ReservasPagarPage,
     ReservasPlanejamentoCreatePage,
     ReservasPlanejamentoListPage,
     ReservasPlanejamentoDetailPage,
     ReservasSolicitadasListPage,
     ReservasSolicitadasDetailPage,     
+    FormaPagamentoClienteDetailPage,
     SobreDetailPage,    
     LoginPage,
     LogoutPage,

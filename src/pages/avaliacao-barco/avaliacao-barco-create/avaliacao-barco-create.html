@@ -1,18 +1,46 @@
-<!--
-  Generated template for the AvaliacaoBarcoCreatePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>avaliacao-barco-create</ion-title>
+    <ion-title>Adicionar Avaliação Barco</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+        <p><strong>Nome Barco </strong> {{barco.nome}} </p>
+        <p><strong>Tipo </strong> {{barco.tipoBarco}}</p>
+        <br> <br>
+        <hr>
+
+        <form [formGroup]="avaliacaobarcoForm" novalidate>
+            <ion-list no-lines>
+              <ion-item>
+                <ion-label stacked color="primary">Pontuação</ion-label>
+                <ion-input type="text" formControlName="pontuacao" [(ngModel)]="avaliacaobarco.pontuacao" spellcheck="false" autocapitalize="off" required>
+                </ion-input>
+              </ion-item>
+              <p ion-text [hidden]="pontuacao.valid || submitted == false" color="danger" padding-left>
+                Campo é obrigatório
+              </p>
+
+              <ion-item>
+                  <ion-label stacked color="primary">Observação</ion-label>
+                  <ion-input type="text" formControlName="observacao" [(ngModel)]="avaliacaobarco.observacao" spellcheck="false" autocapitalize="off" required>
+                  </ion-input>
+              </ion-item>
+            </ion-list>
+
+            <ion-row responsive-sm>
+                <ion-col>
+                  <button ion-button (click)="cancelarAvaliacaoBarco()" color="light" block>Cancelar</button>
+                </ion-col>
+                <ion-col>
+                  <button ion-button (click)="cadastrarAvaliacaoBarco(avaliacaobarcoForm)" type="submit" block>Avaliar</button>
+                </ion-col>
+              </ion-row>
+
+        </form>
 
 </ion-content>

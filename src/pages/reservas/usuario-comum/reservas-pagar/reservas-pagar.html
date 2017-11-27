@@ -1,0 +1,35 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Pagamento Reservar</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <p><strong>Valor Pagamento: </strong>{{ordem.valorPagamento}}</p>
+    <p><strong>Data Criação: </strong>{{ordem.dataCriacao}}</p>
+
+    <br><br>
+
+    <hr>
+
+    <!-- Abaixo estao as informações da conta e Banco na qual o cliente vai usar para realizar o pagamento -->
+
+    <p><strong>Banco: </strong>{{formaPagamentoCliente.banco}}</p>
+    <p><strong>Numero Cartao: </strong>{{formaPagamentoCliente.numeroCartao}}</p>
+    <p><strong>Conta: </strong>{{formaPagamentoCliente.conta}}</p>
+
+    <ion-row responsive-sm>
+        <ion-col>
+            <button ion-button (click)="cancelarPagamento()"  block>Cancelar Pagamento</button>
+        </ion-col> 
+        <ion-col>
+          <button ion-button (click)="confirmarPagamento()" type="submit" block>Confirmar Pagamento</button>
+        </ion-col>
+    </ion-row>
+
+</ion-content>
