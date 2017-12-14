@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import {  LoggerService } from "../app/shared/angular-client/index";
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -31,6 +31,8 @@ import { ReservasPagamentoListPage } from '../pages/reservas/usuario-comum/reser
 
 import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -43,16 +45,18 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  perfilUsuarioSessao: any;
+  public perfilUsuarioSessao: string;
   pagesDonoBarco: Array<{title: string, component: any}>; // usado para montar o menu para o perfil de Dono Barco
   pagesCliente: Array<{title: string, component: any}>;   // usado para montar o menu para o perfil de Cliente
 
   constructor(public platform: Platform, 
               public statusBar: StatusBar,
+              public storage: Storage,
               private logger: LoggerService,
               public splashScreen: SplashScreen) {
     this.initializeApp();
-
+   
+    this.perfilUsuarioSessao = '';            
     this.logger.info('MyApp :: iniciando o App ...'); 
     this.carregarPerfilUsuarioSessao();
 
@@ -97,8 +101,14 @@ export class MyApp {
   
   public carregarPerfilUsuarioSessao(){
     this.logger.info('MyApp :: carregarPerfilUsuarioSessao '); 
+    this.storage.set('perfil')
     this.perfilUsuarioSessao = localStorage['perfilUsuarioSessao'];
+    this.logger.info('Perfil carregado: ' +  this.perfilUsuarioSessao); 
+  }
 
+  enableMenu(loggedIn: boolean) {
+    this.menu.enable(loggedIn, 'loggedInMenu');
+    this.menu.enable(!loggedIn, 'loggedOutMenu');
   }
 
 

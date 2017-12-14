@@ -41,7 +41,7 @@ export class BarcosPesquisaPage {
               public modalCtrl: ModalController,
               public formBuilder: FormBuilder,
               private barcoService: BarcoApi,
-              private planoReservabarcoService :PlanoReservabarcoApi;
+              private planoReservabarcoService :PlanoReservabarcoApi,
               private logger: LoggerService) {
 
         LoopBackConfig.setBaseURL(BASE_URL);
@@ -198,6 +198,7 @@ export class BarcosPesquisaPage {
      });
 
      this.planoReservabarcoForm.reset();
+     this.logger.info('BarcosPesquisaPage :: limparForm :: terminou ');  
     }
 
 

@@ -20,6 +20,7 @@ export class LoginPage {
   public usuarioSessao: Usuario;
   public submitted: boolean;
   usuarioForm: FormGroup;
+  
 
   usuarios: Usuario[];
   mensagemRetorno: string;
@@ -39,6 +40,7 @@ export class LoginPage {
       LoopBackConfig.setApiVersion(API_VERSION);  
 
       this.submitted = false;
+      
       
       this.usuarioForm = formBuilder.group({        
         login: ["", Validators.required],
@@ -103,7 +105,7 @@ export class LoginPage {
           this.navCtrl.setRoot(BarcosPesquisaPage);
           let user = usuarios[0];
           localStorage['usuarioSessao'] = user.id;
-          localStorage['perfilUsuarioSessao'] = user.perfil;
+          sessionStorage['perfilUsuarioSessao'] = user.perfil;
         }       
         
       }, (error: any) => {
