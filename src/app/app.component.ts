@@ -33,6 +33,8 @@ import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 
 import { Storage } from '@ionic/storage';
 
+import { PerfilUsuarioSessaoProvider } from '../providers/perfil-usuario-sessao/perfil-usuario-sessao';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -52,13 +54,14 @@ export class MyApp {
   constructor(public platform: Platform, 
               public statusBar: StatusBar,
               public storage: Storage,
+              public perfilUsuario: PerfilUsuarioSessaoProvider,
+              public menu: MenuController,
               private logger: LoggerService,
               public splashScreen: SplashScreen) {
     this.initializeApp();
    
     this.perfilUsuarioSessao = '';            
     this.logger.info('MyApp :: iniciando o App ...'); 
-    this.carregarPerfilUsuarioSessao();
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -97,18 +100,42 @@ export class MyApp {
       { title: 'Sobre', component: SobreDetailPage },
       { title: 'Logout', component: LogoutPage }
     ];
-  }
-  
-  public carregarPerfilUsuarioSessao(){
-    this.logger.info('MyApp :: carregarPerfilUsuarioSessao '); 
-    this.storage.set('perfil')
-    this.perfilUsuarioSessao = localStorage['perfilUsuarioSessao'];
-    this.logger.info('Perfil carregado: ' +  this.perfilUsuarioSessao); 
-  }
+
+    this.desabilitaTodosMenus();
+
+    this.perfilUsuario.hasDonoBarcoLogged().then((hasLoggedIn) => {
+      this.logger.info('MyApp :: perfilUsuario.hasDonoBarcoLogged()'); 
+      this.habilitaMenuDono();
+    });
+
+    this.perfilUsuario.hasClienteLogged().then((hasLoggedIn) => {
+      this.logger.info('MyApp :: perfilUsuario.hasClienteLogged()'); 
+      this.habilitaMenuDono();
+    });    
+  } 
+
 
   enableMenu(loggedIn: boolean) {
     this.menu.enable(loggedIn, 'loggedInMenu');
     this.menu.enable(!loggedIn, 'loggedOutMenu');
+  }
+
+  public habilitaMenuDono(){
+    this.logger.info('MyApp :: habilitaMenuDono'); 
+    this.menu.enable(true,  'menuDonoBarco');
+    this.menu.enable(false, 'menuCliente');
+  }
+
+  public habilitaMenuCliente(){
+    this.logger.info('MyApp :: habilitaMenuCliente'); 
+    this.menu.enable(false,  'menuDonoBarco');
+    this.menu.enable(true, 'menuCliente');
+  }
+
+  public desabilitaTodosMenus(){
+    this.logger.info('MyApp :: desabilitaTodosMenus'); 
+    this.menu.enable(false,  'menuDonoBarco');
+    this.menu.enable(false, 'menuCliente');
   }
 
 

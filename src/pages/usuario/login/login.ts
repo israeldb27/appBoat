@@ -9,6 +9,8 @@ import { BarcosPesquisaPage } from '../../barcos/usuario-comum/barcos-pesquisa/b
 
 import { UsuarioCreatePage } from '../usuario-create/usuario-create';
 
+import { PerfilUsuarioSessaoProvider } from '../../../providers/perfil-usuario-sessao/perfil-usuario-sessao';
+
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -33,6 +35,7 @@ export class LoginPage {
               public usuarioService: UsuarioApi,
               public formBuilder: FormBuilder,
               public alertCtrl:AlertController,
+              public perfilUsuario: PerfilUsuarioSessaoProvider,
               private logger: LoggerService) {
 
       this.logger.info('LoginPage :: constructor');            
@@ -105,7 +108,12 @@ export class LoginPage {
           this.navCtrl.setRoot(BarcosPesquisaPage);
           let user = usuarios[0];
           localStorage['usuarioSessao'] = user.id;
-          sessionStorage['perfilUsuarioSessao'] = user.perfil;
+          if ( user.perfil == 'cliente'){
+             this.perfilUsuario.carregaMenuCliente();             
+          }
+          else if ( user.perfil == 'donoBarco'){
+            this.perfilUsuario.carregaMenuDonoBarco();             
+          }
         }       
         
       }, (error: any) => {

@@ -64,6 +64,7 @@ import { AvaliacaoDonoBarcoCreatePage } from '../pages/avaliacao-dono-barco/aval
 import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 
 import { SDKBrowserModule } from './shared/angular-client/index';
+import { PerfilUsuarioSessaoProvider } from '../providers/perfil-usuario-sessao/perfil-usuario-sessao';
 
 @NgModule({
   declarations: [
@@ -153,7 +154,8 @@ import { SDKBrowserModule } from './shared/angular-client/index';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PerfilUsuarioSessaoProvider
   ]
 })
 export class AppModule {}

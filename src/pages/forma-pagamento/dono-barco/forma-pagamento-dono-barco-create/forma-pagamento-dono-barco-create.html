@@ -1,0 +1,61 @@
+
+<ion-header>
+  
+    <ion-navbar>
+      <ion-title>Cadastrar Forma Pagamento</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  <ion-content padding>
+  
+      <form [formGroup]="formaPagamentoUsuarioForm" novalidate>
+          <ion-list no-lines>
+            <ion-item>
+              <ion-label stacked color="primary">Banco</ion-label>
+              <ion-input type="text" formControlName="banco" [(ngModel)]="formaPagamentoUsuario.banco" spellcheck="false" autocapitalize="off" required>
+              </ion-input>
+            </ion-item>
+            <p ion-text [hidden]="banco.valid || submitted == false" color="danger" padding-left>
+              Campo é obrigatório
+            </p>
+      
+            <ion-item>
+              <ion-label stacked color="primary">Numero Cartao</ion-label>
+              <ion-input formControlName="numeroCartao" [(ngModel)]="formaPagamentoUsuario.numeroCartao" type="text" required>
+              </ion-input>
+            </ion-item>
+            <p ion-text [hidden]="numeroCartao.valid || submitted == false" color="danger" padding-left>
+                Campo é obrigatório
+            </p>
+      
+            <ion-item>
+                <ion-label stacked color="primary">Agencia</ion-label>
+                <ion-input formControlName="agencia" [(ngModel)]="formaPagamentoUsuario.agencia" type="text" required>
+                </ion-input>
+            </ion-item>  
+            <p ion-text [hidden]="agencia.valid || submitted == false" color="danger" padding-left>
+                Campo é obrigatório
+            </p>
+  
+            <ion-item>
+                <ion-label stacked color="primary">Conta</ion-label>
+                <ion-input formControlName="conta" [(ngModel)]="formaPagamentoUsuario.conta" type="text" required>
+                </ion-input>
+            </ion-item>  
+            <p ion-text [hidden]="conta.valid || submitted == false" color="danger" padding-left>
+                Campo é obrigatório
+            </p>
+  
+          </ion-list>
+  
+          <ion-row responsive-sm>          
+              <ion-col>
+                <button ion-button (click)="cadastrarFormaPagamentoDonoBarco(formaPagamentoUsuarioForm)" type="submit" block>Cadastrar</button>
+              </ion-col>
+          </ion-row>
+  
+      </form>
+  
+  </ion-content>
+  
