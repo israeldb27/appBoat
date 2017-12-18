@@ -12,6 +12,7 @@ import { TipoFormapagamento } from '../../models/TipoFormapagamento';
 import { FormaPagamentoUsuario } from '../../models/FormaPagamentoUsuario';
 import { Ordempagamento } from '../../models/Ordempagamento';
 import { HistoricoPlanoReservaBarco } from '../../models/HistoricoPlanoReservaBarco';
+import { FormaPagamentoDonoBarco } from '../../models/FormaPagamentoDonoBarco';
 
 export interface Models { [name: string]: any }
 
@@ -31,6 +32,7 @@ export class SDKModels {
     FormaPagamentoUsuario: FormaPagamentoUsuario,
     Ordempagamento: Ordempagamento,
     HistoricoPlanoReservaBarco: HistoricoPlanoReservaBarco,
+    FormaPagamentoDonoBarco: FormaPagamentoDonoBarco,
     
   };
 

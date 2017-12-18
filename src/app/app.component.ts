@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import {  LoggerService } from "../app/shared/angular-client/index";
-import { Nav, Platform, MenuController } from 'ionic-angular';
+import { Nav, Platform, MenuController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -52,6 +52,7 @@ export class MyApp {
   pagesCliente: Array<{title: string, component: any}>;   // usado para montar o menu para o perfil de Cliente
 
   constructor(public platform: Platform, 
+              public events: Events,
               public statusBar: StatusBar,
               public storage: Storage,
               public perfilUsuario: PerfilUsuarioSessaoProvider,
@@ -101,20 +102,24 @@ export class MyApp {
       { title: 'Logout', component: LogoutPage }
     ];
 
-    this.desabilitaTodosMenus();
+    this.listenToLoginEvents();
+  } 
 
-    this.perfilUsuario.hasDonoBarcoLogged().then((hasLoggedIn) => {
-      this.logger.info('MyApp :: perfilUsuario.hasDonoBarcoLogged()'); 
+  listenToLoginEvents() {
+    this.events.subscribe('user:cliente', () => {
+      this.habilitaMenuCliente();
+    });
+
+    this.events.subscribe('user:donoBarco', () => {
       this.habilitaMenuDono();
     });
 
-    this.perfilUsuario.hasClienteLogged().then((hasLoggedIn) => {
-      this.logger.info('MyApp :: perfilUsuario.hasClienteLogged()'); 
-      this.habilitaMenuDono();
-    });    
-  } 
-
-
+    this.events.subscribe('user:logout', () => {
+      this.desabilitaTodosMenus();
+    });
+  }
+  
+ 
   enableMenu(loggedIn: boolean) {
     this.menu.enable(loggedIn, 'loggedInMenu');
     this.menu.enable(!loggedIn, 'loggedOutMenu');
@@ -137,7 +142,6 @@ export class MyApp {
     this.menu.enable(false,  'menuDonoBarco');
     this.menu.enable(false, 'menuCliente');
   }
-
 
   initializeApp() {
     this.platform.ready().then(() => {

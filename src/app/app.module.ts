@@ -66,6 +66,10 @@ import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 import { SDKBrowserModule } from './shared/angular-client/index';
 import { PerfilUsuarioSessaoProvider } from '../providers/perfil-usuario-sessao/perfil-usuario-sessao';
 
+import { IonicStorageModule } from '@ionic/storage';
+import { ReservasSolicitadasServiceProvider } from '../providers/reservas-solicitadas-service/reservas-solicitadas-service';
+import { BarcosServiceProvider } from '../providers/barcos-service/barcos-service';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -103,13 +107,14 @@ import { PerfilUsuarioSessaoProvider } from '../providers/perfil-usuario-sessao/
     OpcionaisDetailPage,
     BarcosSolicitarReservaPage,
     AvaliacaoBarcoCreatePage,
-    AvaliacaoBarcoListPage,
+    AvaliacaoBarcoListPage, 
     AvaliacaoDonoBarcoCreatePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     SDKBrowserModule.forRoot(),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -154,8 +159,10 @@ import { PerfilUsuarioSessaoProvider } from '../providers/perfil-usuario-sessao/
   providers: [
     StatusBar,
     SplashScreen,
+    PerfilUsuarioSessaoProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PerfilUsuarioSessaoProvider
+    ReservasSolicitadasServiceProvider,
+    BarcosServiceProvider
   ]
 })
 export class AppModule {}

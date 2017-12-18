@@ -18,6 +18,7 @@ export class BarcosMeusPage {
    meusBarcos: Barco[];
    usuarioSessao: Usuario;
    idUsuarioSessao: any;
+   public mensagemRetorno: any;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -59,7 +60,13 @@ export class BarcosMeusPage {
      };
 
     this.barcoService.find(filtro).subscribe( (barcos: Barco[]) => {
-      this.meusBarcos = barcos;
+      if ( barcos.length > 0 ){
+        this.meusBarcos = barcos;
+      }
+      else {
+        this.mensagemRetorno = 'Você não possui ainda nenhum barco cadastrado';
+      }      
+
       this.logger.info(' BarcosMeusPage :: listarMeusBarcos :: meusbarcos :: ', this.meusBarcos);
     }, (error: any) => {
       this.logger.error('BarcosMeusPage :: listarMeusBarcos :: barcoService.find :: error :: ', error);

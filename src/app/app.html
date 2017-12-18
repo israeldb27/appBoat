@@ -1,4 +1,27 @@
-<ion-split-pane>
+
+
+    <!-- INICIO: menu Cliente -->
+    
+    <ion-menu id="menuCliente" [content]="content">
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Menu</ion-title>
+          </ion-toolbar>
+        </ion-header>
+      
+        <ion-content class="outer-content">
+          <ion-list>   
+            <div>
+                <button menuClose ion-item *ngFor="let p of pagesCliente" (click)="openPage(p)">
+                    {{p.title}}
+                </button>
+            </div>      
+          </ion-list>
+        </ion-content>
+      
+      </ion-menu>    
+
+    <!-- FIM: menu Dono Barco -->
   
     <!-- INICIO: menu Dono Barco -->
 
@@ -8,8 +31,8 @@
             <ion-title>Menu</ion-title>
           </ion-toolbar>
         </ion-header>
-      
-        <ion-content>
+       
+        <ion-content class="outer-content">
           <ion-list>            
             <div>
                 <button menuClose ion-item *ngFor="let p of pagesDonoBarco" (click)="openPage(p)">
@@ -23,35 +46,9 @@
       </ion-menu>
 
     <!-- FIM: menu Dono Barco -->
-
-    <!-- INICIO: menu Cliente -->
     
-    <ion-menu id="menuCliente" [content]="content">
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>Menu</ion-title>
-          </ion-toolbar>
-        </ion-header>
-      
-        <ion-content>
-          <ion-list>                       
-      
-            <div>
-                <button menuClose ion-item *ngFor="let p of pagesCliente" (click)="openPage(p)">
-                    {{p.title}}
-                </button>
-            </div>
-      
-          </ion-list>
-        </ion-content>
-      
-      </ion-menu>    
-
-    <!-- FIM: menu Dono Barco -->
-
-          
       <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-      <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+      <ion-nav [root]="rootPage" #content swipeBackEnabled="false" main name="myApp"></ion-nav>
 
-</ion-split-pane>
+
 

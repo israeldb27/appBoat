@@ -1,44 +1,44 @@
 /* tslint:disable */
 
 declare var Object: any;
-export interface FormaPagamentoUsuarioInterface {
+export interface FormaPagamentoDonoBarcoInterface {
   "dataCadastro": Date;
-  "banco"?: string;
-  "numeroCartao"?: number;
-  "agencia"?: number;
-  "conta"?: number;
-  "status"?: string;
-  "usuarioId": number;
-  "id"?: number;
-}
-
-export class FormaPagamentoUsuario implements FormaPagamentoUsuarioInterface {
-  "dataCadastro": Date;
-  "banco": string;
+  "banco": number;
   "numeroCartao": number;
   "agencia": number;
   "conta": number;
   "status": string;
-  "usuarioId": number;
+  "idDonoBarco": number;
+  "id"?: number;
+}
+
+export class FormaPagamentoDonoBarco implements FormaPagamentoDonoBarcoInterface {
+  "dataCadastro": Date;
+  "banco": number;
+  "numeroCartao": number;
+  "agencia": number;
+  "conta": number;
+  "status": string;
+  "idDonoBarco": number;
   "id": number;
-  constructor(data?: FormaPagamentoUsuarioInterface) {
+  constructor(data?: FormaPagamentoDonoBarcoInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `FormaPagamentoUsuario`.
+   * i.e. `FormaPagamentoDonoBarco`.
    */
   public static getModelName() {
-    return "FormaPagamentoUsuario";
+    return "FormaPagamentoDonoBarco";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of FormaPagamentoUsuario for dynamic purposes.
+  * This method creates an instance of FormaPagamentoDonoBarco for dynamic purposes.
   **/
-  public static factory(data: FormaPagamentoUsuarioInterface): FormaPagamentoUsuario{
-    return new FormaPagamentoUsuario(data);
+  public static factory(data: FormaPagamentoDonoBarcoInterface): FormaPagamentoDonoBarco{
+    return new FormaPagamentoDonoBarco(data);
   }
   /**
   * @method getModelDefinition
@@ -49,9 +49,9 @@ export class FormaPagamentoUsuario implements FormaPagamentoUsuarioInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'FormaPagamentoUsuario',
-      plural: 'FormaPagamentoUsuarios',
-      path: 'FormaPagamentoUsuarios',
+      name: 'FormaPagamentoDonoBarco',
+      plural: 'FormaPagamentosDonoBarco',
+      path: 'FormaPagamentosDonoBarco',
       idName: 'id',
       properties: {
         "dataCadastro": {
@@ -60,7 +60,7 @@ export class FormaPagamentoUsuario implements FormaPagamentoUsuarioInterface {
         },
         "banco": {
           name: 'banco',
-          type: 'string'
+          type: 'number'
         },
         "numeroCartao": {
           name: 'numeroCartao',
@@ -78,8 +78,8 @@ export class FormaPagamentoUsuario implements FormaPagamentoUsuarioInterface {
           name: 'status',
           type: 'string'
         },
-        "usuarioId": {
-          name: 'usuarioId',
+        "idDonoBarco": {
+          name: 'idDonoBarco',
           type: 'number'
         },
         "id": {

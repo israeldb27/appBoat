@@ -11,5 +11,6 @@ export * from './TipoFormapagamento';
 export * from './FormaPagamentoUsuario';
 export * from './Ordempagamento';
 export * from './HistoricoPlanoReservaBarco';
+export * from './FormaPagamentoDonoBarco';
 export * from './SDKModels';
 export * from './logger.service';
