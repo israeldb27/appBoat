@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, List } from 'ionic-angular';
-import {  FormaPagamentoUsuario, FormaPagamentoUsuarioApi, LoggerService } from "../../../../app/shared/angular-client/index";
+import { FormaPagamentoUsuario, FormaPagamentoUsuarioApi, LoggerService } from "../../../../app/shared/angular-client/index";
 import { LoopBackConfig, LoopBackFilter } from "../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -62,12 +62,14 @@ export class FormaPagamentoClienteCreatePage {
 
     // Criar os campos idUsuario e dataUltimaAtualizacao na tabela FormaPagamentoUsuario
     this.submitted = true;
+    let idUsuarioSessao = localStorage['usuarioSessao'];
     
     if ( this.formaPagamentoUsuarioForm.valid ){
       this.logger.info('FormaPagamentoClienteCreatePage :: cadastrarFormaPagamentoCliente :: form validado OK');
       this.logger.info('FormaPagamentoClienteCreatePage :: cadastrarFormaPagamentoCliente :: forma pagamento ', this.formaPagamentoUsuario);
       this.formaPagamentoUsuario.status = 'criado';
       this.formaPagamentoUsuario.dataCadastro = new Date();
+      this.formaPagamentoUsuario.usuarioId = idUsuarioSessao;
 
       this.formaPagamentoUsuarioService.create(this.formaPagamentoUsuario).subscribe( sucesso => {
         this.logger.info('FormaPagamentoClienteCreatePage :: cadastrarFormaPagamentoCliente :: formaPagamentoUsuarioService.create() :: sucesso :: ', sucesso);

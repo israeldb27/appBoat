@@ -24,6 +24,7 @@ import { ReservasSolicitadasListPage } from '../pages/reservas/dono-barco/reserv
 import { ReservasListPage } from '../pages/reservas/usuario-comum/reservas-list/reservas-list';
 
 import { FormaPagamentoClienteDetailPage } from '../pages/forma-pagamento/usuario-comum/forma-pagamento-cliente-detail/forma-pagamento-cliente-detail';
+import { FormaPagamentoDonoBarcoDetailPage } from  '../pages/forma-pagamento/dono-barco/forma-pagamento-dono-barco-detail/forma-pagamento-dono-barco-detail';
 
 import { OpcionaisListPage } from '../pages/barcos/dono-barco/opcionais/opcionais-list/opcionais-list';
 
@@ -86,6 +87,7 @@ export class MyApp {
       { title: 'Reservas solicitadas', component: ReservasSolicitadasListPage }, // funcionalidade destinada para os donos de barcos para que estes possam listar as solicitacoes de reserva que foram feitas para algum de seus barcos
       { title: 'Pagamentos', component: PagamentosListPage },
       { title: 'Planejar Reservas', component: ReservasPlanejamentoListPage }, // funcionalidade destinada para os donos de barcos pssam listar os planos de reserva que estes cadastraram    
+      { title: 'Forma Recebimento Pagamentos', component: FormaPagamentoDonoBarcoDetailPage }, // funcionalidade onde o dono do barco poderá definir qual conta de banco ele deseja receber seus pagamentos
       { title: 'Conta', component: ContaDetailPage },
       { title: 'Sobre', component: SobreDetailPage },
       { title: 'Logout', component: LogoutPage }    

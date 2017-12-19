@@ -51,6 +51,7 @@ import { ReservasPagamentoListPage } from '../pages/reservas/usuario-comum/reser
 import { ReservasPagarPage } from '../pages/reservas/usuario-comum/reservas-pagar/reservas-pagar';
 
 import { FormaPagamentoClienteDetailPage } from '../pages/forma-pagamento/usuario-comum/forma-pagamento-cliente-detail/forma-pagamento-cliente-detail';
+import { FormaPagamentoDonoBarcoDetailPage } from  '../pages/forma-pagamento/dono-barco/forma-pagamento-dono-barco-detail/forma-pagamento-dono-barco-detail';
 
 import { OpcionaisListPage } from '../pages/barcos/dono-barco/opcionais/opcionais-list/opcionais-list';
 import { OpcionaisCreatePage } from '../pages/barcos/dono-barco/opcionais/opcionais-create/opcionais-create';
@@ -60,6 +61,7 @@ import { AvaliacaoBarcoCreatePage } from '../pages/avaliacao-barco/avaliacao-bar
 import { AvaliacaoBarcoListPage } from '../pages/avaliacao-barco/avaliacao-barco-list/avaliacao-barco-list';
 
 import { AvaliacaoDonoBarcoCreatePage } from '../pages/avaliacao-dono-barco/avaliacao-dono-barco-create/avaliacao-dono-barco-create';
+import { AvaliacaoClienteCreatePage } from  '../pages/avaliacao-cliente/avaliacao-cliente-create/avaliacao-cliente-create';
 
 import { SobreDetailPage } from '../pages/sobre/sobre-detail/sobre-detail';
 
@@ -98,6 +100,7 @@ import { BarcosServiceProvider } from '../providers/barcos-service/barcos-servic
     ReservasSolicitadasListPage,
     ReservasSolicitadasDetailPage,   
     FormaPagamentoClienteDetailPage, 
+    FormaPagamentoDonoBarcoDetailPage,
     SobreDetailPage,    
     LoginPage,
     LogoutPage,
@@ -108,7 +111,8 @@ import { BarcosServiceProvider } from '../providers/barcos-service/barcos-servic
     BarcosSolicitarReservaPage,
     AvaliacaoBarcoCreatePage,
     AvaliacaoBarcoListPage, 
-    AvaliacaoDonoBarcoCreatePage
+    AvaliacaoDonoBarcoCreatePage,
+    AvaliacaoClienteCreatePage
   ],
   imports: [
     BrowserModule,
@@ -144,6 +148,7 @@ import { BarcosServiceProvider } from '../providers/barcos-service/barcos-servic
     ReservasSolicitadasListPage,
     ReservasSolicitadasDetailPage,     
     FormaPagamentoClienteDetailPage,
+    FormaPagamentoDonoBarcoDetailPage,
     SobreDetailPage,    
     LoginPage,
     LogoutPage,
@@ -154,7 +159,8 @@ import { BarcosServiceProvider } from '../providers/barcos-service/barcos-servic
     BarcosSolicitarReservaPage,
     AvaliacaoBarcoCreatePage,
     AvaliacaoBarcoListPage,
-    AvaliacaoDonoBarcoCreatePage
+    AvaliacaoDonoBarcoCreatePage,
+    AvaliacaoClienteCreatePage
   ],
   providers: [
     StatusBar,

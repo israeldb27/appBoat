@@ -1,19 +1,19 @@
+
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Avaliar Dono Barco</ion-title>
+    <ion-title>Avaliação Cliente</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
 
-    <form [formGroup]="avaliacaodonobarcoForm" novalidate>
+    <form [formGroup]="avaliacaoClienteForm" novalidate>
         <ion-list no-lines>
           <ion-item>
             <ion-label stacked color="primary">Pontuação</ion-label>
-            <ion-select [(ngModel)]="avaliacaodonobarco.pontuacao" formControlName="pontuacao" >
+            <ion-select [(ngModel)]="avaliacaoCliente.pontuacao" formControlName="pontuacao" >
                 <ion-option value="1">1</ion-option>
                 <ion-option value="2">2</ion-option>
                 <ion-option value="3">3</ion-option>
@@ -27,7 +27,7 @@
     
           <ion-item>
             <ion-label stacked color="primary">Observação</ion-label>
-            <ion-input formControlName="observacao" [(ngModel)]="avaliacaodonobarco.observacao" type="text" >
+            <ion-input formControlName="observacao" [(ngModel)]="avaliacaoCliente.observacao" type="text" >
             </ion-input>
           </ion-item>
 
@@ -35,12 +35,12 @@
 
         <ion-row responsive-sm>
             <ion-col>
-              <button ion-button (click)="cancelarCadastroAvaliacaoDonoBarco()" color="light" block>Cancelar</button>
+              <button ion-button (click)="cancelarCadastroAvaliacaoCliente()" color="light" block>Cancelar</button>
             </ion-col>
             <ion-col>
-              <button ion-button (click)="cadastrarAvaliacaoDonoBarco(avaliacaodonobarcoForm)" type="submit" block>Avaliar</button>
+              <button ion-button (click)="cadastrarAvaliacaoCliente(avaliacaodonobarcoForm)" type="submit" block>Avaliar</button>
             </ion-col>
           </ion-row>
-    </form>    
+    </form>
 
 </ion-content>

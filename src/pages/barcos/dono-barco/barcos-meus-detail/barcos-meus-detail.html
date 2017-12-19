@@ -144,6 +144,18 @@
           </ion-item> 
 
           <ion-item [hidden]="podeEditar">
+            <h2>Disponível</h2>
+            <p>{{barco.disponivel}}</p>
+          </ion-item>
+          <ion-item [hidden]="!podeEditar"> 
+            <ion-label stacked color="primary">Disponível</ion-label>         
+            <ion-select [(ngModel)]="barco.disponivel" formControlName="disponivel" >
+                <ion-option value="S">Sim</ion-option>
+                <ion-option value="N">Não</ion-option>
+            </ion-select>   
+          </ion-item>
+
+          <ion-item [hidden]="podeEditar">
               <h2>Descricao</h2>
               <p>{{barco.descricao}}</p>
           </ion-item>

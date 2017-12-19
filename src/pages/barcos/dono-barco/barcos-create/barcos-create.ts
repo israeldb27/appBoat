@@ -116,6 +116,7 @@ export class BarcosCreatePage {
         this.logger.info('BarcosCreatePage :: cadastrarBarco :: idDonobarco :: ', this.barco.idDonoBarco);
         this.barco.dataCadastro = new Date();
         this.barco.dataUtilmaAtualizacao = new Date();
+        this.barco.disponivel = 'S'; // criar campo 'Disponivel' na tabela Barcos
         this.barcoService.create(this.barco).subscribe( sucesso => {
           this.logger.info('BarcosCreatePage :: cadastrarBarco :: barcoService.create() :: sucesso :: ', sucesso);
           this.navCtrl.push(BarcosMeusPage);         

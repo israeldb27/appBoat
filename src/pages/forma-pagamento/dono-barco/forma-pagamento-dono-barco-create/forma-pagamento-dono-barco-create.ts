@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, List } from 'ionic-angular';
-import {  FormaPagamentoUsuario, FormaPagamentoUsuarioApi, LoggerService } from "../../../../app/shared/angular-client/index";
+import {  FormaPagamentoDonoBarco, FormaPagamentoDonoBarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
 import { LoopBackConfig, LoopBackFilter } from "../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -16,7 +16,7 @@ import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validat
 })
 export class FormaPagamentoDonoBarcoCreatePage {
 
-  public formaPagamentoUsuario: FormaPagamentoUsuario;
+  public formaPagamentoUsuario: FormaPagamentoDonoBarco;
   public submitted: boolean;
   formaPagamentoUsuarioForm: FormGroup;
 
@@ -31,7 +31,7 @@ export class FormaPagamentoDonoBarcoCreatePage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public formBuilder: FormBuilder,
-              private formaPagamentoUsuarioService: FormaPagamentoUsuarioApi,
+              private formaPagamentoUsuarioService: FormaPagamentoDonoBarcoApi,
               private logger: LoggerService) {
       
         this.logger.info('FormaPagamentoDonoBarcoCreatePage :: constructor');
@@ -39,7 +39,7 @@ export class FormaPagamentoDonoBarcoCreatePage {
         LoopBackConfig.setApiVersion(API_VERSION);  
     
         this.submitted = false
-        this.formaPagamentoUsuario = new FormaPagamentoUsuario();
+        this.formaPagamentoUsuario = new FormaPagamentoDonoBarco();
         
         this.formaPagamentoUsuarioForm = formBuilder.group({
           banco: ["", Validators.required],
@@ -49,7 +49,6 @@ export class FormaPagamentoDonoBarcoCreatePage {
         });
 
         this.limparForm();
-
   }
 
   ionViewDidLoad() {
@@ -80,12 +79,14 @@ export class FormaPagamentoDonoBarcoCreatePage {
 
     // Criar os campos idUsuario e dataUltimaAtualizacao na tabela FormaPagamentoUsuario
     this.submitted = true;
+    let idUsuarioSessao = localStorage['usuarioSessao'];
     
     if ( this.formaPagamentoUsuarioForm.valid ){
       this.logger.info('FormaPagamentoDonoBarcoCreatePage :: cadastrarFormaPagamentoDonoBarco :: form validado OK');
       this.logger.info('FormaPagamentoDonoBarcoCreatePage :: cadastrarFormaPagamentoDonoBarco :: forma pagamento ', this.formaPagamentoUsuario);
       this.formaPagamentoUsuario.status = 'criado';
       this.formaPagamentoUsuario.dataCadastro = new Date();
+      this.formaPagamentoUsuario.idDonoBarco = idUsuarioSessao;
 
       this.formaPagamentoUsuarioService.create(this.formaPagamentoUsuario).subscribe( sucesso => {
         this.logger.info('FormaPagamentoDonoBarcoCreatePage :: cadastrarFormaPagamentoDonoBarco :: formaPagamentoUsuarioService.create() :: sucesso :: ', sucesso);

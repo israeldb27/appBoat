@@ -124,7 +124,19 @@
                   </ion-item>  
                   <p ion-text [hidden]="perfil.valid || submitted == false" color="danger" padding-left>
                       Campo é obrigatório
-                  </p>                  
+                  </p>  
+                  
+                  <ion-item [hidden]="podeEditar">
+                        <h2>Disponível</h2>
+                        <p>{{usuario.disponivel}}</p>
+                      </ion-item>
+                      <ion-item [hidden]="!podeEditar"> 
+                        <ion-label stacked color="primary">Disponível</ion-label>         
+                        <ion-select [(ngModel)]="usuario.disponivel" formControlName="disponivel" >
+                            <ion-option value="S">Sim</ion-option>
+                            <ion-option value="N">Não</ion-option>
+                        </ion-select>   
+                  </ion-item>
         
               </ion-list>       
            

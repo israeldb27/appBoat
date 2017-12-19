@@ -72,6 +72,7 @@ export class UsuarioCreatePage {
       this.usuario.status = 'criado';
       this.usuario.dataCadastro = new Date();
       this.usuario.dataUltimaAtualizacao = new Date();
+      this.usuario.disponivel = 'S'; // criar este campo na tabela Usuario
       this.usuarioService.create(this.usuario).subscribe( sucesso => {
         this.logger.info('UsuarioCreatePage :: cadastrarUsuario :: usuarioService.create() :: sucesso :: ', sucesso);
         this.navCtrl.pop();       

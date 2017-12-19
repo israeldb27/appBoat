@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, List } from 'ionic-angular';
-import { Ordempagamento, OrdempagamentoApi, FormaPagamentoUsuario, FormaPagamentoUsuarioApi, LoggerService } from "../../../../app/shared/angular-client/index";
+import { Ordempagamento, OrdempagamentoApi, FormaPagamentoDonoBarco, FormaPagamentoDonoBarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
 import { LoopBackConfig, LoopBackFilter } from "../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -16,8 +16,8 @@ export class FormaPagamentoDonoBarcoDetailPage {
 
   public podeEditar: boolean;
   
-    formaPagamentoCliente: FormaPagamentoUsuario;
-    formaPagamentoClienteTemporario: FormaPagamentoUsuario;
+    formaPagamentoDonoBarco: FormaPagamentoDonoBarco;
+    formaPagamentoDonoBarcoTemporario: FormaPagamentoDonoBarco;
     formaPagamentoUsuarioForm: FormGroup;
   
     mensagemRetorno: any;
@@ -29,7 +29,7 @@ export class FormaPagamentoDonoBarcoDetailPage {
     public conta: AbstractControl;
   
     constructor(public navCtrl: NavController, 
-                private formaPagamentoService: FormaPagamentoUsuarioApi,
+                private formaPagamentoService: FormaPagamentoDonoBarcoApi,
                 private ordemPagamentoService: OrdempagamentoApi,
                 private logger: LoggerService,
                 public formBuilder: FormBuilder,
@@ -39,8 +39,8 @@ export class FormaPagamentoDonoBarcoDetailPage {
           LoopBackConfig.setBaseURL(BASE_URL);
           LoopBackConfig.setApiVersion(API_VERSION); 
   
-          this.formaPagamentoCliente = new FormaPagamentoUsuario();
-          this.formaPagamentoClienteTemporario = new FormaPagamentoUsuario();
+          this.formaPagamentoDonoBarco = new FormaPagamentoDonoBarco();
+          this.formaPagamentoDonoBarcoTemporario = new FormaPagamentoDonoBarco();
           this.podeEditar = false;   
           
           this.carregarFormaPagamentoDonoBarco();
@@ -72,13 +72,13 @@ export class FormaPagamentoDonoBarcoDetailPage {
         }
       };
   
-      this.formaPagamentoService.find(filtro).subscribe((formasPagamentos: FormaPagamentoUsuario[]) => { 
+      this.formaPagamentoService.find(filtro).subscribe((formasPagamentos: FormaPagamentoDonoBarco[]) => { 
         this.logger.info('FormaPagamentoDonoBarcoDetailPage :: carregarFormaPagamentoDonoBarco ::formaPagamentoService.find :: sucesso :: ', formasPagamentos);
         if ( formasPagamentos.length == 0 ){
             this.mensagemRetorno = 'Você ainda não adicionou nenhuma forma de pagamento';
         } 
         if ( formasPagamentos.length == 1 ){            
-          this.formaPagamentoCliente = formasPagamentos[0];
+          this.formaPagamentoDonoBarco = formasPagamentos[0];
           this.podeEditar = false;
         }         
         
@@ -96,10 +96,10 @@ export class FormaPagamentoDonoBarcoDetailPage {
       if ( this.formaPagamentoUsuarioForm.valid ){
         this.logger.info('FormaPagamentoDonoBarcoDetailPage :: salvarFormaPagamentoDonoBarco :: form validado OK');
         let where = {
-          id: this.formaPagamentoCliente.id
+          id: this.formaPagamentoDonoBarco.id
         };      
         
-        this.formaPagamentoService.upsertWithWhere(where, this.formaPagamentoCliente).subscribe( sucesso => {
+        this.formaPagamentoService.upsertWithWhere(where, this.formaPagamentoDonoBarco).subscribe( sucesso => {
           this.logger.info('FormaPagamentoDonoBarcoDetailPage :: salvarFormaPagamentoDonoBarco :: formaPagamentoService.upsertWithWhere() :: sucesso :: ', sucesso);
           //this.navCtrl.push(GruposListPage);        
         }, (error: any) => {
@@ -121,7 +121,7 @@ export class FormaPagamentoDonoBarcoDetailPage {
     public cancelarEditarFormaPagamento(desabilitaEditar: boolean){
       this.logger.info('FormaPagamentoDonoBarcoDetailPage :: cancelarEditarFormaPagamento' );
       this.podeEditar = desabilitaEditar;
-      this.formaPagamentoCliente = Object.assign({}, this.formaPagamentoClienteTemporario);
+      this.formaPagamentoDonoBarco = Object.assign({}, this.formaPagamentoDonoBarcoTemporario);
     }
   
     public limparForm(){
@@ -144,6 +144,6 @@ export class FormaPagamentoDonoBarcoDetailPage {
   
     ionViewDidLoad() {
       this.logger.info('ionViewDidLoad FormaPagamentoDonoBarcoDetailPage');
-      this.formaPagamentoClienteTemporario = Object.assign({}, this.formaPagamentoCliente);
+      this.formaPagamentoDonoBarcoTemporario = Object.assign({}, this.formaPagamentoDonoBarco);
     }
 }

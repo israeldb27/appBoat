@@ -41,6 +41,7 @@ export class BarcosMeusDetailPage {
     public dataCadastro: AbstractControl;  
     public dataUtilmaAtualizacao: AbstractControl;  
     public idDonoBarco: AbstractControl;  
+    public disponivel: AbstractControl;  
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -176,6 +177,8 @@ private confirmarExclusaoBarcoHandler() {
     this.descricao = new FormControl(null, []);  
     this.dataCadastro = new FormControl(null, []);  
     this.dataUtilmaAtualizacao = new FormControl(null, []);  
+    this.disponivel = new FormControl(null, []);  // criar campo 'Disponivel' na tabela Barcos
+    
 //    this.idDonoBarco = new FormControl(null, []); 
 
     this.barcoForm = new FormGroup({
@@ -195,7 +198,8 @@ private confirmarExclusaoBarcoHandler() {
       observacoes:  this.observacoes,
       descricao:  this.descricao,
       dataCadastro: this.dataCadastro, 
-      dataUtilmaAtualizacao: this.dataUtilmaAtualizacao      
+      dataUtilmaAtualizacao: this.dataUtilmaAtualizacao,// criar campo 'Disponivel' na tabela Barcos
+      disponivel: this.disponivel // criar campo 'Disponivel' na tabela Barcos      
     });
 
     this.barcoForm.reset();
