@@ -2,6 +2,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+    </button> 
     <ion-title>Detalhes Forma Pagamento </ion-title>
     <ion-buttons end>      
         <button ion-button color="primary" icon-start (click)="goEditarFormaPagamento(true)">
@@ -16,16 +19,16 @@
 
 <ion-content padding>
 
-    <form [formGroup]="formaPagamentoUsuarioForm" novalidate>
+    <form [formGroup]="formaPagamentoClienteForm" novalidate>
         <ion-list no-lines>
 
           <ion-item [hidden]="podeEditar">
             <h2>Banco</h2>
-            <p>{{formaPagamentoUsuario.banco}}</p>
+            <p>{{formaPagamentoCliente.banco}}</p>
           </ion-item>
           <ion-item [hidden]="!podeEditar"> 
             <ion-label stacked color="primary">Banco</ion-label>
-            <ion-input type="text" formControlName="banco" [(ngModel)]="formaPagamentoUsuario.banco" spellcheck="false" autocapitalize="off" required>
+            <ion-input type="text" formControlName="banco" [(ngModel)]="formaPagamentoCliente.banco" spellcheck="false" autocapitalize="off" required>
             </ion-input>
           </ion-item>
           <p ion-text [hidden]="banco.valid || submitted == false" color="danger" padding-left>
@@ -34,11 +37,11 @@
     
            <ion-item [hidden]="podeEditar">
               <h2>Numero Cartao</h2>
-              <p>{{formaPagamentoUsuario.numeroCartao}}</p>
+              <p>{{formaPagamentoCliente.numeroCartao}}</p>
             </ion-item>
             <ion-item [hidden]="!podeEditar"> 
             <ion-label stacked color="primary">Numero Cartao</ion-label>
-            <ion-input formControlName="numeroCartao" [(ngModel)]="formaPagamentoUsuario.numeroCartao" type="text" required>
+            <ion-input formControlName="numeroCartao" [(ngModel)]="formaPagamentoCliente.numeroCartao" type="text" required>
             </ion-input>
           </ion-item>
           <p ion-text [hidden]="numeroCartao.valid || submitted == false" color="danger" padding-left>
@@ -47,11 +50,11 @@
     
            <ion-item [hidden]="podeEditar">
               <h2>Agencia</h2>
-              <p>{{formaPagamentoUsuario.agencia}}</p>
+              <p>{{formaPagamentoCliente.agencia}}</p>
             </ion-item>
             <ion-item [hidden]="!podeEditar"> 
               <ion-label stacked color="primary">Agencia</ion-label>
-              <ion-input formControlName="agencia" [(ngModel)]="formaPagamentoUsuario.agencia" type="text" required>
+              <ion-input formControlName="agencia" [(ngModel)]="formaPagamentoCliente.agencia" type="text" required>
               </ion-input>
           </ion-item>  
           <p ion-text [hidden]="agencia.valid || submitted == false" color="danger" padding-left>
@@ -60,11 +63,11 @@
 
            <ion-item [hidden]="podeEditar">
               <h2>Conta</h2>
-              <p>{{formaPagamentoUsuario.conta}}</p>
+              <p>{{formaPagamentoCliente.conta}}</p>
             </ion-item>
             <ion-item [hidden]="!podeEditar"> 
               <ion-label stacked color="primary">Conta</ion-label>
-              <ion-input formControlName="conta" [(ngModel)]="formaPagamentoUsuario.conta" type="text" required>
+              <ion-input formControlName="conta" [(ngModel)]="formaPagamentoCliente.conta" type="text" required>
               </ion-input>
           </ion-item>  
           <p ion-text [hidden]="conta.valid || submitted == false" color="danger" padding-left>
@@ -72,13 +75,21 @@
           </p>
 
         </ion-list>
+        
+        <p ion-text color="danger" padding-left [hidden]="podeEditar" >
+            {{msgErro}}
+         </p>
 
-        <ion-row responsive-sm>  
+         <p ion-text color="blue" padding-left [hidden]="podeEditar" >
+            {{msgSucesso}}
+         </p>
+
+        <ion-row responsive-sm [hidden]="!podeEditar">  
             <ion-col>
                 <button ion-button (click)="cancelarEditarFormaPagamento(false)" color="light" block>Cancelar</button>
               </ion-col>        
             <ion-col>
-              <button ion-button (click)="salvarFormaPagamentoCliente(formaPagamentoUsuarioForm)" type="submit" block>Salvar</button>
+              <button ion-button (click)="salvarFormaPagamentoCliente(formaPagamentoClienteForm)" type="submit" block>Salvar</button>
             </ion-col>
         </ion-row>
 

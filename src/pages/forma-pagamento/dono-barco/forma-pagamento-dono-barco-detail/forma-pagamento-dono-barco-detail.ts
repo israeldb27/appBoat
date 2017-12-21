@@ -14,13 +14,15 @@ import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validat
 })
 export class FormaPagamentoDonoBarcoDetailPage {
 
-  public podeEditar: boolean;
+     public podeEditar: boolean;
+     public submitted: boolean;
   
     formaPagamentoDonoBarco: FormaPagamentoDonoBarco;
     formaPagamentoDonoBarcoTemporario: FormaPagamentoDonoBarco;
-    formaPagamentoUsuarioForm: FormGroup;
+    formaPagamentoDonoBarcoForm: FormGroup;
   
-    mensagemRetorno: any;
+    msgErro: any;
+    msgSucesso: any;
   
     public id: AbstractControl;
     public banco: AbstractControl;
@@ -41,11 +43,12 @@ export class FormaPagamentoDonoBarcoDetailPage {
   
           this.formaPagamentoDonoBarco = new FormaPagamentoDonoBarco();
           this.formaPagamentoDonoBarcoTemporario = new FormaPagamentoDonoBarco();
-          this.podeEditar = false;   
+          this.podeEditar = false;  
+          this.submitted = false; 
           
           this.carregarFormaPagamentoDonoBarco();
   
-          this.formaPagamentoUsuarioForm = formBuilder.group({
+          this.formaPagamentoDonoBarcoForm = formBuilder.group({
             banco: ["", Validators.required],
             numeroCartao: ["", Validators.required],
             agencia: ["", Validators.required],
@@ -56,7 +59,6 @@ export class FormaPagamentoDonoBarcoDetailPage {
     }
   
     public carregarFormaPagamentoDonoBarco(){
-      this.logger.info('FormaPagamentoDonoBarcoDetailPage :: carregarFormaPagamentoDonoBarco');
       let idUsuarioSessao = localStorage['usuarioSessao'];
       this.logger.info(' FormaPagamentoDonoBarcoDetailPage :: carregarFormaPagamentoDonoBarco :: usuarioSessao :: ', idUsuarioSessao);
   
@@ -75,13 +77,16 @@ export class FormaPagamentoDonoBarcoDetailPage {
       this.formaPagamentoService.find(filtro).subscribe((formasPagamentos: FormaPagamentoDonoBarco[]) => { 
         this.logger.info('FormaPagamentoDonoBarcoDetailPage :: carregarFormaPagamentoDonoBarco ::formaPagamentoService.find :: sucesso :: ', formasPagamentos);
         if ( formasPagamentos.length == 0 ){
-            this.mensagemRetorno = 'Você ainda não adicionou nenhuma forma de pagamento';
+            this.logger.info('FormaPagamentoDonoBarcoDetailPage :: carregarFormaPagamentoDonoBarco :: nenhuma forma pagamento cadastrado ');
+            this.msgErro = 'Você ainda não adicionou nenhuma forma de pagamento';
+            this.msgSucesso = '';
         } 
         if ( formasPagamentos.length == 1 ){            
           this.formaPagamentoDonoBarco = formasPagamentos[0];
           this.podeEditar = false;
-        }         
-        
+          this.msgSucesso = '';
+          this.msgErro = '';
+        }     
       }, (error: any) => {
         this.logger.error('FormaPagamentoDonoBarcoDetailPage :: carregarFormaPagamentoDonoBarco ::formaPagamentoService.find  :: error :: ', error);
       });
@@ -90,18 +95,22 @@ export class FormaPagamentoDonoBarcoDetailPage {
   
     public salvarFormaPagamentoDonoBarco(): void{
       this.logger.info('FormaPagamentoDonoBarcoDetailPage :: salvarFormaPagamentoDonoBarco');
-  
-      this.logger.info('FormaPagamentoDonoBarcoDetailPage :: salvarFormaPagamentoDonoBarco'); 
-      
-      if ( this.formaPagamentoUsuarioForm.valid ){
+      this.submitted = true;
+      if ( this.formaPagamentoDonoBarcoForm.valid ){
         this.logger.info('FormaPagamentoDonoBarcoDetailPage :: salvarFormaPagamentoDonoBarco :: form validado OK');
+        
         let where = {
           id: this.formaPagamentoDonoBarco.id
-        };      
-        
+        };  
+        let idUsuarioSessao = localStorage['usuarioSessao'];
+        this.formaPagamentoDonoBarco.dataCadastro = new Date();
+        this.formaPagamentoDonoBarco.idDonoBarco = idUsuarioSessao;
+        this.formaPagamentoDonoBarco.status = 'criado';
         this.formaPagamentoService.upsertWithWhere(where, this.formaPagamentoDonoBarco).subscribe( sucesso => {
           this.logger.info('FormaPagamentoDonoBarcoDetailPage :: salvarFormaPagamentoDonoBarco :: formaPagamentoService.upsertWithWhere() :: sucesso :: ', sucesso);
-          //this.navCtrl.push(GruposListPage);        
+          this.podeEditar = false;  
+          this.msgErro = '';     
+          this.msgSucesso = 'Informações salvas com sucesso';
         }, (error: any) => {
           this.logger.error('FormaPagamentoDonoBarcoDetailPage :: salvarFormaPagamentoDonoBarco :: formaPagamentoService.upsertWithWhere() :: error :: ', error);
         });
@@ -133,7 +142,7 @@ export class FormaPagamentoDonoBarcoDetailPage {
       this.agencia = new FormControl('', Validators.required);
       this.conta = new FormControl('', Validators.required);
   
-      this.formaPagamentoUsuarioForm = new FormGroup({
+      this.formaPagamentoDonoBarcoForm = new FormGroup({
         id: this.id,
         banco: this.banco,
         numeroCartao: this.numeroCartao, 

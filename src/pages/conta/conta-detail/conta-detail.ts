@@ -27,6 +27,7 @@ export class ContaDetailPage {
   public status: AbstractControl;
   public perfil: AbstractControl;
   public cpf: AbstractControl;
+  public disponivel: AbstractControl;
 
 constructor(public navCtrl: NavController, 
             public navParams: NavParams,
@@ -47,9 +48,9 @@ constructor(public navCtrl: NavController,
         password: ["", Validators.required],
         confirmaPassword: ["", Validators.required],
         email: ["", Validators.required],
-        perfil: ["", Validators.required],
         dataNascimento: ["", Validators.required],          
-        cpf: ["", Validators.required]
+        cpf: ["", Validators.required],
+        disponivel: ["", Validators.required]        
       });
               
       this.logger.info('BarcosDetailPage :: constructor');
@@ -97,23 +98,19 @@ public limpaForm(): void {
   this.id = new FormControl(null, []);
   this.nome = new FormControl('', Validators.required);   
   this.login = new FormControl('', Validators.required);
-  this.password = new FormControl('', Validators.required);
-  this.confirmaPassword = new FormControl('', Validators.required);
   this.email = new FormControl('', Validators.required);
-  this.perfil = new FormControl('', Validators.required);
   this.cpf = new FormControl('', Validators.required);
-  this.dataNascimento = new FormControl('', Validators.required);    
-
+  this.dataNascimento = new FormControl('', Validators.required); 
+  this.disponivel = new FormControl(null, []); 
+  
   this.usuarioForm = new FormGroup({
     id: this.id,
     nome: this.nome,
     login: this.login, 
-    password: this.password, 
-    confirmaPassword: this.confirmaPassword, 
     email: this.email, 
-    perfil: this.perfil,
     dataNascimento: this.dataNascimento,
-    cpf: this.cpf
+    cpf: this.cpf,
+    disponivel: this.disponivel
   });
   
   this.usuarioForm.reset(); 
@@ -136,6 +133,7 @@ ionViewDidLoad() {
 public salvarConta(): void {
   
     this.logger.info('ContaDetailPage :: salvarConta'); 
+    this.submitted = true;
 
     if ( this.usuarioForm.valid ){
       this.logger.info('BarcosDetailPage :: salvarConta :: form validado OK');
@@ -145,13 +143,14 @@ public salvarConta(): void {
       
       this.usuarioService.upsertWithWhere(where, this.usuario).subscribe( sucesso => {
         this.logger.info('ContaDetailPage :: salvarConta :: usuarioService.upsertWithWhere() :: sucesso :: ', sucesso);
-        //this.navCtrl.push(GruposListPage);        
+        //this.navCtrl.push(GruposListPage);   
+        this.podeEditar = false;
       }, (error: any) => {
         this.logger.error('ContaDetailPage :: salvarConta :: usuarioService.upsertWithWhere() :: error :: ', error);
       });
     }  
     else {
-      this.logger.info('ContaDetailPage :: salvarConta :: form invalido');
+      this.logger.info('ContaDetailPage :: salvarConta :: form invalido', this.usuarioForm.errors);
     } 
 
 }

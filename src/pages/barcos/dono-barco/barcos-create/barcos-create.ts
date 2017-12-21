@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Barco, BarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
+import { Barco, BarcoApi, TipoBarco, TipoBarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
 import { LoopBackConfig } from "../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { BarcosMeusPage } from '../barcos-meus/barcos-meus';
-
 
 @IonicPage()
 @Component({
@@ -36,30 +35,44 @@ export class BarcosCreatePage {
   public descricao: AbstractControl;  
   public dataCadastro: AbstractControl;  
   public dataUtilmaAtualizacao: AbstractControl;  
-  public idDonoBarco: AbstractControl;  
+  public idDonoBarco: AbstractControl; 
+  public tipoBarco: AbstractControl; 
+
+  public tiposBarcos: TipoBarco[];
   
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public barcoService: BarcoApi,
+              public tipoBarcoService: TipoBarcoApi,
               private formBuilder: FormBuilder, 
               private logger: LoggerService) {
 
         this.logger.info('BarcosCreatePage :: constructor');   
         LoopBackConfig.setBaseURL(BASE_URL);
         LoopBackConfig.setApiVersion(API_VERSION);
-
         this.barcoForm = formBuilder.group({
           nome: ["", Validators.required]          
         });
         
         this.barco = new Barco();
         this.limpaForm();
+        this.carregarTiposBarcos();
+        
+  }
+
+  public carregarTiposBarcos(){
+    this.tipoBarcoService.find().subscribe( (tiposBarcos: TipoBarco[]) => {
+      this.logger.info('BarcosCreatePage :: tipoBarcoService.find :: sucesso :: ');
+      this.tiposBarcos = tiposBarcos;
+    }, (error: any) => {
+      this.logger.error('BarcosCreatePage :: tipoBarcoService.find :: error :: ', error);
+    });
   }
 
   limpaForm(): void {
     this.logger.info('BarcosCreatePage :: limpaForm :: inicio');
-    
+
     this.id = new FormControl(null, []);
     this.nome = new FormControl('', Validators.required);
     this.cor = new FormControl(null, []);
@@ -76,7 +89,9 @@ export class BarcosCreatePage {
     this.observacoes = new FormControl(null, []);  
     this.descricao = new FormControl(null, []);  
     this.dataCadastro = new FormControl(null, []);  
-    this.dataUtilmaAtualizacao = new FormControl(null, []);  
+    this.dataUtilmaAtualizacao = new FormControl(null, []); 
+    this.tipoBarco = new FormControl(null, []);  
+    
 //    this.idDonoBarco = new FormControl(null, []); 
 
     this.barcoForm = new FormGroup({
@@ -96,7 +111,8 @@ export class BarcosCreatePage {
       observacoes:  this.observacoes,
       descricao:  this.descricao,
       dataCadastro: this.dataCadastro, 
-      dataUtilmaAtualizacao: this.dataUtilmaAtualizacao      
+      dataUtilmaAtualizacao: this.dataUtilmaAtualizacao,
+      tipoBarco: this.tipoBarco     
     });
 
     this.barcoForm.reset();

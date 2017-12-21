@@ -11,7 +11,7 @@ import { UsuarioCreatePage } from '../usuario-create/usuario-create';
 
 import { PerfilUsuarioSessaoProvider } from '../../../providers/perfil-usuario-sessao/perfil-usuario-sessao';
 
-import { ReservasSolicitadasServiceProvider } from '../../../providers/reservas-solicitadas-service/reservas-solicitadas-service
+import { ReservasSolicitadasServiceProvider } from '../../../providers/reservas-solicitadas-service/reservas-solicitadas-service';
 
 import { ReservasSolicitadasListPage } from '../../reservas/dono-barco/reservas-solicitadas/reservas-solicitadas-list/reservas-solicitadas-list';
 
@@ -121,10 +121,10 @@ export class LoginPage {
             this.perfilUsuario.carregaMenuDonoBarco(); 
             let quantReservasSolicitadas = this.reservaSolService.checarQuantidadeReservasSolicitadasDonoBarco(user.id);
             if ( quantReservasSolicitadas > 0 ){
-                this.navCtrl.push(ReservasSolicitadasListPage);
+                this.navCtrl.setRoot(ReservasSolicitadasListPage);
             }
             else {
-              this.navCtrl.push(BarcosMeusPage);              
+              this.navCtrl.setRoot(BarcosMeusPage);     
             }
           }
         }       
@@ -134,7 +134,7 @@ export class LoginPage {
       });
     } 
     else {
-      this.logger.error('LoginPage :: realizarLogin :: form invalido'); 
+      this.logger.error('LoginPage :: realizarLogin :: form invalido', this.usuarioForm.errors); 
     }
   }
 

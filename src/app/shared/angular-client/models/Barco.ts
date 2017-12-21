@@ -24,6 +24,8 @@ export interface BarcoInterface {
   "dataCadastro"?: Date;
   "dataUtilmaAtualizacao"?: Date;
   "idDonoBarco"?: number;
+  "disponivel": string;
+  "tipoBarco"?: string;
   "id"?: number;
   avaliacaobarcos?: Avaliacaobarco[];
   opcionais?: Opcional[];
@@ -48,6 +50,8 @@ export class Barco implements BarcoInterface {
   "dataCadastro": Date;
   "dataUtilmaAtualizacao": Date;
   "idDonoBarco": number;
+  "disponivel": string;
+  "tipoBarco": string;
   "id": number;
   avaliacaobarcos: Avaliacaobarco[];
   opcionais: Opcional[];
@@ -152,6 +156,14 @@ export class Barco implements BarcoInterface {
         "idDonoBarco": {
           name: 'idDonoBarco',
           type: 'number'
+        },
+        "disponivel": {
+          name: 'disponivel',
+          type: 'string'
+        },
+        "tipoBarco": {
+          name: 'tipoBarco',
+          type: 'string'
         },
         "id": {
           name: 'id',

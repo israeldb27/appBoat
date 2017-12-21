@@ -18,6 +18,7 @@ export interface UsuarioInterface {
   "dataNascimento": Date;
   "dataUltimaAtualizacao": Date;
   "dataUltimoAcesso"?: Date;
+  "disponivel": string;
   "id"?: number;
   avaliacaoUsuariosolicitantes?: AvaliacaoUsuariosolicitante[];
   avaliacaoUsuariosolicitantes_fk2?: AvaliacaoUsuariosolicitante[];
@@ -38,6 +39,7 @@ export class Usuario implements UsuarioInterface {
   "dataNascimento": Date;
   "dataUltimaAtualizacao": Date;
   "dataUltimoAcesso": Date;
+  "disponivel": string;
   "id": number;
   avaliacaoUsuariosolicitantes: AvaliacaoUsuariosolicitante[];
   avaliacaoUsuariosolicitantes_fk2: AvaliacaoUsuariosolicitante[];
@@ -120,6 +122,10 @@ export class Usuario implements UsuarioInterface {
         "dataUltimoAcesso": {
           name: 'dataUltimoAcesso',
           type: 'Date'
+        },
+        "disponivel": {
+          name: 'disponivel',
+          type: 'string'
         },
         "id": {
           name: 'id',

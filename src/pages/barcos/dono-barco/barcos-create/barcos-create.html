@@ -26,6 +26,13 @@
             <ion-input formControlName="cor" [(ngModel)]="barco.cor" type="text" >
             </ion-input>
           </ion-item>
+
+          <ion-item>
+            <ion-label stacked color="primary">Tipo Barco</ion-label>
+            <ion-select [(ngModel)]="barco.tipoBarco" formControlName="tipoBarco" required>
+              <ion-option *ngFor="let b of tiposBarcos" [value]="b.value">{{b.label}}</ion-option>
+            </ion-select>
+          </ion-item>
     
           <ion-item>
               <ion-label stacked color="primary">Capacidade Pessoas</ion-label>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { Barco, BarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
+import { Barco, BarcoApi, TipoBarco, TipoBarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
 import { LoopBackConfig } from "../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
 import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -22,6 +22,8 @@ export class BarcosMeusDetailPage {
     public barco: Barco;
     public barcoTemporario: Barco;
 
+    public tiposBarcos: TipoBarco[];
+
     barcoForm: FormGroup;  
     public id: AbstractControl;
     public nome: AbstractControl;
@@ -41,11 +43,13 @@ export class BarcosMeusDetailPage {
     public dataCadastro: AbstractControl;  
     public dataUtilmaAtualizacao: AbstractControl;  
     public idDonoBarco: AbstractControl;  
-    public disponivel: AbstractControl;  
+    public disponivel: AbstractControl; 
+    public tipoBarco: AbstractControl;  
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public barcoService: BarcoApi,
+              public tipoBarcoService: TipoBarcoApi,
               private formBuilder: FormBuilder, 
               private alertCtrl: AlertController,
               private logger: LoggerService) {
@@ -57,12 +61,25 @@ export class BarcosMeusDetailPage {
       this.podeEditar = false;
 
       this.barcoForm = formBuilder.group({
-        nome: ["", Validators.required]          
+        nome: ["", Validators.required],
+        disponivel: ["", Validators.required]          
       });
       this.barcoTemporario = new Barco();
       this.limpaForm();  
       this.carregaDetalhesBarco();  
-  }
+
+      this.carregarTiposBarcos();
+        
+    }
+  
+    public carregarTiposBarcos(){
+      this.tipoBarcoService.find().subscribe( (tiposBarcos: TipoBarco[]) => {
+        this.logger.info('BarcosMeusDetailPage :: tipoBarcoService.find :: sucesso :: ');
+        this.tiposBarcos = tiposBarcos;
+      }, (error: any) => {
+        this.logger.error('BarcosMeusDetailPage :: tipoBarcoService.find :: error :: ', error);
+      });
+    }
 
   public confirmarExclusaoBarco(){
     this.logger.info('BarcosMeusDetailPage ::  confirmarExclusaoBarco ::  ');
@@ -128,7 +145,8 @@ private confirmarExclusaoBarcoHandler() {
       
       this.barcoService.upsertWithWhere(where, this.barco).subscribe( sucesso => {
         this.logger.info('BarcosMeusDetailPage :: salvarBarco :: barcoService.upsertWithWhere() :: sucesso :: ', sucesso);
-        //this.navCtrl.push(GruposListPage);        
+        //this.navCtrl.push(GruposListPage);   
+        this.podeEditar = false;     
       }, (error: any) => {
         this.logger.error('BarcosMeusDetailPage :: salvarBarco :: barcoService.upsertWithWhere() :: error :: ', error);
       });
@@ -177,7 +195,8 @@ private confirmarExclusaoBarcoHandler() {
     this.descricao = new FormControl(null, []);  
     this.dataCadastro = new FormControl(null, []);  
     this.dataUtilmaAtualizacao = new FormControl(null, []);  
-    this.disponivel = new FormControl(null, []);  // criar campo 'Disponivel' na tabela Barcos
+    this.disponivel = new FormControl('', Validators.required); 
+    this.tipoBarco = new FormControl(null, []);  
     
 //    this.idDonoBarco = new FormControl(null, []); 
 
@@ -198,6 +217,7 @@ private confirmarExclusaoBarcoHandler() {
       observacoes:  this.observacoes,
       descricao:  this.descricao,
       dataCadastro: this.dataCadastro, 
+      tipoBarco: this.tipoBarco,
       dataUtilmaAtualizacao: this.dataUtilmaAtualizacao,// criar campo 'Disponivel' na tabela Barcos
       disponivel: this.disponivel // criar campo 'Disponivel' na tabela Barcos      
     });

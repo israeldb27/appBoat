@@ -15,12 +15,14 @@ import {  NgForm,  FormGroup, AbstractControl, FormControl, FormBuilder, Validat
 export class FormaPagamentoClienteDetailPage {
 
   public podeEditar: boolean;
+  public submitted: boolean;
 
   formaPagamentoCliente: FormaPagamentoUsuario;
   formaPagamentoClienteTemporario: FormaPagamentoUsuario;
-  formaPagamentoUsuarioForm: FormGroup;
+  formaPagamentoClienteForm: FormGroup;
 
-  mensagemRetorno: any;
+  msgErro: any;
+  msgSucesso: any;
 
   public id: AbstractControl;
   public banco: AbstractControl;
@@ -41,11 +43,12 @@ export class FormaPagamentoClienteDetailPage {
 
         this.formaPagamentoCliente = new FormaPagamentoUsuario();
         this.formaPagamentoClienteTemporario = new FormaPagamentoUsuario();
-        this.podeEditar = false;   
+        this.podeEditar = false;  
+        this.submitted = false; 
         
         this.carregarFormaPagamentoCliente();
 
-        this.formaPagamentoUsuarioForm = formBuilder.group({
+        this.formaPagamentoClienteForm = formBuilder.group({
           banco: ["", Validators.required],
           numeroCartao: ["", Validators.required],
           agencia: ["", Validators.required],
@@ -75,33 +78,37 @@ export class FormaPagamentoClienteDetailPage {
     this.formaPagamentoService.find(filtro).subscribe((formasPagamentos: FormaPagamentoUsuario[]) => { 
       this.logger.info('FormaPagamentoClienteDetailPage :: carregarFormaPagamentoCliente ::formaPagamentoService.find :: sucesso :: ', formasPagamentos);
       if ( formasPagamentos.length == 0 ){
-          this.mensagemRetorno = 'Você ainda não adicionou nenhuma forma de pagamento';
+          this.msgErro = 'Você ainda não adicionou nenhuma forma de pagamento';
       } 
       if ( formasPagamentos.length == 1 ){            
         this.formaPagamentoCliente = formasPagamentos[0];
         this.podeEditar = false;
-      }         
-      
+        this.msgSucesso = '';
+        this.msgErro = '';
+      }        
     }, (error: any) => {
       this.logger.error('FormaPagamentoClienteDetailPage :: carregarFormaPagamentoCliente ::formaPagamentoService.find  :: error :: ', error);
     });
-
   }
 
   public salvarFormaPagamentoCliente(): void{
     this.logger.info('FormaPagamentoClienteDetailPage :: salvarFormaPagamentoCliente');
 
-    this.logger.info('FormaPagamentoClienteDetailPage :: salvarFormaPagamentoCliente'); 
-    
-    if ( this.formaPagamentoUsuarioForm.valid ){
+    if ( this.formaPagamentoClienteForm.valid ){
       this.logger.info('FormaPagamentoClienteDetailPage :: salvarFormaPagamentoCliente :: form validado OK');
       let where = {
         id: this.formaPagamentoCliente.id
       };      
+      let idUsuarioSessao = localStorage['usuarioSessao'];
+      this.formaPagamentoCliente.dataCadastro = new Date();
+      this.formaPagamentoCliente.status = 'criado';
+      this.formaPagamentoCliente.usuarioId = idUsuarioSessao;
       
       this.formaPagamentoService.upsertWithWhere(where, this.formaPagamentoCliente).subscribe( sucesso => {
         this.logger.info('FormaPagamentoClienteDetailPage :: salvarFormaPagamentoCliente :: formaPagamentoService.upsertWithWhere() :: sucesso :: ', sucesso);
-        //this.navCtrl.push(GruposListPage);        
+        this.podeEditar = false;  
+        this.msgErro = '';     
+        this.msgSucesso = 'Informações salvas com sucesso';       
       }, (error: any) => {
         this.logger.error('FormaPagamentoClienteDetailPage :: salvarFormaPagamentoCliente :: formaPagamentoService.upsertWithWhere() :: error :: ', error);
       });
@@ -133,7 +140,7 @@ export class FormaPagamentoClienteDetailPage {
     this.agencia = new FormControl('', Validators.required);
     this.conta = new FormControl('', Validators.required);
 
-    this.formaPagamentoUsuarioForm = new FormGroup({
+    this.formaPagamentoClienteForm = new FormGroup({
       id: this.id,
       banco: this.banco,
       numeroCartao: this.numeroCartao, 
