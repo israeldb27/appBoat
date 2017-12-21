@@ -14,6 +14,7 @@ import { ContaDetailPage } from '../pages/conta/conta-detail/conta-detail';
 
 import { LogoutPage } from '../pages/usuario/logout/logout';
 import { LoginPage } from '../pages/usuario/login/login';
+import { MudarSenhaPage } from '../pages/usuario/mudar-senha/mudar-senha';
 
 import { PagamentosListPage } from '../pages/pagamentos/dono-barco/pagamentos-list/pagamentos-list';
 import { PagamentosMeusPage } from '../pages/pagamentos/usuario-comum/pagamentos-meus/pagamentos-meus';
@@ -72,6 +73,7 @@ export class MyApp {
       { title: 'Meus Barcos', component: BarcosMeusPage },
       { title: 'Pesquisar Barcos', component: BarcosPesquisaPage },
       { title: 'Conta', component: ContaDetailPage },
+      { title: 'Mudar Senha', component: MudarSenhaPage },      
       { title: 'Pagamentos', component: PagamentosListPage },
       { title: 'Meus Pagamentos', component: PagamentosMeusPage },
       { title: 'Reservas', component: ReservasListPage }, // funcionalidade destinada para os usuarios comuns para checarem as reservas de barco que estes fizeram
@@ -89,6 +91,7 @@ export class MyApp {
       { title: 'Planejar Reservas', component: ReservasPlanejamentoListPage }, // funcionalidade destinada para os donos de barcos pssam listar os planos de reserva que estes cadastraram    
       { title: 'Forma Recebimento Pagamentos', component: FormaPagamentoDonoBarcoDetailPage }, // funcionalidade onde o dono do barco poderá definir qual conta de banco ele deseja receber seus pagamentos
       { title: 'Conta', component: ContaDetailPage },
+      { title: 'Mudar Senha', component: MudarSenhaPage },      
       { title: 'Sobre', component: SobreDetailPage },
       { title: 'Logout', component: LogoutPage }    
     ];
@@ -99,6 +102,7 @@ export class MyApp {
       { title: 'Meus Pagamentos', component: PagamentosMeusPage },
       { title: 'Ordens de Pagamento', component: ReservasPagamentoListPage }, // lista as ordens de pagamento com status 'solicitado' para o cliente
       { title: 'Conta', component: ContaDetailPage },
+      { title: 'Mudar Senha', component: MudarSenhaPage },      
       { title: 'Forma Pagamento', component: FormaPagamentoClienteDetailPage },  // permite o usuario cliente salvar ou cadastrar uma forma de pagamento que será usada pelo usuario realizar pagamentos das reservas.
       { title: 'Sobre', component: SobreDetailPage },
       { title: 'Logout', component: LogoutPage }

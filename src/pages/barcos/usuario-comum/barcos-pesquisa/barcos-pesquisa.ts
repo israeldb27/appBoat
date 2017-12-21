@@ -5,7 +5,7 @@ import { FormGroup, AbstractControl, FormControl, FormBuilder, Validators } from
 import { BarcosPresentFilterPage } from '../barcos-present-filter/barcos-present-filter';
 import { BarcosResultadoPesquisaPage } from '../barcos-resultado-pesquisa/barcos-resultado-pesquisa';
 
-import { Barco, BarcoApi, PlanoReservabarco, PlanoReservabarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
+import { Barco, BarcoApi, TipoBarco, TipoBarcoApi,PlanoReservabarco, PlanoReservabarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
 import { LoopBackConfig, LoopBackFilter } from "../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
 
@@ -16,16 +16,13 @@ import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
 })
 export class BarcosPesquisaPage {
 
-  public tipoBarco: AbstractControl; // criar este campo na tabela Barco
-  public opcaoPlano: AbstractControl; // campo que vai ser usado no combo que vai definir o tipo de busca: "Hoje" ou "Por Data"
-  public dataInicio: AbstractControl;
-  public dataFim: AbstractControl;
+  public tipoBarco: AbstractControl; 
+  public opcaoPlano: AbstractControl; // campo que vai ser usado no combo que vai definir o tipo de busca: "Hoje" ou "Por Data". Se opcaoPlano = 'Hoje' entao campo 'dataDesejadaCliente' será desabilitada
+  public dataDesejadaCliente: AbstractControl;  
   public quantMaxPessoas: AbstractControl;
   public distanciaMax: AbstractControl;
   public quantHorasDisponivel: AbstractControl;
-  public dataPesquisa: AbstractControl;
   
-
   public planoReservabarcoForm: FormGroup;  
   public planoReservabarco: PlanoReservabarco;  
   public submitted = false;
@@ -34,13 +31,14 @@ export class BarcosPesquisaPage {
   barcos: Barco[];
   barco: Barco;
   planos: PlanoReservabarco[];
-
+  tiposBarcos: TipoBarco[];
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public modalCtrl: ModalController,
               public formBuilder: FormBuilder,
               private barcoService: BarcoApi,
+              public tipoBarcoService: TipoBarcoApi,
               private planoReservabarcoService :PlanoReservabarcoApi,
               private logger: LoggerService) {
 
@@ -58,7 +56,17 @@ export class BarcosPesquisaPage {
 
         this.barco = new Barco();
         this.planoReservabarco = new PlanoReservabarco();
-        this.limparForm();     
+        this.limparForm();   
+        this.carregarTiposBarcos();  
+  }
+
+  public carregarTiposBarcos(){
+    this.tipoBarcoService.find().subscribe( (tiposBarcos: TipoBarco[]) => {
+      this.logger.info('BarcosPesquisaPage :: tipoBarcoService.find :: sucesso :: ');
+      this.tiposBarcos = tiposBarcos;
+    }, (error: any) => {
+      this.logger.error('BarcosPesquisaPage :: tipoBarcoService.find :: error :: ', error);
+    });
   }
 
   public pesquisarBarcos(): void {
@@ -78,13 +86,13 @@ export class BarcosPesquisaPage {
           "where": {
             "and": [
               {
-                "opcaoPlano": this.planoReservabarco.opcaoPlano              
+                "opcaoPlano": this.planoReservabarco.opcaoPlano      // este campo indica se o usuário quer um barco diariamente disponível ou escolher por uma data especifica        
               },
               {
                 "status": "criado"
               },
               {
-                //"tipoBarco": this.planoReservabarco.tipoBarco  -- criar campo tipoBarco na tabela Barco e tambem na PlanoReservaBarco
+                "tipoBarco": this.planoReservabarco.tipoBarco  // criar campo tipoBarco na tabela Barco e tambem na PlanoReservaBarco
               },
               {
                 "quantMaxPessoas": this.planoReservabarco.quantMaxPessoas                
@@ -104,13 +112,13 @@ export class BarcosPesquisaPage {
           "where": {
             "and": [
               {
-                "opcaoPlano": this.planoReservabarco.opcaoPlano              
+                "opcaoPlano": this.planoReservabarco.opcaoPlano  // este campo indica se o usuário quer um barco diariamente disponível ou escolher por uma data especifica             
               },
               {
                 "status": "criado"
               },
               {
-                //"tipoBarco": this.planoReservabarco.tipoBarco  -- criar campo tipoBarco na tabela Barco e tambem na PlanoReservaBarco
+                "tipoBarco": this.planoReservabarco.tipoBarco  // criar campo tipoBarco na tabela Barco e tambem na PlanoReservaBarco
               },
               {
                 "quantMaxPessoas": this.planoReservabarco.quantMaxPessoas                
@@ -124,13 +132,13 @@ export class BarcosPesquisaPage {
               {
                 "dataInicio": 
                 {
-                  ge: this.dataPesquisa.value                
+                  ge: this.dataDesejadaCliente.value                
                 }
               },
               {
                 "dataFim": 
                 {
-                  le: this.dataPesquisa.value                
+                  le: this.dataDesejadaCliente.value                
                 }
               },  
             ]      
@@ -180,8 +188,7 @@ export class BarcosPesquisaPage {
   public limparForm():void{
       this.logger.info('BarcosPesquisaPage :: limparForm  ');  
       this.opcaoPlano = new FormControl('', Validators.required);    
-      this.dataInicio = new FormControl(null, []);
-      this.dataFim = new FormControl(null, []);
+      this.dataDesejadaCliente = new FormControl(null, []);      
       this.quantMaxPessoas = new FormControl('', Validators.required);    
       this.distanciaMax = new FormControl('', Validators.required);    
       this.quantHorasDisponivel = new FormControl('', Validators.required);    
@@ -190,8 +197,7 @@ export class BarcosPesquisaPage {
       this.planoReservabarcoForm = new FormGroup({               
        opcaoPlano: this.opcaoPlano,
        tipoBarco: this.tipoBarco,
-       dataInicio: this.dataInicio,
-       dataFim: this.dataFim,
+       dataDesejadaCliente: this.dataDesejadaCliente,       
        quantMaxPessoas: this.quantMaxPessoas,
        distanciaMax:  this.distanciaMax,
        quantHorasDisponivel:  this.quantHorasDisponivel,       

@@ -23,24 +23,54 @@
      <ion-content padding>
     <form [formGroup]="planoReservabarcoForm" novalidate>
       <ion-list no-lines>
+
+        <ion-item>
+              <ion-label stacked color="primary">Opção Plano</ion-label>
+              <ion-select [(ngModel)]="planoReservabarco.opcaoPlano" formControlName="opcaoPlano" >
+                <ion-option value="D">Hoje</ion-option>
+                <ion-option value="P">Por Data</ion-option>
+              </ion-select>   
+          </ion-item>  
+          <p ion-text [hidden]="opcaoPlano.valid || submitted == false" color="danger" padding-left>
+              Campo é obrigatório
+          </p>
        
         <ion-item>
-          <ion-label stacked color="primary">Data Inicio</ion-label>
-          <ion-input formControlName="dataInicio"  type="date" required>
+          <ion-label stacked color="primary">Data Desejada</ion-label>
+          <ion-input formControlName="dataDesejadaCliente"  type="date" required>
           </ion-input>
         </ion-item>
-        <p ion-text [hidden]="dataInicio.valid || submitted == false" color="danger" padding-left>
+        <p ion-text [hidden]="dataDesejadaCliente.valid || submitted == false" color="danger" padding-left>
           Campo é obrigatório
         </p>
 
         <ion-item>
-          <ion-label stacked color="primary">Data Fim</ion-label>
-          <ion-input formControlName="dataFim"  type="date" required>
-          </ion-input>
-        </ion-item>
-        <p ion-text [hidden]="dataFim.valid || submitted == false" color="danger" padding-left>
-          Campo é obrigatório
-        </p>
+            <ion-label stacked color="primary">Tipo Barco</ion-label>
+            <ion-select  formControlName="tipoBarco" [(ngModel)]="planoReservabarco.tipoBarco" required>
+              <ion-option *ngFor="let b of tiposBarcos" [value]="b.value">{{b.label}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <p ion-text [hidden]="tipoBarco.valid || submitted == false" color="danger" padding-left>
+              Campo é obrigatório
+         </p>
+
+         <ion-item>
+            <ion-label stacked color="primary">Quantidade Pessoas</ion-label>
+            <ion-input formControlName="quantMaxPessoas" [(ngModel)]="planoReservabarco.quantMaxPessoas" type="text" >
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+              <ion-label stacked color="primary">Quantidade Horas</ion-label>
+              <ion-input formControlName="quantHorasDisponivel" [(ngModel)]="planoReservabarco.quantHorasDisponivel" type="text" >
+              </ion-input>
+            </ion-item>
+
+          <ion-item>
+                <ion-label stacked color="primary">Distancia Máxima a percorrer </ion-label>
+                <ion-input formControlName="distanciaMax" [(ngModel)]="planoReservabarco.distanciaMax" type="text" >
+                </ion-input>
+           </ion-item>
 
       </ion-list>
       <ion-row responsive-sm>      

@@ -28,12 +28,12 @@ import { ContaDetailPage } from '../pages/conta/conta-detail/conta-detail';
 import { LoginPage } from '../pages/usuario/login/login';
 import { LogoutPage } from '../pages/usuario/logout/logout';
 import { UsuarioCreatePage } from '../pages/usuario/usuario-create/usuario-create';
+import { MudarSenhaPage } from '../pages/usuario/mudar-senha/mudar-senha';
 
 import { PagamentosListPage } from '../pages/pagamentos/dono-barco/pagamentos-list/pagamentos-list';
 import { PagamentosDetailPage } from '../pages/pagamentos/dono-barco/pagamentos-detail/pagamentos-detail';
 
 import { PagamentosMeusPage } from '../pages/pagamentos/usuario-comum/pagamentos-meus/pagamentos-meus';
-
 
 import { ReservasPlanejamentoListPage } from '../pages/reservas/dono-barco/reservas-planejamento/reservas-planejamento-list/reservas-planejamento-list';
 import { ReservasPlanejamentoCreatePage } from '../pages/reservas/dono-barco/reservas-planejamento/reservas-planejamento-create/reservas-planejamento-create';
@@ -112,7 +112,8 @@ import { BarcosServiceProvider } from '../providers/barcos-service/barcos-servic
     AvaliacaoBarcoCreatePage,
     AvaliacaoBarcoListPage, 
     AvaliacaoDonoBarcoCreatePage,
-    AvaliacaoClienteCreatePage
+    AvaliacaoClienteCreatePage,
+    MudarSenhaPage
   ],
   imports: [
     BrowserModule,
@@ -160,7 +161,8 @@ import { BarcosServiceProvider } from '../providers/barcos-service/barcos-servic
     AvaliacaoBarcoCreatePage,
     AvaliacaoBarcoListPage,
     AvaliacaoDonoBarcoCreatePage,
-    AvaliacaoClienteCreatePage
+    AvaliacaoClienteCreatePage,
+    MudarSenhaPage
   ],
   providers: [
     StatusBar,
