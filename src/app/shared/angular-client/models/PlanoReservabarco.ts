@@ -1,6 +1,7 @@
 /* tslint:disable */
 import {
-  ReservaBarco
+  ReservaBarco,
+  Barco
 } from '../index';
 
 declare var Object: any;
@@ -16,6 +17,7 @@ export interface PlanoReservabarcoInterface {
   "barcoId": number;
   "id"?: number;
   reservaBarcos?: ReservaBarco[];
+  barco?: Barco;
 }
 
 export class PlanoReservabarco implements PlanoReservabarcoInterface {
@@ -30,6 +32,7 @@ export class PlanoReservabarco implements PlanoReservabarcoInterface {
   "barcoId": number;
   "id": number;
   reservaBarcos: ReservaBarco[];
+  barco: Barco;
   constructor(data?: PlanoReservabarcoInterface) {
     Object.assign(this, data);
   }
@@ -112,6 +115,14 @@ export class PlanoReservabarco implements PlanoReservabarcoInterface {
           relationType: 'hasMany',
                   keyFrom: 'id',
           keyTo: 'planoreservabarcoId'
+        },
+        barco: {
+          name: 'barco',
+          type: 'Barco',
+          model: 'Barco',
+          relationType: 'hasOne',
+                  keyFrom: 'id',
+          keyTo: 'barcoId'
         },
       }
     }

@@ -72,13 +72,11 @@ export class BarcosPesquisaPage {
   public pesquisarBarcos(): void {
 
     this.logger.info('BarcosPesquisaPage :: pesquisarBarcos  ');
-    this.logger.info('BarcosPesquisaPage :: pesquisarBarcos  :: dataInicio', this.dataInicio.value);
-    this.logger.info('BarcosPesquisaPage :: pesquisarBarcos  :: dataFim', this.dataFim.value);
+    this.logger.info('BarcosPesquisaPage :: pesquisarBarcos  :: dataDesejada', this.dataDesejadaCliente.value);
 
     this.submitted = true;
     let filtro: LoopBackFilter;
-
-
+    
     if ( this.planoReservabarcoForm.valid ){
 
       if ( this.planoReservabarco.opcaoPlano == 'D'){
@@ -92,7 +90,7 @@ export class BarcosPesquisaPage {
                 "status": "criado"
               },
               {
-                "tipoBarco": this.planoReservabarco.tipoBarco  // criar campo tipoBarco na tabela Barco e tambem na PlanoReservaBarco
+                "barco.tipoBarco": this.barco.tipoBarco  // criar campo tipoBarco na tabela Barco e tambem na PlanoReservaBarco
               },
               {
                 "quantMaxPessoas": this.planoReservabarco.quantMaxPessoas                
@@ -118,7 +116,7 @@ export class BarcosPesquisaPage {
                 "status": "criado"
               },
               {
-                "tipoBarco": this.planoReservabarco.tipoBarco  // criar campo tipoBarco na tabela Barco e tambem na PlanoReservaBarco
+                "barco.tipoBarco": this.barco.tipoBarco  // criar campo tipoBarco na tabela Barco e tambem na PlanoReservaBarco
               },
               {
                 "quantMaxPessoas": this.planoReservabarco.quantMaxPessoas                
@@ -150,20 +148,16 @@ export class BarcosPesquisaPage {
       this.planoReservabarcoService.find(filtro).subscribe((planoReservaBarco: PlanoReservabarco[]) => {
         this.logger.info('BarcosPesquisaPage :: lista planos ::planoReservabarcoService.find :: sucesso :: ', planoReservaBarco);
         this.planos = planoReservaBarco;
-        // listando os planos recuperados e a partir de cada plano recuperar o respectivo Barco
-        // Criar um relacionamento 1 para Muitos entre Barco e PlanoReservaBarco dentro da Api utilizando o Loopback, 
-        // de modo que o objeto Barco apareça dentro do Objecto PlanoReservaBarco ====>  this.planoReservaBarco.barco.id
-        this.planos.forEach(element => {
-          
-        });
-       
+        this.navCtrl.push(BarcosResultadoPesquisaPage, {planosRecuperados: this.planos});    
       }, (error: any) => {
         this.logger.error('BarcosPesquisaPage :: listarBarcos ::barcoService :: error :: ', error);
       });
 
     }
     else{
-      this.logger.error('BarcosPesquisaPage :: pesquisarBarcos :: form invalido');
+      this.logger.error('BarcosPesquisaPage :: pesquisarBarcos :: form invalido', this.planoReservabarcoForm.errors);
+      this.logger.error('BarcosPesquisaPage :: pesquisarBarcos :: form invalido :: 2', this.planoReservabarcoForm.invalid);
+      this.logger.error('BarcosPesquisaPage :: pesquisarBarcos :: form invalido :: 3', this.planoReservabarcoForm.valueChanges);
     }
   }
 

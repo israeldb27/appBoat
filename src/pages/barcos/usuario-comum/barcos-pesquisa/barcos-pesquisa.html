@@ -20,7 +20,6 @@
 
 <ion-content padding>
 
-     <ion-content padding>
     <form [formGroup]="planoReservabarcoForm" novalidate>
       <ion-list no-lines>
 
@@ -46,7 +45,7 @@
 
         <ion-item>
             <ion-label stacked color="primary">Tipo Barco</ion-label>
-            <ion-select  formControlName="tipoBarco" [(ngModel)]="planoReservabarco.tipoBarco" required>
+            <ion-select  formControlName="tipoBarco" [(ngModel)]="barco.tipoBarco" required>
               <ion-option *ngFor="let b of tiposBarcos" [value]="b.value">{{b.label}}</ion-option>
             </ion-select>
           </ion-item>

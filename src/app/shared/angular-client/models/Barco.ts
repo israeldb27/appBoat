@@ -27,6 +27,7 @@ export interface BarcoInterface {
   "disponivel": string;
   "tipoBarco"?: string;
   "id"?: number;
+  "barcoId"?: number;
   avaliacaobarcos?: Avaliacaobarco[];
   opcionais?: Opcional[];
   reservaBarcos?: ReservaBarco[];
@@ -53,6 +54,7 @@ export class Barco implements BarcoInterface {
   "disponivel": string;
   "tipoBarco": string;
   "id": number;
+  "barcoId": number;
   avaliacaobarcos: Avaliacaobarco[];
   opcionais: Opcional[];
   reservaBarcos: ReservaBarco[];
@@ -167,6 +169,10 @@ export class Barco implements BarcoInterface {
         },
         "id": {
           name: 'id',
+          type: 'number'
+        },
+        "barcoId": {
+          name: 'barcoId',
           type: 'number'
         },
       },

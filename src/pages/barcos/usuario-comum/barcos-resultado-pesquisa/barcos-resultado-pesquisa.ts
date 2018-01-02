@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {  Barco, BarcoApi, LoggerService } from "../../../../app/shared/angular-client/index";
-import { LoopBackConfig } from "../../../../app/shared/angular-client"
+import {  Barco, BarcoApi, PlanoReservabarco, LoggerService } from "../../../../app/shared/angular-client/index";
+import { LoopBackConfig, LoopBackFilter  } from "../../../../app/shared/angular-client"
 import { BASE_URL, API_VERSION } from "../../../../app/shared/constantes";
 
 import { BarcosResultadoPesquisaDetailPage } from '../barcos-resultado-pesquisa-detail/barcos-resultado-pesquisa-detail';
@@ -14,24 +14,62 @@ import { BarcosResultadoPesquisaDetailPage } from '../barcos-resultado-pesquisa-
 })
 export class BarcosResultadoPesquisaPage {
 
-  barcos: Barco[];
+  barcos: Barco[] = [];
+  planos: PlanoReservabarco[];
+  barcoRecuperado: Barco;
+  quant: number;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               public barcoService: BarcoApi,             
               private logger: LoggerService) {
 
-      this.logger.info('BarcosResultadoPesquisaPage :: constructor');                
       LoopBackConfig.setBaseURL(BASE_URL);
       LoopBackConfig.setApiVersion(API_VERSION);           
-      
-      this.carregaListaResultadosPesquisaBarcos();        
-  }  
+      this.logger.info('BarcosResultadoPesquisaPage :: constructor');                
+                
+      this.quant = 0;          
+      this.barcoRecuperado = new Barco();    
+      this.carregarPlanosReservaBarcos();
+      this.carregaListaResultadosPesquisaBarcos();         
+  }    
+
+  public carregarPlanosReservaBarcos(){
+    this.logger.info('BarcosResultadoPesquisaPage :: carregarPlanosReservaBarcos'); 
+    this.planos = this.navParams.get('planosRecuperados');
+    this.logger.info('BarcosResultadoPesquisaPage :: carregarPlanosReservaBarcos :: planos recuperados ', this.planos); 
+
+  }
 
   public carregaListaResultadosPesquisaBarcos() {
     this.logger.info('BarcosResultadoPesquisaPage :: carregaListaResultadosPesquisaBarcos');    
-    this.barcos = this.navParams.get('barcos');
-    this.logger.info('BarcosResultadoPesquisaPage :: carregaListaResultadosPesquisaBarcos ;; resultado-pesquisa ', this.barcos);
+    this.planos.forEach((plano) => {
+        this.barcoRecuperado = this.recuperarBarcoPorPlano(plano);
+        this.barcos.push(this.barcoRecuperado); 
+        this.quant++;
+    });
+  }
+
+  public recuperarBarcoPorPlano(p: PlanoReservabarco): Barco {
+    let barcoId = p.barcoId;
+    let filtro: LoopBackFilter = {
+      "where": {
+        "and": [
+          {
+            "id": barcoId       
+          }
+        ]      
+      }
+    };
+
+    this.barcoService.findOne(filtro).subscribe((barco: Barco) => {
+      this.logger.error('BarcosResultadoPesquisaPage :: recuperarBarcoPorPlano :: barcoService.findOne()  :: ', barco);
+      return barco;
+    }, (error: any) => {
+      this.logger.error('BarcosResultadoPesquisaPage :: recuperarBarcoPorPlano :: barcoService.findOne() :: error :: ', error);
+    });
+
+    return null;
   }
   
   public visualizarDetalhesBarco(barco){
